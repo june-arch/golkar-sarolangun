@@ -45,14 +45,13 @@ export default function HomePage({
       <Seo />
 
       <main className='flex flex-col'>
-        <div className='sticky top-0 z-50 2xl:hidden'>
-          <Navbar nav-items={navItem['nav-items']} />
-        </div>
-        <section className='z-10 h-[40vh] w-full bg-golkar bg-contain bg-no-repeat sm:h-[72vh] md:h-[86vh] lg:h-[90vh] xl:h-[110vh] 2xl:bg-cover 2xl:bg-fixed 2xl:bg-center'>
-          <div className='z-50 mt-6 hidden 2xl:block'>
+        <div className='sticky top-0 z-50 bg-yellow-300 2xl:relative 2xl:bg-opacity-0'>
+          <div className='2xl:absolute 2xl:w-full 2xl:px-8 2xl:py-4'>
             <Navbar nav-items={navItem['nav-items']} />
           </div>
-          <div className='hidden sm:mt-16 sm:block sm:py-10 md:mt-20 lg:mt-40 xl:mt-10 xl:py-10'>
+        </div>
+        <section className='z-10 h-[40vh] w-full bg-golkar bg-contain bg-no-repeat sm:h-[72vh] md:h-[86vh] lg:h-[90vh] xl:h-[110vh] 2xl:bg-cover 2xl:bg-fixed 2xl:bg-center'>
+          <div className='hidden sm:mt-16 sm:block sm:py-10 md:mt-20 lg:mt-32 xl:py-10 2xl:mt-52'>
             <JoinUs
               image-kita-satu={navItem['image-kita-satu']}
               description={navItem['description']}
@@ -60,12 +59,7 @@ export default function HomePage({
           </div>
         </section>
 
-        <section className='sm:hidden'>
-          <JoinUs
-            image-kita-satu={navItem['image-kita-satu']}
-            description={navItem['description']}
-          />
-        </section>
+        <section className='sm:hidden'></section>
 
         <section className='z-0 m-0 mt-10 w-full bg-none bg-contain bg-center bg-no-repeat p-0 sm:px-10 xl:h-[450px] xl:bg-golkar-grey'>
           <div className='bg-white bg-opacity-75'>

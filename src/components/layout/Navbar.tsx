@@ -25,7 +25,7 @@ export default function Navbar(navItems: Data) {
     return result;
   };
   return (
-    <nav className='flex flex-row bg-yellow-300 py-4 px-6 2xl:bg-opacity-0'>
+    <nav className='flex flex-row py-4 px-6'>
       <MobileNavbar
         open={open}
         openSub1={openSub1}
@@ -36,16 +36,18 @@ export default function Navbar(navItems: Data) {
         navItems={navItems}
       />
       <div className='flex basis-1/12 justify-end self-center'>
-        <span className='cursor-pointer border-r-2 border-black px-2 sm:border-white'>
+        <span className='cursor-pointer px-2 md:border-r-2 md:border-white'>
           <Link href='/'>
             <a>
-              <div className='mr-1 h-14 w-14 bg-local sm:mr-5'>
+              <div className='mr-1 sm:mr-5'>
                 <NextImage
                   src='/images/logo.png'
                   alt='logo-golkar'
-                  className='z-0'
-                  height={54}
-                  width={54}
+                  className='h-14 w-14'
+                  height={1200}
+                  width={1149}
+                  layout='responsive'
+                  objectFit='contain'
                 />
               </div>
             </a>
@@ -181,7 +183,10 @@ export default function Navbar(navItems: Data) {
         </div>
       </div>
       <div className='flex basis-11/12 items-center justify-between px-2 md:hidden'>
-        <div className='text-3xl text-black'>Partai Golkar</div>
+        <div className='text-lg font-bold uppercase text-black'>
+          Partai Golkar <br />
+          Kabupaten Sarolangun
+        </div>
         <div
           className='relative z-50 flex h-8 w-8 flex-col items-center justify-between'
           onClick={() => {

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
+import Button from '../buttons/Button';
 import NextImage from '../NextImage';
 
 type Props = {
@@ -12,23 +13,23 @@ const JoinUs = (navItem: Props) => {
   return (
     <section className='flex flex-col px-10'>
       <div className='flex flex-row justify-around'>
-        <div className='basis-1/2 font-sans'>
-          <div className='text-center text-2xl sm:text-3xl lg:text-5xl xl:text-9xl'>
-            <h1>Golkar Sarolangun</h1>
+        <div className='basis-1/2 font-sans lg:pl-4'>
+          <div className='text-left text-2xl font-bold sm:text-5xl md:text-7xl lg:text-center lg:text-8xl xl:text-9xl'>
+            Golkar Sarolangun
           </div>
-          <div className='sm:text-md cursor-pointer text-center text-xs sm:mt-6 sm:font-bold 2xl:text-2xl'>
+          <div className='text-md cursor-pointer text-left font-bold sm:mt-6 md:text-lg lg:text-center lg:text-xl xl:text-2xl 2xl:text-3xl'>
             <Link href='#'>
               <a className=''>
-                <button className='focus:shadow-outline h-14 w-96 rounded-lg bg-white  px-3 text-slate-700 shadow-md transition-colors duration-150 hover:bg-slate-200 hover:text-black sm:w-56 lg:w-96'>
+                <Button variant='primary' className='bg-yellow-300 text-black'>
                   Bergabung Menjadi Anggota
-                </button>
+                </Button>
               </a>
             </Link>
           </div>
         </div>
         <div className='basis-1/2'></div>
       </div>
-      <div className='mt-8 flex flex-col self-center sm:mt-64 md:mt-80 xl:mt-96 2xl:mt-48'>
+      <div className='mt-8 flex flex-col self-center sm:mt-40 md:mt-52 lg:mt-60 xl:mt-80 2xl:mt-36'>
         <div className='flex w-72 self-center'>
           <div className='w-full bg-local'>
             <NextImage

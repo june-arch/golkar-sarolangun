@@ -115,4 +115,44 @@
   .animated-underline:focus-visible {
     background-size: 0 2px, 100% 2px;
   }
+  .last-child-custom:nth-last-of-type(1) > ol,
+  .last-child-custom:nth-last-of-type(2) > ol,
+  .last-child-custom:nth-last-of-type(3) > ol {
+    @apply right-[20%];
+  }
+  .last-child-custom:nth-last-of-type(1) > ol > div.child-custom,
+  .last-child-custom:nth-last-of-type(2) > ol > div.child-custom,
+  .last-child-custom:nth-last-of-type(3) > ol > div.child-custom {
+    @apply flex justify-end pr-2;
+  }
+
+  .last-child-custom:nth-of-type(1) > ol,
+  .last-child-custom:nth-of-type(2) > ol,
+  .last-child-custom:nth-of-type(3) > ol,
+  .last-child-custom:nth-of-type(4) > ol {
+    @apply left-[10%];
+  }
+  .last-child-custom:nth-of-type(1) > ol > div.child-custom,
+  .last-child-custom:nth-of-type(2) > ol > div.child-custom,
+  .last-child-custom:nth-of-type(3) > ol > div.child-custom,
+  .last-child-custom:nth-of-type(4) > ol > div.child-custom {
+    @apply flex justify-start pl-2;
+  }
+  .last-child-custom:nth-last-of-type(1)
+    > ol
+    > div.child-custom-second
+    > li
+    > ol,
+  .last-child-custom:nth-last-of-type(2)
+    > ol
+    > div.child-custom-second
+    > li
+    > ol,
+  .last-child-custom:nth-last-of-type(3)
+    > ol
+    > div.child-custom-second
+    > li
+    > ol {
+    @apply md:right-full md:left-auto xl:right-auto xl:left-full;
+  }
 }

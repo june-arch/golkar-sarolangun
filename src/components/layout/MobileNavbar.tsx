@@ -124,15 +124,15 @@ const MobileNavbar = (props: Props) => {
         <div className='cursor-pointer text-xl font-semibold'>
           <Link href='/'>
             <a>
-              <div className='mr-5 h-16 w-16 bg-local'>
-                <NextImage
-                  src='/images/logo.png'
-                  alt='logo-golkar'
-                  className='z-40'
-                  height={104}
-                  width={104}
-                />
-              </div>
+              <NextImage
+                src='/images/logo.png'
+                alt='logo-golkar'
+                className='mr-5 h-14 w-14'
+                height={1200}
+                width={1149}
+                layout='responsive'
+                objectFit='contain'
+              />
             </a>
           </Link>
         </div>
