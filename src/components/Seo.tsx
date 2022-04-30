@@ -7,8 +7,7 @@ import { openGraph } from '@/lib/helper';
 const defaultMeta = {
   title: 'Golkar Sarolangun',
   siteName: 'Golkar Sarolangun',
-  description:
-    'Golkar Sarolangun',
+  description: 'Golkar Sarolangun',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
   url: 'https://golkar.sarolangun.vercel.app',
   type: 'website',

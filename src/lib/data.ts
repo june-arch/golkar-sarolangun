@@ -1,55 +1,53 @@
-
 export const contentOne = {
-    'nav-items':[{
-      menu:'profil',
-      subMenu:[
+  'nav-items': [
+    {
+      menu: 'profil',
+      subMenu: [
         {
-          subMenuName:'kantor partai',
-          subSubMenu:[]
+          subMenuName: 'kantor partai',
+          subSubMenu: [],
         },
         {
-          subMenuName:'sejarah',
-          subSubMenu:[]
+          subMenuName: 'sejarah',
+          subSubMenu: [],
         },
         {
-          subMenuName:'visi dan misi',
-          subSubMenu:[]
+          subMenuName: 'visi dan misi',
+          subSubMenu: [],
         },
         {
-          subMenuName:'profil pimpinan',
-          subSubMenu:[]
+          subMenuName: 'profil pimpinan',
+          subSubMenu: [],
         },
         {
-          subMenuName:'tugas dan fungsi',
-          subSubMenu:[]
+          subMenuName: 'tugas dan fungsi',
+          subSubMenu: [],
         },
         {
-          subMenuName:'struktur organisasi',
-          subSubMenu:[]
+          subMenuName: 'struktur organisasi',
+          subSubMenu: [],
         },
         {
-          subMenuName:'media partner',
-          subSubMenu:[
-            'golkar indonesia',
-            'kabar golkar'
-          ]
+          subMenuName: 'media partner',
+          subSubMenu: ['golkar indonesia', 'kabar golkar'],
         },
-      ]
-    },{
-      menu:'pejabat',
-      subMenu:[
+      ],
+    },
+    {
+      menu: 'pejabat',
+      subMenu: [
         {
-          subMenuName:'eksekutif',
-          subSubMenu:[
+          subMenuName: 'eksekutif',
+          subSubMenu: [
             'menteri koordinator perekonomian',
             'menteri perindustrian',
             'menteri pemuda dan olahraga',
-            'wakil menteri perdagangan'
-          ]
+            'wakil menteri perdagangan',
+          ],
         },
         {
-          subMenuName:'fraksi dpr ri',
-          subSubMenu:[
+          subMenuName: 'fraksi dpr ri',
+          subSubMenu: [
             'H. BAMBANG SOESATYO, S.E., M.B.A.',
             'DR. H.M. AZIS SYAMSUDDIN, SH.,SE.,MAF.,MH',
             'DRS. H. KAHAR MUZAKIR',
@@ -123,115 +121,115 @@ export const contentOne = {
             'SUPRIANSA, S.H., M.H',
             'MUHAMMAD FAUZI, S.E',
             'H. TUBAGUS HAERUL JAMAN, S.E.',
-          ]
+          ],
         },
-      ]
+      ],
     },
     {
-      menu:'hasta karya',
-      subMenu:[
+      menu: 'hasta karya',
+      subMenu: [
         {
-          subMenuName:'kosgoro 1957',
-          subSubMenu:[]
+          subMenuName: 'kosgoro 1957',
+          subSubMenu: [],
         },
         {
-          subMenuName:'mkgr',
-          subSubMenu:[]
+          subMenuName: 'mkgr',
+          subSubMenu: [],
         },
         {
-          subMenuName:'soksi',
-          subSubMenu:[]
+          subMenuName: 'soksi',
+          subSubMenu: [],
         },
-      ]
+      ],
     },
     {
-      menu:'ormas sayap',
-      subMenu:[
+      menu: 'ormas sayap',
+      subMenu: [
         {
-          subMenuName:'angkatan muda partai golkar',
-          subSubMenu:[]
+          subMenuName: 'angkatan muda partai golkar',
+          subSubMenu: [],
         },
         {
-          subMenuName:'kesatuan perempuan partai (KPPG)',
-          subSubMenu:[]
+          subMenuName: 'kesatuan perempuan partai (KPPG)',
+          subSubMenu: [],
         },
         {
-          subMenuName:'angkatan muda pembaharuan indonesia',
-          subSubMenu:[]
+          subMenuName: 'angkatan muda pembaharuan indonesia',
+          subSubMenu: [],
         },
         {
-          subMenuName:'satuan karya ulama indonesia',
-          subSubMenu:[]
+          subMenuName: 'satuan karya ulama indonesia',
+          subSubMenu: [],
         },
         {
-          subMenuName:'majelis dakwah islamiyah (MDI)',
-          subSubMenu:[]
+          subMenuName: 'majelis dakwah islamiyah (MDI)',
+          subSubMenu: [],
         },
         {
-          subMenuName:'himpunan wanita karya',
-          subSubMenu:[]
+          subMenuName: 'himpunan wanita karya',
+          subSubMenu: [],
         },
         {
-          subMenuName:'pengajian al - hidayah',
-          subSubMenu:[]
+          subMenuName: 'pengajian al - hidayah',
+          subSubMenu: [],
         },
-      ]
+      ],
     },
     {
-      menu:'ppid',
-      subMenu:[
+      menu: 'ppid',
+      subMenu: [
         {
-          subMenuName:'profil ppid',
-          subSubMenu:[]
+          subMenuName: 'profil ppid',
+          subSubMenu: [],
         },
         {
-          subMenuName:'tugas dan fungsi ppid',
-          subSubMenu:[]
+          subMenuName: 'tugas dan fungsi ppid',
+          subSubMenu: [],
         },
         {
-          subMenuName:'struktur organisasi ppid',
-          subSubMenu:[]
+          subMenuName: 'struktur organisasi ppid',
+          subSubMenu: [],
         },
         {
-          subMenuName:'visi dan misi ppid',
-          subSubMenu:[]
+          subMenuName: 'visi dan misi ppid',
+          subSubMenu: [],
         },
         {
-          subMenuName:'lhkpn',
-          subSubMenu:[]
+          subMenuName: 'lhkpn',
+          subSubMenu: [],
         },
         {
-          subMenuName:'laporan keuangan partai golkar 2019',
-          subSubMenu:[]
+          subMenuName: 'laporan keuangan partai golkar 2019',
+          subSubMenu: [],
         },
         {
-          subMenuName:'formulir permohonan informasi',
-          subSubMenu:[]
+          subMenuName: 'formulir permohonan informasi',
+          subSubMenu: [],
         },
         {
-          subMenuName:'video profil ppid',
-          subSubMenu:[]
+          subMenuName: 'video profil ppid',
+          subSubMenu: [],
         },
-      ]
+      ],
     },
     {
-      menu:'arsip',
-      subMenu:[
+      menu: 'arsip',
+      subMenu: [
         {
-          subMenuName:'ad/art',
-          subSubMenu:[]
+          subMenuName: 'ad/art',
+          subSubMenu: [],
         },
         {
-          subMenuName:'sk pengurus dpp golkar',
-          subSubMenu:[]
+          subMenuName: 'sk pengurus dpp golkar',
+          subSubMenu: [],
         },
         {
-          subMenuName:'juklak tata kerja dpp golkar',
-          subSubMenu:[]
+          subMenuName: 'juklak tata kerja dpp golkar',
+          subSubMenu: [],
         },
         {
-          subMenuName:'sk pengurus dpd golkar',
-          subSubMenu:[
+          subMenuName: 'sk pengurus dpd golkar',
+          subSubMenu: [
             'PROVINSI ACEH',
             'PROVINSI SUMATERA BARAT',
             'PROVINSI RIAU',
@@ -259,131 +257,141 @@ export const contentOne = {
             'PROVINSI SULAWESI TENGGARA',
             'PROVINSI SULAWESI TENGAH',
             'PROVINSI PAPUA',
-          ]
+          ],
         },
         {
-          subMenuName:'juklak tata kerja dpd golkar',
-          subSubMenu:[]
+          subMenuName: 'juklak tata kerja dpd golkar',
+          subSubMenu: [],
         },
         {
-          subMenuName:'juklaak musyawarah dan rapat',
-          subSubMenu:[]
+          subMenuName: 'juklaak musyawarah dan rapat',
+          subSubMenu: [],
         },
         {
-          subMenuName:'pilkada 2020',
-          subSubMenu:['BADAN ADVOKASI PILKADA']
+          subMenuName: 'pilkada 2020',
+          subSubMenu: ['BADAN ADVOKASI PILKADA'],
         },
         {
-          subMenuName:'bapilu',
-          subSubMenu:[
-            'SK BAPILU',
-            'INSTRUKSI BAPILU'
-          ]
+          subMenuName: 'bapilu',
+          subSubMenu: ['SK BAPILU', 'INSTRUKSI BAPILU'],
         },
         {
-          subMenuName:'badan saksi nasional (bsn)',
-          subSubMenu:[]
+          subMenuName: 'badan saksi nasional (bsn)',
+          subSubMenu: [],
         },
         {
-          subMenuName:'alat peraga',
-          subSubMenu:[]
+          subMenuName: 'alat peraga',
+          subSubMenu: [],
         },
-      ]
+      ],
     },
     {
-      menu:'lembaga',
-      subMenu:[
+      menu: 'lembaga',
+      subMenu: [
         {
-          subMenuName:'golkar institute',
-          subSubMenu:[]
+          subMenuName: 'golkar institute',
+          subSubMenu: [],
         },
         {
-          subMenuName:'yellow clinic',
-          subSubMenu:[]
+          subMenuName: 'yellow clinic',
+          subSubMenu: [],
         },
         {
-          subMenuName:'bapilu',
-          subSubMenu:[]
+          subMenuName: 'bapilu',
+          subSubMenu: [],
         },
         {
-          subMenuName:'badan saksi nasional (bsn)',
-          subSubMenu:[]
+          subMenuName: 'badan saksi nasional (bsn)',
+          subSubMenu: [],
         },
-      ]
-    }
+      ],
+    },
   ],
-    description: '“Partai Golongan Karya (Partai Golkar), sebelumnya bernama Golongan Karya (Golkar) dan Sekretariat Bersama Golongan Karya (Sekber Golkar), Partai Golkar merupakan salah satu partai politik tertua di Indonesia. Partai Golkar didirikan pada tanggal 20 Oktober 1964 oleh Soeharto dan Suhardiman.”',
-    'image-kita-satu':'/images/kita-satu.png',
-  };
-  export const contentTwo = [{
-    title:'Tugas & Fungsi',
-    description: '“Mempertahankan dan mengamalkan Pancasila serta menegakkan UUD 1945”',
+  description:
+    '“Partai Golongan Karya (Partai Golkar), sebelumnya bernama Golongan Karya (Golkar) dan Sekretariat Bersama Golongan Karya (Sekber Golkar), Partai Golkar merupakan salah satu partai politik tertua di Indonesia. Partai Golkar didirikan pada tanggal 20 Oktober 1964 oleh Soeharto dan Suhardiman.”',
+  'image-kita-satu': '/images/kita-satu.png',
+};
+export const contentTwo = [
+  {
+    title: 'Tugas & Fungsi',
+    description:
+      '“Mempertahankan dan mengamalkan Pancasila serta menegakkan UUD 1945”',
     href: '#tugas-fungsi',
-    image:'/images/tugas.png'
-  },{
-    title:'Visi & Misi',
-    description: '“Terwujudnya masyarakat Indonesia yang bersatu, berdaulat, maju, modern, damai, adil, makmur, beriman dan berakhlak mulia, berkesadaran hukum dan lingkungan, menguasai ilmu pengetahuan dan teknologi, dan bermartabat dalam pergaulan dunia.”',
+    image: '/images/tugas.png',
+  },
+  {
+    title: 'Visi & Misi',
+    description:
+      '“Terwujudnya masyarakat Indonesia yang bersatu, berdaulat, maju, modern, damai, adil, makmur, beriman dan berakhlak mulia, berkesadaran hukum dan lingkungan, menguasai ilmu pengetahuan dan teknologi, dan bermartabat dalam pergaulan dunia.”',
     href: '#visi-misi',
-    image:'/images/visi.png'
+    image: '/images/visi.png',
   },
   {
-    title:'Sejarah',
-    description: '“Sejarah Partai Golkar bermula pada tahun 1964 dengan berdirinya Sekber Golkar di masa akhir pemerintahan Presiden Soekarno. Sekber Golkar didirikan oleh golongan militer, khususnya perwira Angkatan Darat ( seperti Letkol Suhardiman dari SOKSI) menghimpun berpuluh-puluh organisasi pemuda, wanita, sarjana, buruh, tani, dan nelayan dalam Sekretariat Bersama Golongan Karya (Sekber Golkar).”',
+    title: 'Sejarah',
+    description:
+      '“Sejarah Partai Golkar bermula pada tahun 1964 dengan berdirinya Sekber Golkar di masa akhir pemerintahan Presiden Soekarno. Sekber Golkar didirikan oleh golongan militer, khususnya perwira Angkatan Darat ( seperti Letkol Suhardiman dari SOKSI) menghimpun berpuluh-puluh organisasi pemuda, wanita, sarjana, buruh, tani, dan nelayan dalam Sekretariat Bersama Golongan Karya (Sekber Golkar).”',
     href: '#sejarah',
-    image:'/images/sejarah.png'
+    image: '/images/sejarah.png',
   },
   {
-    title:'Profil Pimpinan',
-    description: '“Paradigma Baru Partai GOLKAR ini talah mulai diwujudkan melalui pembaruan internal, terutama terhadap struktur  atau kelembagaan organisasi yang selama ini mempunyai akses yang terlalu besar terhadap organisasi yang membatasi kemandirian Partai GOLKAR.”',
+    title: 'Profil Pimpinan',
+    description:
+      '“Paradigma Baru Partai GOLKAR ini talah mulai diwujudkan melalui pembaruan internal, terutama terhadap struktur  atau kelembagaan organisasi yang selama ini mempunyai akses yang terlalu besar terhadap organisasi yang membatasi kemandirian Partai GOLKAR.”',
     href: '#profil',
-    image:'/images/profil.png'
-  }];
+    image: '/images/profil.png',
+  },
+];
 
-  export const contentBerita = [
-    {
-        title:'Bupati Memberikan Subsidi',
-        description : 'loremVelit ad deserunt nostrud consectetur aliquip deserunt excepteur ea incididunt eu elit consequat tempor. Proident aliqua velit qui commodo exercitation nisi aute. Commodo duis esse eiusmod officia fugiat non qui est quis laborum. Ut ipsum cupidatat sit sit velit commodo et sit mollit occaecat quis aliquip. Consequat pariatur magna deserunt reprehenderit officia enim. Minim culpa in commodo eiusmod est. Tempor duis dolor consectetur nulla id voluptate fugiat laborum aute laboris incididunt proident.',
-        author : 'Angga',
-        createdAt: '04/12/2022 12:32',
-        image:'/images/image-1.jpg',
-        tags:['politik','pemerintah','bupati'],
-        href:'#'
-    },
-    {
-        title:'Musim Panen Sayur',
-        description : 'loremVelit ad deserunt nostrud consectetur aliquip deserunt excepteur ea incididunt eu elit consequat tempor. Proident aliqua velit qui commodo exercitation nisi aute. Commodo duis esse eiusmod officia fugiat non qui est quis laborum. Ut ipsum cupidatat sit sit velit commodo et sit mollit occaecat quis aliquip. Consequat pariatur magna deserunt reprehenderit officia enim. Minim culpa in commodo eiusmod est. Tempor duis dolor consectetur nulla id voluptate fugiat laborum aute laboris incididunt proident.',
-        author : 'Mufid',
-        createdAt: '04/12/2022 12:12',
-        image:'/images/image-2.jpg',
-        tags:['politik','panen','sayur'],
-        href:'#'
-    },
-    {
-        title:'Wajib Bayar Pajak Negara',
-        description : 'loremVelit ad deserunt nostrud consectetur aliquip deserunt excepteur ea incididunt eu elit consequat tempor. Proident aliqua velit qui commodo exercitation nisi aute. Commodo duis esse eiusmod officia fugiat non qui est quis laborum. Ut ipsum cupidatat sit sit velit commodo et sit mollit occaecat quis aliquip. Consequat pariatur magna deserunt reprehenderit officia enim. Minim culpa in commodo eiusmod est. Tempor duis dolor consectetur nulla id voluptate fugiat laborum aute laboris incididunt proident.',
-        author : 'Sikumbang',
-        createdAt: '04/12/2022 12:29',
-        image:'/images/image-3.jpg',
-        tags:['politik','negara','pajak'],
-        href:'#'
-    },
-    {
-      title:'Wajib Bayar Pajak Negara',
-      description : 'loremVelit ad deserunt nostrud consectetur aliquip deserunt excepteur ea incididunt eu elit consequat tempor. Proident aliqua velit qui commodo exercitation nisi aute. Commodo duis esse eiusmod officia fugiat non qui est quis laborum. Ut ipsum cupidatat sit sit velit commodo et sit mollit occaecat quis aliquip. Consequat pariatur magna deserunt reprehenderit officia enim. Minim culpa in commodo eiusmod est. Tempor duis dolor consectetur nulla id voluptate fugiat laborum aute laboris incididunt proident.',
-      author : 'Fikri',
-      createdAt: '04/12/2022 12:29',
-      image:'/images/image-3.jpg',
-      tags:['politik','negara','pajak'],
-      href:'#'
-  }
+export const contentBerita = [
+  {
+    title: 'Bupati Memberikan Subsidi',
+    description:
+      'loremVelit ad deserunt nostrud consectetur aliquip deserunt excepteur ea incididunt eu elit consequat tempor. Proident aliqua velit qui commodo exercitation nisi aute. Commodo duis esse eiusmod officia fugiat non qui est quis laborum. Ut ipsum cupidatat sit sit velit commodo et sit mollit occaecat quis aliquip. Consequat pariatur magna deserunt reprehenderit officia enim. Minim culpa in commodo eiusmod est. Tempor duis dolor consectetur nulla id voluptate fugiat laborum aute laboris incididunt proident.',
+    author: 'Angga',
+    createdAt: '04/12/2022 12:32',
+    image: '/images/image-1.jpg',
+    tags: ['politik', 'pemerintah', 'bupati'],
+    href: '#',
+  },
+  {
+    title: 'Musim Panen Sayur',
+    description:
+      'loremVelit ad deserunt nostrud consectetur aliquip deserunt excepteur ea incididunt eu elit consequat tempor. Proident aliqua velit qui commodo exercitation nisi aute. Commodo duis esse eiusmod officia fugiat non qui est quis laborum. Ut ipsum cupidatat sit sit velit commodo et sit mollit occaecat quis aliquip. Consequat pariatur magna deserunt reprehenderit officia enim. Minim culpa in commodo eiusmod est. Tempor duis dolor consectetur nulla id voluptate fugiat laborum aute laboris incididunt proident.',
+    author: 'Mufid',
+    createdAt: '04/12/2022 12:12',
+    image: '/images/image-2.jpg',
+    tags: ['politik', 'panen', 'sayur'],
+    href: '#',
+  },
+  {
+    title: 'Wajib Bayar Pajak Negara',
+    description:
+      'loremVelit ad deserunt nostrud consectetur aliquip deserunt excepteur ea incididunt eu elit consequat tempor. Proident aliqua velit qui commodo exercitation nisi aute. Commodo duis esse eiusmod officia fugiat non qui est quis laborum. Ut ipsum cupidatat sit sit velit commodo et sit mollit occaecat quis aliquip. Consequat pariatur magna deserunt reprehenderit officia enim. Minim culpa in commodo eiusmod est. Tempor duis dolor consectetur nulla id voluptate fugiat laborum aute laboris incididunt proident.',
+    author: 'Sikumbang',
+    createdAt: '04/12/2022 12:29',
+    image: '/images/image-3.jpg',
+    tags: ['politik', 'negara', 'pajak'],
+    href: '#',
+  },
+  {
+    title: 'Wajib Bayar Pajak Negara',
+    description:
+      'loremVelit ad deserunt nostrud consectetur aliquip deserunt excepteur ea incididunt eu elit consequat tempor. Proident aliqua velit qui commodo exercitation nisi aute. Commodo duis esse eiusmod officia fugiat non qui est quis laborum. Ut ipsum cupidatat sit sit velit commodo et sit mollit occaecat quis aliquip. Consequat pariatur magna deserunt reprehenderit officia enim. Minim culpa in commodo eiusmod est. Tempor duis dolor consectetur nulla id voluptate fugiat laborum aute laboris incididunt proident.',
+    author: 'Fikri',
+    createdAt: '04/12/2022 12:29',
+    image: '/images/image-3.jpg',
+    tags: ['politik', 'negara', 'pajak'],
+    href: '#',
+  },
+];
 
-  ];
-
-  export const contentVideo = [{
-    path:'https://www.youtube.com/embed/yNDwBNLTbjk',
-    tag:'hymne'
-  },{
-    path:'https://www.youtube.com/embed/k3U2fnTuPWs',
-    tag:'mars'
-  }]
-  
+export const contentVideo = [
+  {
+    path: 'https://www.youtube.com/embed/yNDwBNLTbjk',
+    tag: 'hymne',
+  },
+  {
+    path: 'https://www.youtube.com/embed/k3U2fnTuPWs',
+    tag: 'mars',
+  },
+];
