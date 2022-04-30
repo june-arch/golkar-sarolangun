@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { fontFamily } = require('tailwindcss/defaultTheme');
+const { fontFamily, screens } = require('tailwindcss/defaultTheme');
 
 function withOpacityValue(variable) {
   return ({ opacityValue }) => {
@@ -15,6 +15,28 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      backgroundImage: {
+        golkar: "url('/images/golkar-with-foto.png')",
+        'golkar-grey': "url('/images/golkar-grey.png')",
+        'golkar-video': 'url(/images/golkar-video.png)',
+        footer: 'url(/images/footer.png)',
+      },
+      height: (theme) => ({
+        auto: 'auto',
+        ...theme('spacing'),
+        full: '100%',
+        screen: 'calc(var(--vh) * 100)',
+      }),
+      minHeight: (theme) => ({
+        0: '0',
+        ...theme('spacing'),
+        full: '100%',
+        screen: 'calc(var(--vh) * 100)',
+      }),
+      screens: {
+        xs: '440px',
+        ...screens,
+      },
       fontFamily: {
         primary: ['Inter', ...fontFamily.sans],
       },
@@ -61,5 +83,10 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('tailwind-scrollbar-hide'),
+    require('@tailwindcss/line-clamp'),
+    require('tailwindcss-nested-groups'),
+  ],
 };
