@@ -142,7 +142,7 @@ const MobileNavbar = (props: Props) => {
           return (
             <div key={i} className='py-2 text-sm font-medium'>
               <div className='flex'>
-                <button className='grow-0 uppercase'>{value.menu}</button>
+                <button className='grow-0 uppercase'>{value.name}</button>
                 <div
                   className='grow'
                   onClick={() =>
@@ -178,7 +178,7 @@ const MobileNavbar = (props: Props) => {
                       <div key={j} className='hidden py-2 pl-2'>
                         <div className='flex'>
                           <button className='grow-0 text-left uppercase'>
-                            {item.subMenuName}
+                            {item.name}
                           </button>
                           <div
                             className='grow'
@@ -196,7 +196,7 @@ const MobileNavbar = (props: Props) => {
                                 fill='currentColor'
                                 viewBox='0 0 20 20'
                                 className={`${
-                                  item.subSubMenu.length > 0 ? '' : 'hidden'
+                                  item.subMenu.length > 0 ? '' : 'hidden'
                                 } mt-1 ml-1 inline h-4 w-4`}
                               >
                                 <path
@@ -214,12 +214,12 @@ const MobileNavbar = (props: Props) => {
                             id={`subMenu2-${i}-${j}`}
                             className=' delay-0 -translate-y-96 transform transition-all duration-300 ease-in-out'
                           >
-                            {item?.subSubMenu.map((isi, k) => {
+                            {item?.subMenu.map((isi, k) => {
                               return (
                                 <div key={k} className='hidden py-2 pl-4'>
                                   <div className='flex'>
                                     <button className='grow-0 text-left uppercase'>
-                                      {isi}
+                                      {isi.name}
                                     </button>
                                     <div
                                       className='grow'

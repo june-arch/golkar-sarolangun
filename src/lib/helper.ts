@@ -25,3 +25,10 @@ export function openGraph({
     ogTemplateTitle ? `&templateTitle=${ogTemplateTitle}` : ''
   }`;
 }
+
+export const handleLink = (value: string) => {
+  const lower = value.toLowerCase();
+  const remove = lower.replace(/\.|,|-/g, ' ').trim();
+  const result = remove.replace(/ +/g, '-');
+  return result;
+};

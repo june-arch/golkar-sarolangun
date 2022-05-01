@@ -18,12 +18,6 @@ export default function Navbar(navItems: Data) {
     posisiParent: 0,
     posisi: 0,
   });
-  const handleLink = (value: string) => {
-    const lower = value.toLowerCase();
-    const remove = lower.replace(/\.|,/g, ' ').trim();
-    const result = remove.replace(/ +/g, '-');
-    return result;
-  };
   return (
     <nav className='flex flex-row py-4 px-6'>
       <MobileNavbar
@@ -62,9 +56,13 @@ export default function Navbar(navItems: Data) {
               key={i}
             >
               <div className='transform whitespace-nowrap transition-transform duration-300 md:text-xs lg:text-sm'>
-                <Link href={value.menu.toLowerCase().replace(/ /g, '-')}>
-                  <a>
-                    <span>{value.menu}</span>
+                <Link href={value.slug}>
+                  <a
+                    className={`${
+                      value.slug == '#disable' && 'pointer-events-none'
+                    }`}
+                  >
+                    <span>{value.name}</span>
                   </a>
                 </Link>
                 <svg
@@ -95,20 +93,21 @@ export default function Navbar(navItems: Data) {
                         key={j}
                       >
                         <div className='flex flex-row '>
-                          <Link
-                            href={item.subMenuName
-                              .toLowerCase()
-                              .replace(/ /g, '-')}
-                          >
-                            <a className='basis-11/12 '>
-                              <span>{item.subMenuName}</span>
+                          <Link href={item.slug}>
+                            <a
+                              className={`${
+                                value.slug == '#disable' &&
+                                'pointer-events-none'
+                              } basis-11/12`}
+                            >
+                              <span>{item.name}</span>
                             </a>
                           </Link>
                           <svg
                             fill='currentColor'
                             viewBox='0 0 20 20'
                             className={`${
-                              item.subSubMenu.length > 0 ? '' : 'hidden'
+                              item.subMenu.length > 0 ? '' : 'hidden'
                             } inline  h-4 w-4 basis-1/12 -rotate-90 self-center`}
                           >
                             <path
@@ -121,19 +120,26 @@ export default function Navbar(navItems: Data) {
                         <ol className='group-scope-hover:block absolute left-full top-0 hidden whitespace-nowrap pl-4'>
                           <div
                             className={`${
-                              item.subSubMenu.length > 0 ? '' : 'hidden'
+                              item.subMenu.length > 0 ? '' : 'hidden'
                             } rounded-sm bg-white p-4 ${
-                              item.subSubMenu.length > 11 ? 'h-96' : ''
+                              item.subMenu.length > 11 ? 'h-96' : ''
                             } overflow-y-auto scrollbar-hide`}
                           >
-                            {item.subSubMenu?.map((isi, k) => {
+                            {item.subMenu?.map((isi, k) => {
                               return (
                                 <li
                                   className='border-b-[1px] border-slate-400 py-2 last:border-b-0'
                                   key={k}
                                 >
-                                  <Link href={handleLink(isi)}>
-                                    <a>{isi}</a>
+                                  <Link href={isi.slug}>
+                                    <a
+                                      className={`${
+                                        isi.slug == '#disable' &&
+                                        'pointer-events-none'
+                                      }`}
+                                    >
+                                      {isi.name}
+                                    </a>
                                   </Link>
                                 </li>
                               );

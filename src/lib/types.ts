@@ -20,13 +20,20 @@ export type VideoItem = {
   tag: string;
 };
 
+type SubSubMenus = {
+  name: string;
+  slug: string;
+};
+
 type SubMenus = {
-  subMenuName: string;
-  subSubMenu: string[];
+  name: string;
+  slug: string;
+  subMenu: SubSubMenus[];
 };
 
 export type Menus = {
-  menu: string;
+  name: string;
+  slug: string;
   subMenu: SubMenus[];
 };
 

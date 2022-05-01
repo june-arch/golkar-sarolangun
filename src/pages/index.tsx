@@ -1,6 +1,3 @@
-import TimeAgo from 'javascript-time-ago';
-import en from 'javascript-time-ago/locale/en.json';
-import id from 'javascript-time-ago/locale/id.json';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import * as React from 'react';
@@ -21,9 +18,6 @@ import Layout from '@/components/layout/Layout';
 import Navbar from '@/components/layout/Navbar';
 import News from '@/components/layout/News';
 import Seo from '@/components/Seo';
-
-TimeAgo.addDefaultLocale(en);
-TimeAgo.addLocale(id);
 
 type Props = {
   navItem: NavItem;
