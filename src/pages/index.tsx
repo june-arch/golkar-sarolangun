@@ -45,15 +45,13 @@ export default function HomePage({
           </div>
         </div>
         <section className='z-10 h-[40vh] w-full bg-golkar bg-contain bg-no-repeat sm:h-[72vh] md:h-[86vh] lg:h-[90vh] xl:h-[110vh] 2xl:bg-cover 2xl:bg-fixed 2xl:bg-center'>
-          <div className='hidden sm:mt-16 sm:block sm:py-10 md:mt-20 lg:mt-32 xl:py-10 2xl:mt-52'>
+          <div className='sm:mt-16 sm:block sm:py-10 md:mt-20 lg:mt-32 xl:py-10 2xl:mt-52'>
             <JoinUs
               image-kita-satu={navItem['image-kita-satu']}
               description={navItem['description']}
             />
           </div>
         </section>
-
-        <section className='sm:hidden'></section>
 
         <section className='z-0 m-0 mt-10 w-full bg-none bg-contain bg-center bg-no-repeat p-0 sm:px-10 xl:h-[450px] xl:bg-golkar-grey'>
           <div className='bg-white bg-opacity-75'>
@@ -79,17 +77,15 @@ export default function HomePage({
           </div>
         </section>
 
-        <section className='2xl:p-20'>
-          <div className='bg-contain bg-center 2xl:flex 2xl:h-[1000px] 2xl:flex-col 2xl:items-center 2xl:self-center 2xl:bg-golkar-video'>
-            <div className='md:text4xl pb-10 text-center text-2xl sm:text-3xl lg:text-5xl 2xl:pt-20'>
-              <div className='sm:mt-10'>Mars & Hymne</div>
-              <div className=''>Partai Golkar</div>
-            </div>
-            <div className='flex flex-col p-4 2xl:flex-row 2xl:px-36'>
-              {videoItem.map((value, i) => (
-                <Player key={i} payload={value} />
-              ))}
-            </div>
+        <section className='bg-footer bg-cover bg-center bg-no-repeat sm:px-10'>
+          <div className='py-8 text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl'>
+            <div className='sm:mt-10'>Mars & Hymne</div>
+            <div className=''>Partai Golkar</div>
+          </div>
+          <div className='flex flex-col justify-center p-4 xl:flex-row'>
+            {videoItem.map((value, i) => (
+              <Player key={i} payload={value} />
+            ))}
           </div>
         </section>
 

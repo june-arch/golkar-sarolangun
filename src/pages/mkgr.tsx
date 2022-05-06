@@ -7,6 +7,7 @@ import { NavItem } from '@/lib/types';
 import Footer from '@/components/layout/Footer';
 import Layout from '@/components/layout/Layout';
 import Navbar from '@/components/layout/Navbar';
+import Seo from '@/components/Seo';
 
 type Props = {
   navItem: NavItem;
@@ -15,6 +16,8 @@ type Props = {
 const Mkgr = ({ navItem }: Props) => {
   return (
     <Layout>
+      {/* <Seo templateTitle='Home' /> */}
+      <Seo />
       <main>
         <div className='sticky top-0 z-50 bg-yellow-300'>
           <Navbar nav-items={navItem['nav-items']} />

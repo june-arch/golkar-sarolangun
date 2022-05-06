@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 import { CardIdiom } from '@/lib/types';
@@ -36,7 +37,9 @@ const Card = (props: Props) => {
         <p className='pt-1 text-center text-sm'>{payload.description}</p>
         <figcaption className={classPosistion}>
           <div className={'pt-6 text-sky-500 dark:text-sky-400 ' + classMore}>
-            Selengkapnya
+            <Link href={'/' + payload.href}>
+              <a>Selengkapnya</a>
+            </Link>
           </div>
         </figcaption>
       </div>

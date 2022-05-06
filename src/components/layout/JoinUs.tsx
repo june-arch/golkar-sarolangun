@@ -12,13 +12,13 @@ type Props = {
 const JoinUs = (navItem: Props) => {
   return (
     <section className='flex flex-col px-10'>
-      <div className='flex flex-row justify-around'>
+      <div className='mt-28 flex flex-row justify-around sm:mt-0'>
         <div className='basis-1/2 font-sans lg:pl-4'>
-          <div className='text-left text-2xl font-bold sm:text-5xl md:text-7xl lg:text-center lg:text-8xl xl:text-9xl'>
+          <div className='hidden text-left text-2xl font-bold sm:block sm:text-5xl md:text-7xl lg:text-center lg:text-8xl xl:text-9xl'>
             Golkar Sarolangun
           </div>
           <div className='text-md cursor-pointer text-left font-bold sm:mt-6 md:text-lg lg:text-center lg:text-xl xl:text-2xl 2xl:text-3xl'>
-            <Link href='#'>
+            <Link href='/pendaftaran-anggota'>
               <a className=''>
                 <Button variant='primary' className='bg-yellow-300 text-black'>
                   Bergabung Menjadi Anggota
@@ -29,7 +29,7 @@ const JoinUs = (navItem: Props) => {
         </div>
         <div className='basis-1/2'></div>
       </div>
-      <div className='mt-8 flex flex-col self-center sm:mt-40 md:mt-52 lg:mt-60 xl:mt-80 2xl:mt-36'>
+      <div className='mt-12 flex flex-col self-center sm:mt-40 md:mt-52 lg:mt-60 xl:mt-80 2xl:mt-36'>
         <div className='flex w-72 self-center'>
           <div className='w-full bg-local'>
             <NextImage

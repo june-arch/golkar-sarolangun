@@ -8,7 +8,6 @@ import NextImage from '../NextImage';
 
 type Props = {
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
   navItems: Data;
   openSub1: OpenSub;
   openSub2: OpenSub2;
@@ -31,15 +30,8 @@ type OpenSub2 = {
 };
 
 const MobileNavbar = (props: Props) => {
-  const {
-    open,
-    setOpen,
-    navItems,
-    openSub1,
-    openSub2,
-    setOpenSub1,
-    setOpenSub2,
-  } = props;
+  const { open, navItems, openSub1, openSub2, setOpenSub1, setOpenSub2 } =
+    props;
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
 

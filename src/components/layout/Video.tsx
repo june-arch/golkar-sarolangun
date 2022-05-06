@@ -8,9 +8,9 @@ type Props = {
 
 export default function Video({ payload }: Props) {
   return (
-    <div className='m-2 flex flex-col 2xl:w-[60vh]'>
+    <div className='m-2 flex-1'>
       <iframe
-        className='h-[50vh] w-full'
+        className='h-[50vh] w-full md:h-[60vh]'
         src={payload.path}
         title='YouTube video player'
         frameBorder='0'

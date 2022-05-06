@@ -8,6 +8,7 @@ import Footer from '@/components/layout/Footer';
 import Layout from '@/components/layout/Layout';
 import Navbar from '@/components/layout/Navbar';
 import NextImage from '@/components/NextImage';
+import Seo from '@/components/Seo';
 
 type Props = {
   navItem: NavItem;
@@ -17,6 +18,8 @@ const Profil = ({ navItem }: Props) => {
   const [open, setOpen] = useState(false);
   return (
     <Layout>
+      {/* <Seo templateTitle='Home' /> */}
+      <Seo />
       <main>
         <div className='sticky top-0 z-50 bg-yellow-300'>
           <Navbar nav-items={navItem['nav-items']} />

@@ -24,13 +24,12 @@ export default function Navbar(navItems: Data) {
         open={open}
         openSub1={openSub1}
         openSub2={openSub2}
-        setOpen={setOpen}
         setOpenSub1={setOpenSub1}
         setOpenSub2={setOpenSub2}
         navItems={navItems}
       />
       <div className='flex basis-1/12 justify-end self-center'>
-        <span className='cursor-pointer px-2 md:border-r-2 md:border-white'>
+        <span className='cursor-pointer px-2'>
           <Link href='/'>
             <a>
               <div className='mr-1 sm:mr-5'>
@@ -56,7 +55,7 @@ export default function Navbar(navItems: Data) {
               key={i}
             >
               <div className='transform whitespace-nowrap transition-transform duration-300 md:text-xs lg:text-sm'>
-                <Link href={value.slug}>
+                <Link href={'/' + value.slug}>
                   <a
                     className={`${
                       value.slug == '#disable' && 'pointer-events-none'
@@ -93,7 +92,7 @@ export default function Navbar(navItems: Data) {
                         key={j}
                       >
                         <div className='flex flex-row '>
-                          <Link href={item.slug}>
+                          <Link href={'/' + item.slug}>
                             <a
                               className={`${
                                 value.slug == '#disable' &&
@@ -131,7 +130,7 @@ export default function Navbar(navItems: Data) {
                                   className='border-b-[1px] border-slate-400 py-2 last:border-b-0'
                                   key={k}
                                 >
-                                  <Link href={isi.slug}>
+                                  <Link href={'/' + isi.slug}>
                                     <a
                                       className={`${
                                         isi.slug == '#disable' &&

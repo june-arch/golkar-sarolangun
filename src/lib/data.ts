@@ -503,28 +503,28 @@ export const contentTwo = [
     title: 'Tugas & Fungsi',
     description:
       '“Mempertahankan dan mengamalkan Pancasila serta menegakkan UUD 1945”',
-    href: '#tugas-fungsi',
+    href: 'tugas-dan-fungsi',
     image: '/images/tugas.png',
   },
   {
     title: 'Visi & Misi',
     description:
       '“Terwujudnya masyarakat Indonesia yang bersatu, berdaulat, maju, modern, damai, adil, makmur, beriman dan berakhlak mulia, berkesadaran hukum dan lingkungan, menguasai ilmu pengetahuan dan teknologi, dan bermartabat dalam pergaulan dunia.”',
-    href: '#visi-misi',
+    href: 'visi-dan-misi',
     image: '/images/visi.png',
   },
   {
     title: 'Sejarah',
     description:
       '“Sejarah Partai Golkar bermula pada tahun 1964 dengan berdirinya Sekber Golkar di masa akhir pemerintahan Presiden Soekarno. Sekber Golkar didirikan oleh golongan militer, khususnya perwira Angkatan Darat ( seperti Letkol Suhardiman dari SOKSI) menghimpun berpuluh-puluh organisasi pemuda, wanita, sarjana, buruh, tani, dan nelayan dalam Sekretariat Bersama Golongan Karya (Sekber Golkar).”',
-    href: '#sejarah',
+    href: 'sejarah',
     image: '/images/sejarah.png',
   },
   {
     title: 'Profil Pimpinan',
     description:
       '“Paradigma Baru Partai GOLKAR ini talah mulai diwujudkan melalui pembaruan internal, terutama terhadap struktur  atau kelembagaan organisasi yang selama ini mempunyai akses yang terlalu besar terhadap organisasi yang membatasi kemandirian Partai GOLKAR.”',
-    href: '#profil',
+    href: 'profil',
     image: '/images/profil.png',
   },
 ];
