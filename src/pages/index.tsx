@@ -1,3 +1,4 @@
+import * as request from 'axios';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import * as React from 'react';
@@ -19,6 +20,7 @@ import Navbar from '@/components/layout/Navbar';
 import News from '@/components/layout/News';
 import Seo from '@/components/Seo';
 
+const axios = request.default;
 type Props = {
   navItem: NavItem;
   videoItem: VideoItem[];
