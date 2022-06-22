@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { AiOutlineArrowUp, AiOutlineBarChart } from 'react-icons/ai'
 import { FcComboChart, FcDoughnutChart, FcPieChart } from 'react-icons/fc'
-type Data = {
+export type Data = {
     title: string;
     amount: string;
     description: string;

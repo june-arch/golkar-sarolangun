@@ -14,12 +14,8 @@ export const Sidenav = () => {
   return (
     <>
       {/* this is the ovelay faster duration */}
-      {console.log(open)}
       <div
-        onClick={() => {
-          console.log("clicked", open);
-          setOpen(false)
-        }}
+        onClick={() => setOpen(false)}
         className={`fixed inset-y-0 inset-x-0 ${open ? "translate-x-0" : "-translate-x-full"
           }  transition-all duration-75 bg-[#3a3a3a70]`}
       />
@@ -28,10 +24,7 @@ export const Sidenav = () => {
           } transform transition-all duration-300 overflow-y-auto`}
       >
         <div className="flex space-x-3 items-center justify-center p-10">
-          <button className="absolute right-4" onClick={() => {
-            console.log("clicked", open);
-            setOpen(!open)
-          }}>
+          <button className="absolute right-4" onClick={() => setOpen(!open)}>
             <XIcon className="h-8 w-8 text-gray-50" />
           </button>
           <Link href="/">
@@ -43,7 +36,7 @@ export const Sidenav = () => {
         </div>
         {navData.menuItems.map((item, index) => (
           <div key={index} className="flex flex-col space-y-2 mb-2">
-            {item.items.map(({ seconTitle, link, title, icon }, index) => (
+            {item.items.map(({ seconTitle, title, icon }, index) => (
               <div key={index} className="text-gray-50 flex flex-col">
                 {seconTitle && (
                   <span className="pl-5 text-gray-400">{seconTitle}</span>
@@ -52,10 +45,7 @@ export const Sidenav = () => {
                   <Link href="/">
                     <a
                       className="flex space-x-4 items-center p-4 hover:bg-gray-500 text-gray-50"
-                      onClick={() => {
-                        console.log("clicked", open);
-                        setOpen(false)
-                      }}
+                      onClick={() => setOpen(false)}
                     >
                       <span>{icon}</span>
                       <span className="text-lg capitalize ">{title}</span>

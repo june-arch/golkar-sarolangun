@@ -1,4 +1,8 @@
-export const Cards = ({ items }) => {
+import { Data } from "@/lib/utils/weeklyData";
+type Props = {
+  items: Data
+}
+export const Cards = ({ items }: Props) => {
   const { title, description, smallIcon, bigIcon, amount } = items || {};
   return (
     <div className="flex p-5 bg-gray-100 rounded items-center justify-around">
