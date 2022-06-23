@@ -12,7 +12,11 @@ function withOpacityValue(variable) {
 
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  presets: [require('@vercel/examples-ui/tailwind')],
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+    'node_modules/@vercel/examples-ui/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       backgroundImage: {

@@ -1,5 +1,7 @@
-/** @type {import('next').NextConfig} */
-module.exports = {
+/* eslint-disable @typescript-eslint/no-var-requires */
+const withTM = require('@vercel/examples-ui/transpile')();
+
+module.exports = withTM({
   env: {
     MYSQL_HOST: 'localhost',
     MYSQL_PORT: '3306',
@@ -38,4 +40,4 @@ module.exports = {
 
     return config;
   },
-};
+});
