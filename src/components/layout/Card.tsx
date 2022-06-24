@@ -1,9 +1,8 @@
-import Link from 'next/link';
 import React from 'react';
 
-import { CardIdiom } from '@/lib/types';
-
-import NextImage from '../NextImage';
+import { CardIdiom } from '@/lib/interface/types';
+import Image from 'next/image';
+import Link from 'next/link';
 
 type Props = {
   payload: CardIdiom;
@@ -20,11 +19,10 @@ const Card = (props: Props) => {
   return (
     <figure className='flex flex-col border-white sm:flex-row sm:border-4'>
       <div
-        className={`${
-          classImgPosition == false ? 'sm:flex' : 'self-end sm:hidden'
-        }`}
+        className={`${classImgPosition == false ? 'sm:flex' : 'self-end sm:hidden'
+          }`}
       >
-        <NextImage
+        <Image
           src={payload.image}
           alt={`${payload.title}`}
           className='z-0'
@@ -44,11 +42,10 @@ const Card = (props: Props) => {
         </figcaption>
       </div>
       <div
-        className={`${
-          classImgPosition == true ? 'sm:flex' : 'sm:hidden'
-        } hidden`}
+        className={`${classImgPosition == true ? 'sm:flex' : 'sm:hidden'
+          } hidden`}
       >
-        <NextImage
+        <Image
           className='z-0'
           src={payload.image}
           alt={`${payload.title}`}

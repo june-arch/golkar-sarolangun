@@ -1,10 +1,10 @@
 /* eslint-disable unused-imports/no-unused-vars */
-import Link from 'next/link';
+
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 
-import { Menus } from '@/lib/types';
-
-import NextImage from '../NextImage';
+import { Menus } from '@/lib/interface/types';
+import Link from 'next/link';
+import Image from 'next/image';
 
 type Props = {
   open: boolean;
@@ -108,15 +108,14 @@ const MobileNavbar = (props: Props) => {
   }, [openSub2]);
   return (
     <div
-      className={`absolute top-0 left-0 z-50 h-screen  w-full transform bg-white ${
-        open ? '-translate-x-0' : '-translate-x-full'
-      } drop-shadow-md filter transition-transform duration-300 ease-in-out `}
+      className={`absolute top-0 left-0 z-50 h-screen  w-full transform bg-white ${open ? '-translate-x-0' : '-translate-x-full'
+        } drop-shadow-md filter transition-transform duration-300 ease-in-out `}
     >
       <div className='flex h-20 items-center justify-center bg-white drop-shadow-md filter'>
         <div className='cursor-pointer text-xl font-semibold'>
           <Link href='/'>
             <a>
-              <NextImage
+              <Image
                 src='/images/logo.png'
                 alt='logo-golkar'
                 className='mr-5 h-14 w-14'
@@ -146,9 +145,8 @@ const MobileNavbar = (props: Props) => {
                       id={`buttonMenu1-${i}`}
                       fill='currentColor'
                       viewBox='0 0 20 20'
-                      className={`${
-                        value.subMenu.length > 0 ? '' : 'hidden'
-                      } mt-1 ml-1 inline h-4 w-4`}
+                      className={`${value.subMenu.length > 0 ? '' : 'hidden'
+                        } mt-1 ml-1 inline h-4 w-4`}
                     >
                       <path
                         fillRule='evenodd'
@@ -187,9 +185,8 @@ const MobileNavbar = (props: Props) => {
                                 id={`buttonMenu2-${i}-${j}`}
                                 fill='currentColor'
                                 viewBox='0 0 20 20'
-                                className={`${
-                                  item.subMenu.length > 0 ? '' : 'hidden'
-                                } mt-1 ml-1 inline h-4 w-4`}
+                                className={`${item.subMenu.length > 0 ? '' : 'hidden'
+                                  } mt-1 ml-1 inline h-4 w-4`}
                               >
                                 <path
                                   fillRule='evenodd'

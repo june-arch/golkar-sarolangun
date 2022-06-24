@@ -1,10 +1,10 @@
-import Link from 'next/link';
 import { useState } from 'react';
 
-import { Menus } from '@/lib/types';
+import { Menus } from '@/lib/interface/types';
 
 import MobileNavbar from './MobileNavbar';
-import NextImage from '../NextImage';
+import Link from 'next/link';
+import Image from 'next/image';
 
 type Data = {
   'nav-items': Menus[];
@@ -33,7 +33,7 @@ export default function Navbar(navItems: Data) {
           <Link href='/'>
             <a>
               <div className='mr-1 sm:mr-5'>
-                <NextImage
+                <Image
                   src='/images/logo.png'
                   alt='logo-golkar'
                   className='h-14 w-14'
@@ -57,9 +57,8 @@ export default function Navbar(navItems: Data) {
               <div className='transform whitespace-nowrap transition-transform duration-300 md:text-xs lg:text-sm'>
                 <Link href={'/' + value.slug}>
                   <a
-                    className={`${
-                      value.slug == '#disable' && 'pointer-events-none'
-                    }`}
+                    className={`${value.slug == '#disable' && 'pointer-events-none'
+                      }`}
                   >
                     <span>{value.name}</span>
                   </a>
@@ -67,9 +66,8 @@ export default function Navbar(navItems: Data) {
                 <svg
                   fill='currentColor'
                   viewBox='0 0 20 20'
-                  className={`${
-                    value.subMenu.length > 0 ? '' : 'hidden'
-                  } mt-1 ml-1 inline h-4 w-4 transform transition-transform duration-200 group-hover:rotate-180 md:-mt-1`}
+                  className={`${value.subMenu.length > 0 ? '' : 'hidden'
+                    } mt-1 ml-1 inline h-4 w-4 transform transition-transform duration-200 group-hover:rotate-180 md:-mt-1`}
                 >
                   <path
                     fillRule='evenodd'
@@ -94,10 +92,9 @@ export default function Navbar(navItems: Data) {
                         <div className='flex flex-row '>
                           <Link href={'/' + item.slug}>
                             <a
-                              className={`${
-                                value.slug == '#disable' &&
+                              className={`${value.slug == '#disable' &&
                                 'pointer-events-none'
-                              } basis-11/12`}
+                                } basis-11/12`}
                             >
                               <span>{item.name}</span>
                             </a>
@@ -105,9 +102,8 @@ export default function Navbar(navItems: Data) {
                           <svg
                             fill='currentColor'
                             viewBox='0 0 20 20'
-                            className={`${
-                              item.subMenu.length > 0 ? '' : 'hidden'
-                            } inline  h-4 w-4 basis-1/12 -rotate-90 self-center`}
+                            className={`${item.subMenu.length > 0 ? '' : 'hidden'
+                              } inline  h-4 w-4 basis-1/12 -rotate-90 self-center`}
                           >
                             <path
                               fillRule='evenodd'
@@ -118,11 +114,9 @@ export default function Navbar(navItems: Data) {
                         </div>
                         <ol className='group-scope-hover:block absolute left-full top-0 hidden whitespace-nowrap pl-4'>
                           <div
-                            className={`${
-                              item.subMenu.length > 0 ? '' : 'hidden'
-                            } rounded-sm bg-white p-4 ${
-                              item.subMenu.length > 11 ? 'h-96' : ''
-                            } overflow-y-auto scrollbar-hide`}
+                            className={`${item.subMenu.length > 0 ? '' : 'hidden'
+                              } rounded-sm bg-white p-4 ${item.subMenu.length > 11 ? 'h-96' : ''
+                              } overflow-y-auto scrollbar-hide`}
                           >
                             {item.subMenu?.map((isi, k) => {
                               return (
@@ -132,10 +126,9 @@ export default function Navbar(navItems: Data) {
                                 >
                                   <Link href={'/' + isi.slug}>
                                     <a
-                                      className={`${
-                                        isi.slug == '#disable' &&
+                                      className={`${isi.slug == '#disable' &&
                                         'pointer-events-none'
-                                      }`}
+                                        }`}
                                     >
                                       {isi.name}
                                     </a>
@@ -200,19 +193,16 @@ export default function Navbar(navItems: Data) {
         >
           {/* hamburger button */}
           <span
-            className={`h-1 w-full transform rounded-lg bg-black transition duration-300 ease-in-out ${
-              open ? 'translate-y-3.5 rotate-45 ' : ''
-            }`}
+            className={`h-1 w-full transform rounded-lg bg-black transition duration-300 ease-in-out ${open ? 'translate-y-3.5 rotate-45 ' : ''
+              }`}
           />
           <span
-            className={`h-1 w-full rounded-lg bg-black transition-all duration-300 ease-in-out ${
-              open ? 'w-0 bg-black' : 'w-full '
-            }`}
+            className={`h-1 w-full rounded-lg bg-black transition-all duration-300 ease-in-out ${open ? 'w-0 bg-black' : 'w-full '
+              }`}
           />
           <span
-            className={`h-1 w-full transform rounded-lg bg-black transition duration-300 ease-in-out ${
-              open ? '-translate-y-3.5 -rotate-45 ' : ''
-            }`}
+            className={`h-1 w-full transform rounded-lg bg-black transition duration-300 ease-in-out ${open ? '-translate-y-3.5 -rotate-45 ' : ''
+              }`}
           />
         </div>
       </div>

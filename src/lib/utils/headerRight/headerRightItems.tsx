@@ -1,11 +1,11 @@
-import { LogoutIcon, UserIcon } from '@heroicons/react/outline'
+
 export const headerRightItems = [
     {
         title: "Profile",
-        icon: <UserIcon className='h-6 w-6' />
+        icon: <div></div>
     },
     {
         title: "Logout",
-        icon: <LogoutIcon className='h-6 w-6' />
+        icon: <div></div>
     },
 ]

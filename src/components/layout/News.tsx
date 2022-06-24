@@ -1,8 +1,6 @@
+import { NewsItem } from '@/lib/interface/types';
 import dynamic from 'next/dynamic';
-
-import { NewsItem } from '@/lib/types';
-
-import NextImage from '../NextImage';
+import Image from 'next/image';
 
 type Props = {
   payload: NewsItem;
@@ -14,7 +12,7 @@ export default function News({ payload }: Props) {
   return (
     <figure className='overflow-hidden rounded-xl shadow-lg drop-shadow-lg'>
       <div className='w-full'>
-        <NextImage
+        <Image
           src={payload.image}
           alt='berita-1'
           height='60'

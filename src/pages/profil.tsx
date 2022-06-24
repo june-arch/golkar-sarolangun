@@ -2,13 +2,13 @@ import { GetStaticProps } from 'next';
 import React, { useState } from 'react';
 
 import { contentOne } from '@/lib/data';
-import { NavItem } from '@/lib/types';
+import { NavItem } from '@/lib/interface/types';
 
 import Footer from '@/components/layout/Footer';
 import Layout from '@/components/layout/Layout';
 import Navbar from '@/components/layout/Navbar';
-import NextImage from '@/components/NextImage';
-import Seo from '@/components/Seo';
+import Image from 'next/image';
+
 
 type Props = {
   navItem: NavItem;
@@ -19,13 +19,13 @@ const Profil = ({ navItem }: Props) => {
   return (
     <Layout>
       {/* <Seo templateTitle='Home' /> */}
-      <Seo />
+      
       <main>
         <div className='sticky top-0 z-50 bg-yellow-300'>
           <Navbar nav-items={navItem['nav-items']} />
         </div>
         <section className='mx-auto flex flex-col items-center p-4 sm:flex-row sm:items-start lg:w-[90vh] xl:w-[110vh]'>
-          <NextImage
+          <Image
             src='/images/profil-golkar.png'
             alt='logo-golkar'
             className='mb-4 h-[380px] w-[380px] basis-4/12'
@@ -136,9 +136,8 @@ const Profil = ({ navItem }: Props) => {
                 >
                   <span className='h-1 w-full translate-y-2 transform bg-slate-500 transition duration-300 ease-in-out' />
                   <span
-                    className={`h-1 w-full -translate-y-2 -rotate-90 transform bg-slate-500 transition-all duration-300 ease-in-out ${
-                      open ? 'w-0 bg-slate-500 ' : 'w-full'
-                    }`}
+                    className={`h-1 w-full -translate-y-2 -rotate-90 transform bg-slate-500 transition-all duration-300 ease-in-out ${open ? 'w-0 bg-slate-500 ' : 'w-full'
+                      }`}
                   />
                 </div>
                 <div className='ml-3'>1964 - 1969</div>

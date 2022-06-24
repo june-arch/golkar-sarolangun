@@ -1,9 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 
-import { exQuery } from '../lib/db';
 
 const findUser = async (req: NextApiRequest, res: NextApiResponse) => {
-  const result = await exQuery('select * from user', []);
+  const result ="hellow window";
   res.send(result);
 };
 

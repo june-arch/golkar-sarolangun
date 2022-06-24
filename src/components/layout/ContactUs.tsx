@@ -1,15 +1,8 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import React from 'react';
+import { RiWhatsappFill } from 'react-icons/ri';
 
-/**
- * SVGR Support
- * Caveat: No React Props Type.
- *
- * You can override the next-env if the type is important to you
- * @see https://stackoverflow.com/questions/68103844/how-to-override-next-js-svg-module-declaration
- */
-import Whatsapp from '~/svg/whatsapp.svg';
 
 const ContactUs = () => {
   const Maps = dynamic(() => import('@/components/layout/Maps'));
@@ -28,7 +21,7 @@ const ContactUs = () => {
             rel='noopener noreferrer'
             className='focus:shadow-outline flex w-[20vh] cursor-pointer flex-row rounded-full bg-white text-slate-700 shadow-md transition-colors duration-150 hover:bg-slate-200 hover:text-black md:w-[30vh] lg:w-[47vh]'
           >
-            <Whatsapp className='h-12 w-12 md:h-16 md:w-16 lg:h-24 lg:w-24' />
+            <RiWhatsappFill className='h-12 w-12 md:h-16 md:w-16 lg:h-24 lg:w-24' />
             <div className='sm:text-md ml-4 self-center text-sm md:text-2xl lg:text-4xl'>
               081379693637
             </div>

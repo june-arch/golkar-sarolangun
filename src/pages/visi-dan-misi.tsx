@@ -2,12 +2,12 @@ import { GetStaticProps } from 'next';
 import React from 'react';
 
 import { contentOne } from '@/lib/data';
-import { NavItem } from '@/lib/types';
+import { NavItem } from '@/lib/interface/types';
 
 import Footer from '@/components/layout/Footer';
 import Layout from '@/components/layout/Layout';
 import Navbar from '@/components/layout/Navbar';
-import Seo from '@/components/Seo';
+
 
 type Props = {
   navItem: NavItem;
@@ -17,7 +17,7 @@ const VisiDanMisi = ({ navItem }: Props) => {
   return (
     <Layout>
       {/* <Seo templateTitle='Home' /> */}
-      <Seo />
+      
       <main>
         <div className='sticky top-0 z-50 bg-yellow-300'>
           <Navbar nav-items={navItem['nav-items']} />

@@ -1,8 +1,8 @@
+
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import Button from '../buttons/Button';
-import NextImage from '../NextImage';
 
 type Props = {
   description: string;
@@ -20,9 +20,9 @@ const JoinUs = (navItem: Props) => {
           <div className='text-md cursor-pointer text-left font-bold sm:mt-6 md:text-lg lg:text-center lg:text-xl xl:text-2xl 2xl:text-3xl'>
             <Link href='/pendaftaran-anggota'>
               <a className=''>
-                <Button variant='primary' className='bg-yellow-300 text-black'>
+                <button className='bg-yellow-300 text-black'>
                   Bergabung Menjadi Anggota
-                </Button>
+                </button>
               </a>
             </Link>
           </div>
@@ -32,7 +32,7 @@ const JoinUs = (navItem: Props) => {
       <div className='mt-12 flex flex-col self-center sm:mt-40 md:mt-52 lg:mt-60 xl:mt-80 2xl:mt-36'>
         <div className='flex w-72 self-center'>
           <div className='w-full bg-local'>
-            <NextImage
+            <Image
               src={navItem['image-kita-satu']}
               alt='kita-satu'
               height='25'

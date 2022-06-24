@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { VideoItem } from '@/lib/types';
+import { VideoItem } from '@/lib/interface/types';
 
 type Props = {
   payload: VideoItem;

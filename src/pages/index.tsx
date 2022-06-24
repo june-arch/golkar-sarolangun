@@ -8,7 +8,7 @@ import {
   contentTwo,
   contentVideo,
 } from '@/lib/data';
-import { CardIdiom, NavItem, NewsItem, VideoItem } from '@/lib/types';
+import { CardIdiom, NavItem, NewsItem, VideoItem } from '@/lib/interface/types';
 
 import Card from '@/components/layout/Card';
 import ContactUs from '@/components/layout/ContactUs';
@@ -17,7 +17,6 @@ import JoinUs from '@/components/layout/JoinUs';
 import Layout from '@/components/layout/Layout';
 import Navbar from '@/components/layout/Navbar';
 import News from '@/components/layout/News';
-import Seo from '@/components/Seo';
 
 // const axios = request.default;
 type Props = {
@@ -36,8 +35,6 @@ export default function HomePage({
   const Player = dynamic(() => import('@/components/layout/Video'));
   return (
     <Layout>
-      {/* <Seo templateTitle='Home' /> */}
-      <Seo />
 
       <main className='flex flex-col'>
         <div className='sticky top-0 z-50 bg-yellow-300 2xl:relative 2xl:bg-opacity-0'>
