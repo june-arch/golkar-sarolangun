@@ -7,22 +7,94 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Member {
-  id_member    Int       @id @default(autoincrement())
-  region_id    String
-  nik          String    @unique
-  fullname     String
-  photo        String?
-  photo_ktp    String?
-  address      String?
-  phone_number String?
-  email        String?
-  status       String?
-  created_date DateTime? @default(now())
-  admin_id     Int?
+model User {
+  id   Int    @id @default(autoincrement())
+  name String
 }
 
-model User {
-  id Int @id @default(autoincrement())
-  name String
+model activity {
+  id_activity          Int               @id @default(autoincrement())
+  admin_id             Int
+  category_activity_id Int
+  tittle               String            @db.VarChar(150)
+  content              String            @db.Text
+  created_date         DateTime          @db.DateTime(0)
+  image                String?           @db.VarChar(200)
+  video                String?           @db.VarChar(200)
+  admin                admin             @relation(fields: [admin_id], references: [id_admin], onUpdate: Restrict, map: "activity_ibfk_2")
+  category_activity    category_activity @relation(fields: [category_activity_id], references: [id_category_activity], onUpdate: Restrict, map: "activity_ibfk_1")
+
+  @@index([admin_id], map: "admin_id")
+  @@index([category_activity_id], map: "category_activity_id")
+}
+
+model admin {
+  id_admin     Int        @id @default(autoincrement())
+  fullname     String     @db.VarChar(255)
+  username     String     @db.VarChar(30)
+  password     String     @db.VarChar(100)
+  created_date DateTime?  @db.DateTime(0)
+  photo        String?    @db.VarChar(200)
+  address      String?    @db.Text
+  phone_number String?    @db.VarChar(15)
+  activity     activity[]
+  member       member[]
+  news         news[]
+}
+
+model category_activity {
+  id_category_activity Int        @id @default(autoincrement())
+  name                 String?    @db.VarChar(30)
+  description          String?    @db.VarChar(200)
+  activity             activity[]
+}
+
+model category_news {
+  id_category_news Int     @id @default(autoincrement())
+  name             String? @db.VarChar(30)
+  description      String? @db.VarChar(200)
+  news             news[]
+}
+
+model member {
+  id_member    Int       @id @default(autoincrement())
+  region_id    Int
+  nik          String    @unique(map: "idx_nik") @db.VarChar(25)
+  fullname     String    @db.VarChar(255)
+  photo        String?   @db.VarChar(200)
+  photo_ktp    String?   @db.VarChar(200)
+  address      String?   @db.Text
+  phone_number String?   @db.VarChar(15)
+  email        String?   @db.VarChar(50)
+  status       String?   @db.VarChar(20)
+  created_date DateTime? @db.DateTime(0)
+  admin_id     Int?
+  admin        admin?    @relation(fields: [admin_id], references: [id_admin], onDelete: Restrict, onUpdate: Restrict, map: "member_ibfk_2")
+  region       region    @relation(fields: [region_id], references: [id_regional], onUpdate: Restrict, map: "member_ibfk_1")
+
+  @@index([admin_id], map: "admin_id")
+  @@index([region_id], map: "region_id")
+}
+
+model news {
+  id_news          Int            @id @default(autoincrement())
+  category_news_id Int?
+  admin_id         Int?
+  tittle           String         @db.VarChar(150)
+  content          String         @db.Text
+  created_date     DateTime       @db.DateTime(0)
+  image            String?        @db.VarChar(200)
+  video            String?        @db.VarChar(200)
+  admin            admin?         @relation(fields: [admin_id], references: [id_admin], onDelete: Restrict, onUpdate: Restrict, map: "news_ibfk_2")
+  category_news    category_news? @relation(fields: [category_news_id], references: [id_category_news], onDelete: Restrict, onUpdate: Restrict, map: "news_ibfk_1")
+
+  @@index([admin_id], map: "admin_id")
+  @@index([category_news_id], map: "category_news_id")
+}
+
+model region {
+  id_regional     Int      @id @default(autoincrement())
+  name            String   @db.VarChar(25)
+  kemendagri_code String?  @db.VarChar(10)
+  member          member[]
 }

@@ -17,6 +17,7 @@ import JoinUs from '@/components/layout/JoinUs';
 import Layout from '@/components/layout/Layout';
 import Navbar from '@/components/layout/Navbar';
 import News from '@/components/layout/News';
+import FloatingWhatsApp from '@/components/layout/FloatingWhatsapp';
 
 // const axios = request.default;
 type Props = {
@@ -88,6 +89,7 @@ export default function HomePage({
         </section>
 
         <ContactUs />
+        <FloatingWhatsApp />
         <Footer />
       </main>
     </Layout>

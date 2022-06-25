@@ -14,20 +14,6 @@ const ContactUs = () => {
       <div id='map' className=''>
         <Maps />
       </div>
-      <div className='mt-2 w-full p-4 lg:mt-10'>
-        <Link href='https://wa.me/6281379693637?text=Hello+Saya+ingin+bertanya+%3F'>
-          <a
-            target='_blank'
-            rel='noopener noreferrer'
-            className='focus:shadow-outline flex w-[20vh] cursor-pointer flex-row rounded-full bg-white text-slate-700 shadow-md transition-colors duration-150 hover:bg-slate-200 hover:text-black md:w-[30vh] lg:w-[47vh]'
-          >
-            <RiWhatsappFill className='h-12 w-12 md:h-16 md:w-16 lg:h-24 lg:w-24' />
-            <div className='sm:text-md ml-4 self-center text-sm md:text-2xl lg:text-4xl'>
-              081379693637
-            </div>
-          </a>
-        </Link>
-      </div>
     </section>
   );
 };
