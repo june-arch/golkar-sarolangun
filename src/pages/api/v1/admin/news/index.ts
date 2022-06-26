@@ -1,6 +1,6 @@
 import nextConnect from 'next-connect'
 import jwt from '@/middleware/jwt'
-import { createAdmin, deleteAdmin, updateAdminById, findOneAdminByUserame } from '@/query/admin'
+import { createAdmin, findOneAdminByUserame } from '@/query/admin'
 import { NextApiResponse } from 'next'
 import { Admin, NextApiRequestModify } from '@/interface/admin'
 import { response } from '@/lib/wrapper'

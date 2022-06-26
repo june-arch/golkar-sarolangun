@@ -1,8 +1,8 @@
 export interface News {
-    id_news?: number;
+    id_news?: never;
     category_news_id?: number;
     admin_id?: number;
-    title: string;
+    tittle: string;
     content: string;
     created_date: Date;
     image?: string

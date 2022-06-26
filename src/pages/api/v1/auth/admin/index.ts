@@ -1,5 +1,5 @@
 import nextConnect from 'next-connect'
-import { findOneAdminByUserame, validatePassword } from '@/lib/db/query'
+import { findOneAdminByUserame, validatePassword } from '@/query/admin'
 import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/interface/admin'
 import { response } from '@/lib/wrapper'

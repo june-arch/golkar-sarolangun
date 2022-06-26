@@ -1,6 +1,6 @@
 import nextConnect from 'next-connect'
 import jwt from '@/middleware/jwt'
-import { countAllAdmin, findAllAdminPagination } from '@/lib/db/query'
+import { countAllAdmin, findAllAdminPagination } from '@/query/admin'
 import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/interface/admin'
 import { response, responsePage } from '@/lib/wrapper'
