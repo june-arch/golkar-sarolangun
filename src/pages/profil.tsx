@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 import React, { useState } from 'react';
 
 import { contentOne } from '@/lib/data';
-import { NavItem } from '@/lib/interface/types';
+import { NavItem } from '@/interface/types';
 
 import Footer from '@/components/layout/Footer';
 import Layout from '@/components/layout/Layout';

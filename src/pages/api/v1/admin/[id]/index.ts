@@ -2,7 +2,7 @@ import nextConnect from 'next-connect'
 import jwt from '@/middleware/jwt'
 import { createAdmin, deleteAdmin, updateAdminById, findOneAdminByUserame, findOneAdminById } from '@/lib/db/query'
 import { NextApiResponse } from 'next'
-import { Admin, NextApiRequestModify } from '@/lib/interface/admin'
+import { Admin, NextApiRequestModify } from '@/interface/admin'
 import { response } from '@/lib/wrapper'
 import logger from '@/lib/logger/pino'
 

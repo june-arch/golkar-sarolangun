@@ -7,11 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id   Int    @id @default(autoincrement())
-  name String
-}
-
 model activity {
   id_activity          Int               @id @default(autoincrement())
   admin_id             Int
@@ -84,7 +79,7 @@ model news {
   content          String         @db.Text
   created_date     DateTime       @db.DateTime(0)
   image            String?        @db.VarChar(200)
-  video            String?        @db.VarChar(200)
+  publisher        String?        @db.VarChar(100)
   admin            admin?         @relation(fields: [admin_id], references: [id_admin], onDelete: Restrict, onUpdate: Restrict, map: "news_ibfk_2")
   category_news    category_news? @relation(fields: [category_news_id], references: [id_category_news], onDelete: Restrict, onUpdate: Restrict, map: "news_ibfk_1")
 

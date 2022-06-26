@@ -1,9 +1,9 @@
 import nextConnect from 'next-connect'
 import {  NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/lib/interface/admin'
+import { NextApiRequestModify } from '@/interface/admin'
 import jwt from 'jsonwebtoken'
 import { readFileSync } from 'fs';
-import { SignOptions } from '@/lib/interface/jwt';
+import { SignOptions } from '@/interface/jwt';
 import prisma from '@/lib/db/connection';
 import { findOneAdminById, findOneAdminByUserame } from '@/lib/db/query';
 import { response } from '@/lib/wrapper';

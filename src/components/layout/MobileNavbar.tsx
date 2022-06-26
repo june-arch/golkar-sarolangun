@@ -2,7 +2,7 @@
 
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 
-import { Menus } from '@/lib/interface/types';
+import { Menus } from '@/interface/types';
 import Link from 'next/link';
 import Image from 'next/image';
 

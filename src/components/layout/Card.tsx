@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CardIdiom } from '@/lib/interface/types';
+import { CardIdiom } from '@/interface/types';
 import Image from 'next/image';
 import Link from 'next/link';
 

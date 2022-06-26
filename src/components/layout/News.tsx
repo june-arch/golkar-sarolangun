@@ -1,4 +1,4 @@
-import { NewsItem } from '@/lib/interface/types';
+import { NewsItem } from '@/interface/types';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
