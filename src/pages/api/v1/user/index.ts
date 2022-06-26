@@ -1,4 +1,5 @@
 import prisma from '@/lib/db/connection';
+import auth from '@/middleware/jwt';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
 
