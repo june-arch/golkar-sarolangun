@@ -27,7 +27,7 @@ export const updateById = async (id: number, doc: Region) => {
     });
 }
 
-export const deleteCategoryNews = async (id: number) => {
+export const deleteRegional = async (id: number) => {
     // Here you should delete the user in the database
     return await prisma.region.delete({
         where: {
