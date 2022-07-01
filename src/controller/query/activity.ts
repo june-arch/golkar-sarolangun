@@ -1,16 +1,16 @@
 
-import { News } from "@/interface/news";
+import { Activity } from "@/controller/interface/activity";
 import { Prisma } from "@prisma/client";
-import prisma from "../lib/db/connection";
+import prisma from "../../lib/db/connection";
 
-export const create = async (payload: News) => {
-    const news: News = {
+export const create = async (payload: Activity) => {
+    const activity: Activity = {
         ...payload
     }
-    console.log(news)
+    await prisma.$queryRaw`SELECT * FROM activity`;
     return await prisma.news.create({
         data:{
-            ...news,
+            ...activity,
         }
     });
 }
@@ -24,7 +24,7 @@ export const findOneById = async (id: number) => {
     return result; 
 }
 
-export const updateById = async (id: number, doc: News) => {
+export const updateById = async (id: number, doc: Activity) => {
     // Here you update the user based on id/username in the database
     return await prisma.news.update({
         where: { 

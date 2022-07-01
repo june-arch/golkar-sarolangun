@@ -1,6 +1,6 @@
-import { CategoryActivity } from "@/interface/category-activity";
+import { CategoryActivity } from "@/controller/interface/category-activity";
 import { Prisma } from "@prisma/client";
-import prisma from "../lib/db/connection";
+import prisma from "../../lib/db/connection";
 
 export const create = async (payload: CategoryActivity) => {
     return await prisma.category_activity.create({

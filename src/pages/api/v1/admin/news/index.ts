@@ -1,41 +1,18 @@
 import nextConnect from 'next-connect'
-import jwt from '@/middleware/jwt'
+import jwt from '@/controller/middleware/jwt'
 import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/interface/admin'
+import { NextApiRequestModify } from '@/controller/interface/admin'
 import { response, responsePage } from '@/lib/wrapper'
 import logger from '@/lib/logger/pino'
-import { countAll, create, findAllPagination } from '@/query/news'
-import { News } from '@/interface/news'
-import { uploadMiddleware } from '@/middleware/uploads'
-import { ApiResponse } from '@/interface/apiResponse'
-import Joi from "joi";
+import { countAll, create, findAllPagination } from '@/controller/query/news'
+import { News } from '@/controller/interface/news'
+import { uploadMiddleware } from '@/controller/middleware/uploads'
 
-import validate from "@/middleware/validation";
+import validate from "@/controller/middleware/validation";
+import { configNext } from '@/controller/middleware/configNext'
+import { news } from '@/controller/dto/news.dto'
 
-const news = Joi.object({
-  title: Joi.string().required(),
-  content: Joi.string().required(),
-  category_news_id: Joi.string().required(),
-  publisher: Joi.string().required(),
-});
-
-interface NextConnectApiRequest extends NextApiRequestModify {
-  file: Express.Multer.File;
-}
-
-type ResponseData = ApiResponse<object, string>;
-
-const handler = nextConnect<NextConnectApiRequest, NextApiResponse>({
-  onError(error, req: NextConnectApiRequest, res: NextApiResponse<ResponseData>) {
-    if(error.code == "LIMIT_FILE_SIZE"){
-      res.status(400).json({ error: `Sorry something Happened! ${error.message}`, statusCode: 400 });  
-    }
-    res.status(501).json({ error: `Sorry something Happened! ${error.message}` });
-  },
-  onNoMatch(req: NextConnectApiRequest, res: NextApiResponse<ResponseData>) {
-    res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
-  },
-})
+const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
 
 handler
   .use(jwt)
@@ -61,11 +38,11 @@ handler
     responsePage(res, 'success', { data: result, meta }, 'get all news', 200);
   })
   .use(uploadMiddleware('images/news'))
-  .post(validate({ body: news }), async (req: NextConnectApiRequest, res: NextApiResponse<ResponseData>) => {
+  .post(validate({ body: news }), async (req: NextApiRequestModify, res: NextApiResponse) => {
     const { title, content, category_news_id, publisher } = req.body;
     const { file, user } = req;
     console.log(user)
-    const news: News = {
+    const doc: News = {
       title,
       category_news_id: Number(category_news_id),
       admin_id: user.id_admin,
@@ -74,8 +51,8 @@ handler
       publisher,
       created_date: new Date()
     };
-    const result = await create(news)
-    res.status(200).json({ data: result });
+    const result = await create(doc)
+    response(res, 'success', {data: result}, 'success create news', 201);
   })
 
 export default handler

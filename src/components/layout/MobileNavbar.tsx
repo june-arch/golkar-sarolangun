@@ -2,7 +2,7 @@
 
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 
-import { Menus } from '@/interface/types';
+import { Menus } from '@/controller/interface/types';
 import Link from 'next/link';
 import Image from 'next/image';
 

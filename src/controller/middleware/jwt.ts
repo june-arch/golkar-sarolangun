@@ -1,11 +1,11 @@
 import nextConnect from 'next-connect'
 import {  NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/interface/admin'
+import { NextApiRequestModify } from '@/controller/interface/admin'
 import jwt from 'jsonwebtoken'
 import { readFileSync } from 'fs';
-import { SignOptions } from '@/interface/jwt';
+import { SignOptions } from '@/controller/interface/jwt';
 import prisma from '@/lib/db/connection';
-import { findOneAdminById, findOneAdminByUserame } from '@/query/admin';
+import { findOneAdminById, findOneAdminByUserame } from '@/controller/query/admin';
 import { response } from '@/lib/wrapper';
 // audience from Blowfish algrithm CTR model https://codebeautify.org/encrypt-decrypt
 // pass ask developer

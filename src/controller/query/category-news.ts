@@ -1,6 +1,6 @@
-import { CategoryNews } from "@/interface/category-news";
+import { CategoryNews } from "@/controller/interface/category-news";
 import { Prisma } from "@prisma/client";
-import prisma from "../lib/db/connection";
+import prisma from "../../lib/db/connection";
 
 export const create = async (payload: CategoryNews) => {
     // Here you should create the user and save the salt and hashed password (some dbs may have

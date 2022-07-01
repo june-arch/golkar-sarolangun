@@ -1,11 +1,11 @@
 import nextConnect from 'next-connect'
-import jwt from '@/middleware/jwt'
+import jwt from '@/controller/middleware/jwt'
 import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/interface/admin'
+import { NextApiRequestModify } from '@/controller/interface/admin'
 import { response } from '@/lib/wrapper'
 import logger from '@/lib/logger/pino'
-import { News } from '@/interface/news'
-import { deleteNews, findOneById, updateById } from '@/query/news'
+import { News } from '@/controller/interface/news'
+import { deleteNews, findOneById, updateById } from '@/controller/query/news'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
 

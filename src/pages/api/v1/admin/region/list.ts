@@ -1,10 +1,10 @@
 import nextConnect from 'next-connect'
-import jwt from '@/middleware/jwt'
+import jwt from '@/controller/middleware/jwt'
 import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/interface/admin'
+import { NextApiRequestModify } from '@/controller/interface/admin'
 import { response, responsePage } from '@/lib/wrapper'
 import logger from '@/lib/logger/pino'
-import { findAll } from '@/query/region'
+import { findAll } from '@/controller/query/region'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
 

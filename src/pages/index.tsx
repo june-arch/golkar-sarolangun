@@ -8,7 +8,7 @@ import {
   contentTwo,
   contentVideo,
 } from '@/lib/data';
-import { CardIdiom, NavItem, NewsItem, VideoItem } from '@/interface/types';
+import { CardIdiom, NavItem, NewsItem, VideoItem } from '@/controller/interface/types';
 
 import Card from '@/components/layout/Card';
 import ContactUs from '@/components/layout/ContactUs';

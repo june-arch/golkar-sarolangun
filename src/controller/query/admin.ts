@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { Admin } from "../interface/admin";
-import prisma from "../lib/db/connection";
+import prisma from "../../lib/db/connection";
 import crypto from 'crypto'
 const salt = '34d1a573380d0508c306439b030c6e8f';
 

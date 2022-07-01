@@ -1,8 +1,8 @@
 import nextConnect from 'next-connect'
-import jwt from '@/middleware/jwt'
-import { createAdmin, findAllAdminPagination, countAllAdmin } from '@/query/admin'
+import jwt from '@/controller/middleware/jwt'
+import { createAdmin, findAllAdminPagination, countAllAdmin } from '@/controller/query/admin'
 import { NextApiResponse } from 'next'
-import { Admin, NextApiRequestModify } from '@/interface/admin'
+import { Admin, NextApiRequestModify } from '@/controller/interface/admin'
 import { response, responsePage } from '@/lib/wrapper'
 import logger from '@/lib/logger/pino'
 

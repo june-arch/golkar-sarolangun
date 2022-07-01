@@ -1,6 +1,6 @@
-import { Region } from "@/interface/region";
+import { Region } from "@/controller/interface/region";
 import { Prisma } from "@prisma/client";
-import prisma from "../lib/db/connection";
+import prisma from "../../lib/db/connection";
 
 export const create = async (payload: Region) => {
     return await prisma.region.create({
