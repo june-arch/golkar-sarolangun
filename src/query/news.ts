@@ -7,6 +7,7 @@ export const create = async (payload: News) => {
     const news: News = {
         ...payload
     }
+    console.log(news)
     return await prisma.news.create({
         data:{
             ...news,

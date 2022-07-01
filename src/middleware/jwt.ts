@@ -60,6 +60,7 @@ const auth = nextConnect<NextApiRequestModify, NextApiResponse>()
     if (!user) {
       return response(res, 'failed', {data: null}, 'Unauthorized', 403);
     }
+    req.user = user;
     next();
   })
 export default auth

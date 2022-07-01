@@ -7,6 +7,7 @@ export const create = async (payload: Activity) => {
     const activity: Activity = {
         ...payload
     }
+    await prisma.$queryRaw`SELECT * FROM activity`;
     return await prisma.news.create({
         data:{
             ...activity,
