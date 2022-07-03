@@ -41,19 +41,30 @@ export const editFileName = (
   callback(null, `${uuid}${fileExtName}`);
 };
 
-export const unlinkFile = () => {
+export const unlinkByFileName = (path: string, fileName: string) => {
   try {
-    readdir('files', (err, files) => {
+    unlink(`./public/uploads/${path}/${fileName}`, (err) => {
+      if (err) throw err;
+    });
+    return true;
+  } catch (err) {
+    logger.error('remove file by name', err);
+  }
+};
+
+export const unlinkAllFile = (path: string) => {
+  try {
+    readdir('./public/uploads/'+path, (err, files) => {
       if (err) throw err;
 
       for (const file of files) {
-        unlink(join('files', file), (err) => {
+        unlink(join('./public/uploads/'+path, file), (err) => {
           if (err) throw err;
         });
       }
     });
     return true;
   } catch (err) {
-    logger.error('helper:util:common:unlink', err);
+    logger.error('remove all file', err);
   }
 };

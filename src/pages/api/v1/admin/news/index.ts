@@ -41,7 +41,6 @@ handler
   .post(validate({ body: news }), async (req: NextApiRequestModify, res: NextApiResponse) => {
     const { title, content, category_news_id, publisher } = req.body;
     const { file, user } = req;
-    console.log(user)
     const doc: News = {
       title,
       category_news_id: Number(category_news_id),
