@@ -2,16 +2,15 @@ import nextConnect from 'next-connect'
 import {  NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/controller/interface/admin'
 import jwt from 'jsonwebtoken'
-import { readFileSync } from 'fs';
 import { SignOptions } from '@/controller/interface/jwt';
 import prisma from '@/lib/db/connection';
-import { findOneAdminById, findOneAdminByUserame } from '@/controller/query/admin';
+import { findOneAdminById } from '@/controller/query/admin';
 import { response } from '@/lib/wrapper';
 // audience from Blowfish algrithm CTR model https://codebeautify.org/encrypt-decrypt
 // pass ask developer
 
 export const generateToken = async (payload, expiresIn='100m') => {
-  const privateKey = readFileSync(process.env.PRIVATE_KEY, 'utf8');
+  const privateKey = process.env.PRIVATE_KEY.replace(/\\n/g, '\n')
     const verifyOptions: SignOptions = {
       algorithm: 'RS256',
       audience: 'PooCBigub8bskokGglBluJw1jZ5S2lo=',
@@ -34,7 +33,7 @@ const getToken = (headers) => {
 
 const auth = nextConnect<NextApiRequestModify, NextApiResponse>()
   .use(async (req, res, next) => {
-    const publicKey = readFileSync(process.env.PUBLIC_KEY, 'utf8');
+    const publicKey = process.env.PUBLIC_KEY.replace(/\\n/g, '\n');
     const verifyOptions = {
       algorithm: 'RS256',
       audience: 'PooCBigub8bskokGglBluJw1jZ5S2lo=',
