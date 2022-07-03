@@ -17,6 +17,20 @@ export const imageFileFilter = (
   callback(null, true);
 };
 
+export const videoFileFilter = (
+  req,
+  file: Express.Multer.File,
+  callback: Function,
+) => {
+  if (!file.originalname.match(/\.(mp4|ogg)$/)) {
+    return callback(
+      new Error('Only video files mp4|ogg are allowed!'),
+      false,
+    );
+  }
+  callback(null, true);
+};
+
 export const documentFileFilter = (
   req,
   file: Express.Multer.File,

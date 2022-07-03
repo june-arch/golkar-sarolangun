@@ -10,8 +10,9 @@ import { uploadMiddleware } from '@/controller/middleware/uploads'
 import { unlinkByFileName } from '@/lib/filter-uploads'
 import { news } from '@/controller/dto/news.dto'
 import validate from "@/controller/middleware/validation";
+import { configNext } from '@/controller/middleware/configNext'
 
-const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
+const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
 
 handler
   .use(jwt)
@@ -54,7 +55,7 @@ handler
     if(!findNews)
       response(res, 'failed', {data: null}, 'id not found', 400);
     
-    const { title, content, category_news_id, publisher } = req.body;
+    const { title, content, category_news_id, author } = req.body;
     const { file, user } = req;
     if(file)
       unlinkByFileName('images/news', findNews.image);
@@ -62,18 +63,23 @@ handler
     const doc: News = {
       title,
       category_news_id: Number(category_news_id),
-      admin_id: user.id_admin,
+      admin_id: findNews.admin_id,
       image: file ? file.filename : '',
       content,
-      publisher,
-      created_date: new Date()
+      author,
+      updated_by: user.id_admin,
     };
     const result = await updateById(valueId, doc);
     if(!result){
         logger.error('failed to update', result);
         response(res, 'failed', {data: null}, 'data not found', 404);
     }
-    response(res, 'success', {data: result}, 'get news', 200);
+    response(res, 'success', {data: result}, 'update news', 200);
   })
 
 export default handler
+export const config = {
+  api: {
+    bodyParser: false, // Disallow body parsing, consume as stream
+  },
+};

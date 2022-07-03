@@ -13,5 +13,6 @@ export type Admin = {
 
 export interface NextApiRequestModify extends NextApiRequest {
     user: Admin;
+    files: Express.Multer.File[];
     file: Express.Multer.File;
 }

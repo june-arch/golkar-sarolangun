@@ -10,8 +10,7 @@ const videos = Joi.object({
 
 export const activity = Joi.object({
     title: Joi.string().required(),
-    content: Joi.string().required(),
     category_activity_id: Joi.string().required(),
     image: Joi.array().items(images).allow(''),
-    video: Joi.array().items(videos).allow('')
+    video: Joi.string().allow(''),
 });

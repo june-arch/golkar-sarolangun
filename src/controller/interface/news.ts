@@ -4,7 +4,9 @@ export interface News {
     admin_id?: number;
     title: string;
     content: string;
-    created_date: Date;
+    created_date?: Date;
     image?: string
-    publisher?: string;
+    author?: string;
+    updated_by?: number;
+    updated_date?: Date;
 }

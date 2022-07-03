@@ -12,10 +12,11 @@ model activity {
   admin_id             Int
   category_activity_id Int
   title                String            @db.VarChar(255)
-  content              String            @db.Text
-  created_date         DateTime          @db.DateTime(0)
+  created_date         DateTime          @default(now()) @db.DateTime(0)
   image                String?           @db.VarChar(255)
   video                String?           @db.VarChar(255)
+  updated_by           Int?
+  updated_date         DateTime?         @default(now()) @db.DateTime(0)
   admin                admin             @relation(fields: [admin_id], references: [id_admin], onUpdate: Restrict, map: "activity_ibfk_2")
   category_activity    category_activity @relation(fields: [category_activity_id], references: [id_category_activity], onUpdate: Restrict, map: "activity_ibfk_1")
 
@@ -52,20 +53,25 @@ model category_news {
 }
 
 model member {
-  id_member    Int       @id @default(autoincrement())
-  region_id    Int
-  nik          String    @unique(map: "idx_nik") @db.VarChar(25)
-  fullname     String    @db.VarChar(255)
-  photo        String?   @db.VarChar(200)
-  photo_ktp    String?   @db.VarChar(200)
-  address      String?   @db.Text
-  phone_number String?   @db.VarChar(15)
-  email        String?   @db.VarChar(50)
-  status       String?   @db.VarChar(20)
-  created_date DateTime? @db.DateTime(0)
-  admin_id     Int?
-  admin        admin?    @relation(fields: [admin_id], references: [id_admin], onDelete: Restrict, onUpdate: Restrict, map: "member_ibfk_2")
-  region       region    @relation(fields: [region_id], references: [id_regional], onUpdate: Restrict, map: "member_ibfk_1")
+  id_member      Int            @id @default(autoincrement())
+  region_id      Int
+  nik            String         @unique(map: "idx_nik") @db.VarChar(25)
+  fullname       String?        @db.VarChar(255)
+  photo          String         @db.VarChar(200)
+  photo_ktp      String         @db.VarChar(200)
+  address        String?        @db.Text
+  phone_number   String?        @db.VarChar(15)
+  email          String?        @db.VarChar(50)
+  place_of_birth String         @db.VarChar(100)
+  date_of_birth  DateTime       @db.Date
+  gender         member_gender?
+  status         Boolean?       @default(false)
+  created_date   DateTime?      @default(now()) @db.DateTime(0)
+  admin_id       Int?
+  updated_by     Int?
+  updated_date   DateTime?      @default(now()) @db.DateTime(0)
+  admin          admin?         @relation(fields: [admin_id], references: [id_admin], onDelete: Restrict, onUpdate: Restrict, map: "member_ibfk_2")
+  region         region         @relation(fields: [region_id], references: [id_regional], onUpdate: Restrict, map: "member_ibfk_1")
 
   @@index([admin_id], map: "admin_id")
   @@index([region_id], map: "region_id")
@@ -77,9 +83,11 @@ model news {
   admin_id         Int?
   title            String         @db.VarChar(255)
   content          String         @db.Text
-  created_date     DateTime       @db.DateTime(0)
+  created_date     DateTime       @default(now()) @db.DateTime(0)
   image            String?        @db.VarChar(255)
-  publisher        String?        @db.VarChar(100)
+  author           String?        @db.VarChar(150)
+  updated_by       Int?
+  updated_date     DateTime?      @default(now()) @db.DateTime(0)
   admin            admin?         @relation(fields: [admin_id], references: [id_admin], onDelete: Restrict, onUpdate: Restrict, map: "news_ibfk_2")
   category_news    category_news? @relation(fields: [category_news_id], references: [id_category_news], onDelete: Restrict, onUpdate: Restrict, map: "news_ibfk_1")
 
@@ -92,4 +100,9 @@ model region {
   name            String   @db.VarChar(25)
   kemendagri_code String?  @db.VarChar(10)
   member          member[]
+}
+
+enum member_gender {
+  L
+  P
 }

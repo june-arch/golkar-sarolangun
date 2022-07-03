@@ -4,9 +4,9 @@ import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/controller/interface/admin'
 import { response, responsePage } from '@/lib/wrapper'
 import logger from '@/lib/logger/pino'
-import { countAll, create, findAllPagination } from '@/controller/query/news'
+import { countAll, create, findAllPagination } from '@/controller/query/activity'
 import { Activity } from '@/controller/interface/activity'
-import { uploadMiddleware } from '@/controller/middleware/uploads'
+import { uploadMultipleMiddleware } from '@/controller/middleware/uploads'
 
 import validate from "@/controller/middleware/validation";
 import { configNext } from '@/controller/middleware/configNext'
@@ -37,17 +37,20 @@ handler
 
     responsePage(res, 'success', { data: result, meta }, 'get all activity', 200);
   })
-  .use(uploadMiddleware('images/activity'))
+  .use(uploadMultipleMiddleware('images/activity'))
   .post(validate({ body: activity }), async (req: NextApiRequestModify, res: NextApiResponse) => {
-    const { title, content, category_news_id, publisher } = req.body;
-    const { file, user } = req;
+    const { title, category_activity_id, video } = req.body;
+    const { files, user } = req;
+    let imagesFilename = [];
+    if (files && files.length > 0){
+      files.forEach((value) => imagesFilename.push(value.filename));
+    };
     const doc: Activity = {
       title,
-      category_activity_id: Number(category_news_id),
+      category_activity_id: Number(category_activity_id),
       admin_id: user.id_admin,
-      image: file ? file.filename : '',
-      video: file ? file.filename : '',
-      content,
+      image: imagesFilename.join(','),
+      video,
       created_date: new Date()
     };
     const result = await create(doc)

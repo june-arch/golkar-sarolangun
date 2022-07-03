@@ -39,7 +39,7 @@ handler
   })
   .use(uploadMiddleware('images/news'))
   .post(validate({ body: news }), async (req: NextApiRequestModify, res: NextApiResponse) => {
-    const { title, content, category_news_id, publisher } = req.body;
+    const { title, content, category_news_id, author } = req.body;
     const { file, user } = req;
     const doc: News = {
       title,
@@ -47,7 +47,7 @@ handler
       admin_id: user.id_admin,
       image: file ? file.filename : '',
       content,
-      publisher,
+      author,
       created_date: new Date()
     };
     const result = await create(doc)

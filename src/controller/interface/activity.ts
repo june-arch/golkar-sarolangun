@@ -3,8 +3,9 @@ export interface Activity {
     admin_id: number;
     category_activity_id: number;
     title: string;
-    content: string;
     created_date: Date;
-    image: string;
-    video: string;
+    image?: string;
+    video?: string;
+    updated_by?: number;
+    updated_date?: Date;
 }

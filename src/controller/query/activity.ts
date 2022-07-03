@@ -7,18 +7,18 @@ export const create = async (payload: Activity) => {
     const activity: Activity = {
         ...payload
     }
-    await prisma.$queryRaw`SELECT * FROM activity`;
-    return await prisma.news.create({
+    // await prisma.$queryRaw`SELECT * FROM activity`;
+    return await prisma.activity.create({
         data:{
-            ...activity,
+            ...activity
         }
     });
 }
 
 export const findOneById = async (id: number) => {
-    const result = await prisma.news.findUnique({
+    const result = await prisma.activity.findUnique({
         where:{
-            id_news:id,
+            id_activity:id,
         }
     })
     return result; 
@@ -26,25 +26,25 @@ export const findOneById = async (id: number) => {
 
 export const updateById = async (id: number, doc: Activity) => {
     // Here you update the user based on id/username in the database
-    return await prisma.news.update({
+    return await prisma.activity.update({
         where: { 
-            id_news: id,
+            id_activity: id,
         },
         data: doc
     });
 }
 
-export const deleteNews = async (id: number) => {
+export const deleteActivity = async (id: number) => {
     // Here you should delete the user in the database
-    return await prisma.news.delete({
+    return await prisma.activity.delete({
         where: {
-            id_news: id,
+            id_activity: id,
         }
     });
 }
 
 export const findAllPagination = async (page: number, limit: number) => {
-    const result = await prisma.news.findMany({
+    const result = await prisma.activity.findMany({
         skip: (page-1)*limit,
         take: limit,
     });
@@ -52,7 +52,7 @@ export const findAllPagination = async (page: number, limit: number) => {
 }
 
 export const countAll = async () => {
-    const result = await prisma.news.count();
+    const result = await prisma.activity.count();
     return result;
 }
 
