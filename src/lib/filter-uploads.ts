@@ -1,7 +1,8 @@
-import { readdir, unlink } from 'fs';
+import { readdir, readFileSync, unlink } from 'fs';
 import { extname, join } from 'path';
 import { v4 } from 'uuid';
 import logger from './logger/pino';
+import tesseract from "node-tesseract-ocr"
 
 export const imageFileFilter = (
   req,
@@ -10,7 +11,21 @@ export const imageFileFilter = (
 ) => {
   if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
     return callback(
-      new Error('Only image files jpg|jpeg|png are allowed!'),
+      {code:'EXTENSION_NOT_SUPPORTED',message:'Only image files jpg|jpeg|png are allowed!'},
+      false,
+    );
+  }
+  callback(null, true);
+};
+
+export const imageKtpFilter = (
+  req,
+  file: Express.Multer.File,
+  callback: Function,
+) => {
+  if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+    return callback(
+      {code:'EXTENSION_NOT_SUPPORTED',message:'Only image files jpg|jpeg|png are allowed!'},
       false,
     );
   }
@@ -24,7 +39,7 @@ export const videoFileFilter = (
 ) => {
   if (!file.originalname.match(/\.(mp4|ogg)$/)) {
     return callback(
-      new Error('Only video files mp4|ogg are allowed!'),
+      {code:'EXTENSION_NOT_SUPPORTED',message:'Only video files mp4|ogg are allowed!'},
       false,
     );
   }
@@ -38,7 +53,7 @@ export const documentFileFilter = (
 ) => {
   if (!file.originalname.match(/\.(pdf|word)$/)) {
     return callback(
-      new Error('Only document files pdf|word are allowed!'),
+      {code:'EXTENSION_NOT_SUPPORTED',message:'Only document files pdf|word are allowed!'},
       false,
     );
   }

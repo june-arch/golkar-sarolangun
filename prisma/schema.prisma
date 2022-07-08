@@ -55,7 +55,7 @@ model category_news {
 model member {
   id_member      Int            @id @default(autoincrement())
   region_id      Int
-  nik            String         @unique(map: "idx_nik") @db.VarChar(25)
+  nik            String         @db.VarChar(25)
   fullname       String?        @db.VarChar(255)
   photo          String         @db.VarChar(200)
   photo_ktp      String         @db.VarChar(200)
@@ -65,7 +65,7 @@ model member {
   place_of_birth String         @db.VarChar(100)
   date_of_birth  DateTime       @db.Date
   gender         member_gender?
-  status         Boolean?       @default(false)
+  status         Int?           @default(0)
   created_date   DateTime?      @default(now()) @db.DateTime(0)
   admin_id       Int?
   updated_by     Int?
@@ -75,6 +75,7 @@ model member {
 
   @@index([admin_id], map: "admin_id")
   @@index([region_id], map: "region_id")
+  @@index([nik, status], map: "idx_nik_status")
 }
 
 model news {
