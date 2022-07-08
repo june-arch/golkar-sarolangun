@@ -3,7 +3,6 @@ import jwt from '@/controller/middleware/jwt'
 import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/controller/interface/admin'
 import { response } from '@/lib/wrapper'
-import logger from '@/lib/logger/pino'
 import { create } from '@/controller/query/member'
 import { Member } from '@/controller/interface/member'
 import { uploadDiffMiddleware } from '@/controller/middleware/uploads'
@@ -54,7 +53,7 @@ handler
       photo_ktp: files ? files['photo_ktp'][0].filename : '',
     };
     const result = await create(doc)
-    response(res, 'success', {data: null}, 'success register member', 201);
+    response(res, 'success', {data: result}, 'success register member', 201);
   })
 
 export default handler

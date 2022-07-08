@@ -4,7 +4,6 @@ import { createAdmin, findAllAdminPagination, countAllAdmin } from '@/controller
 import { NextApiResponse } from 'next'
 import { Admin, NextApiRequestModify } from '@/controller/interface/admin'
 import { response, responsePage } from '@/lib/wrapper'
-import logger from '@/lib/logger/pino'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
 
@@ -20,7 +19,6 @@ handler
     const result = await findAllAdminPagination(valuePage, valueLimit);
     const count = await countAllAdmin();
     if(!result){
-        logger.error('failed to find data', result);
         response(res, 'failed', {data: null}, 'data not found', 404);
     }
     const meta = {

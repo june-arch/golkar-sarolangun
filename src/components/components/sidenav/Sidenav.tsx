@@ -2,7 +2,6 @@ import { XIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import { useContext } from "react";
 
-import logger from "@/lib/logger/pino";
 import { navData } from "@/lib/utils/sidenavitems";
 
 import { MenuContext } from "@/context/menu/Menu.context";
@@ -10,7 +9,6 @@ import { MenuContext } from "@/context/menu/Menu.context";
 
 export const Sidenav = () => {
   const { open, setOpen } = useContext(MenuContext);
-  logger.info(open);
   return (
     <>
       {/* this is the ovelay faster duration */}

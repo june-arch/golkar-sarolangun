@@ -4,7 +4,6 @@ import { createAdmin, deleteAdmin, updateAdminById, findOneAdminByUserame, findO
 import { NextApiResponse } from 'next'
 import { Admin, NextApiRequestModify } from '@/controller/interface/admin'
 import { response } from '@/lib/wrapper'
-import logger from '@/lib/logger/pino'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
 
@@ -20,7 +19,6 @@ handler
     }
     const result = await findOneAdminById(Number(valueId));
     if(!result){
-        logger.error('data not found', result);
         response(res, 'failed', {data: null}, 'data not found', 404);
     }
     response(res, 'success', {data: result}, 'get admin', 200);
@@ -44,7 +42,6 @@ handler
     };
     const result = await updateAdminById(valueId, admin);
     if(!result){
-        logger.error('failed to update', result);
         response(res, 'failed', {data: null}, 'data not found', 404);
     }
     response(res, 'success', {data: result}, 'get admin', 200);

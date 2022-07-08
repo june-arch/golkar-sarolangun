@@ -103,7 +103,51 @@ model region {
   member          member[]
 }
 
+model member_log_delete {
+  id         Int      @id @default(autoincrement())
+  member_id  Int?
+  deleted_at DateTime @default(now()) @db.DateTime(0)
+  action     String?  @db.VarChar(200)
+}
+
+model member_log_update {
+  id         Int      @id @default(autoincrement())
+  member_id  Int?
+  admin_id   Int?
+  before     String?  @db.VarChar(500)
+  after      String?  @db.VarChar(500)
+  updated_at DateTime @default(now()) @db.DateTime(0)
+  action     String?  @db.VarChar(200)
+}
+
+model user_log {
+  id             Int              @id @default(autoincrement())
+  id_member      Int
+  region_id      Int
+  nik            String           @db.VarChar(25)
+  fullname       String?          @db.VarChar(255)
+  photo          String           @db.VarChar(200)
+  photo_ktp      String           @db.VarChar(200)
+  address        String?          @db.Text
+  phone_number   String?          @db.VarChar(15)
+  email          String?          @db.VarChar(50)
+  place_of_birth String           @db.VarChar(100)
+  date_of_birth  DateTime         @db.Date
+  gender         user_log_gender?
+  status         Int?             @default(0)
+  created_date   DateTime?        @db.DateTime(0)
+  admin_id       Int?
+  updated_by     Int?
+  updated_date   DateTime?        @db.DateTime(0)
+  log_date       DateTime?        @default(now()) @db.DateTime(0)
+}
+
 enum member_gender {
+  L
+  P
+}
+
+enum user_log_gender {
   L
   P
 }

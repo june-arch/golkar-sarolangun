@@ -3,7 +3,6 @@ import jwt from '@/controller/middleware/jwt'
 import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/controller/interface/admin'
 import { response, responsePage } from '@/lib/wrapper'
-import logger from '@/lib/logger/pino'
 import { countAll, create, findAllPagination } from '@/controller/query/category-news'
 import { CategoryNews } from '@/controller/interface/category-news'
 
@@ -21,7 +20,6 @@ handler
     const result = await findAllPagination(valuePage, valueLimit);
     const count = await countAll();
     if (!result) {
-      logger.error('failed to find data', result);
       response(res, 'failed', { data: null }, 'data not found', 404);
     }
     const meta = {

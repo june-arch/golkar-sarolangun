@@ -4,7 +4,6 @@ import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/controller/interface/admin'
 import { response } from '@/lib/wrapper'
 import { Login } from '@/controller/interface/auth'
-import logger from '@/lib/logger/pino'
 import jwt from 'jsonwebtoken'
 import { generateToken } from '@/controller/middleware/jwt'
 
@@ -19,12 +18,10 @@ handler
         };
         const result = await findOneAdminByUserame(username);
         if(!result){
-            logger.error('not found admin', result);
             response(res, 'failed', { data: null }, 'user not found', 404);    
         }
 
         if(!validatePassword(result, password)){
-            logger.error('password salah');
             response(res, 'failed', { data: null }, 'wrong password', 400);
         }
         const payload = {

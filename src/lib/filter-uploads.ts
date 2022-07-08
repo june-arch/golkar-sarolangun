@@ -1,8 +1,6 @@
 import { readdir, readFileSync, unlink } from 'fs';
 import { extname, join } from 'path';
 import { v4 } from 'uuid';
-import logger from './logger/pino';
-import tesseract from "node-tesseract-ocr"
 
 export const imageFileFilter = (
   req,
@@ -77,7 +75,7 @@ export const unlinkByFileName = (path: string, fileName: string) => {
     });
     return true;
   } catch (err) {
-    logger.error('remove file by name', err);
+    return false;
   }
 };
 
@@ -94,6 +92,6 @@ export const unlinkAllFile = (path: string) => {
     });
     return true;
   } catch (err) {
-    logger.error('remove all file', err);
+    return false;
   }
 };

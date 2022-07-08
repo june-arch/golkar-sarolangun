@@ -3,7 +3,6 @@ import jwt from '@/controller/middleware/jwt'
 import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/controller/interface/admin'
 import { response } from '@/lib/wrapper'
-import logger from '@/lib/logger/pino'
 import { CategoryNews } from '@/controller/interface/category-news'
 import { deleteCategoryNews, findOneById, updateById } from '@/controller/query/category-news'
 
@@ -21,7 +20,6 @@ handler
     }
     const result = await findOneById(Number(valueId));
     if(!result){
-        logger.error('data not found', result);
         response(res, 'failed', {data: null}, 'data not found', 404);
     }
     response(res, 'success', {data: result}, 'get category news', 200);
@@ -40,7 +38,6 @@ handler
     };
     const result = await updateById(valueId, categoryNews);
     if(!result){
-        logger.error('failed to update', result);
         response(res, 'failed', {data: null}, 'data not found', 404);
     }
     response(res, 'success', {data: result}, 'get category news', 200);
