@@ -1,5 +1,5 @@
 
-export const headerRightItems = [
+export const headerRightItemsLogin = [
     {
         title: "Profile",
         icon: <div></div>

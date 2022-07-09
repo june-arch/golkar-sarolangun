@@ -1,14 +1,13 @@
 import { XIcon } from "@heroicons/react/outline";
 import Link from "next/link";
-import { useContext } from "react";
 
 import { navData } from "@/lib/utils/sidenavitems";
 
-import { MenuContext } from "@/context/menu/Menu.context";
+import { useMenuContext } from "@/context/Menu.context";
 
 
 export const Sidenav = () => {
-  const { open, setOpen } = useContext(MenuContext);
+  const { open, setOpen } = useMenuContext();
   return (
     <>
       {/* this is the ovelay faster duration */}
