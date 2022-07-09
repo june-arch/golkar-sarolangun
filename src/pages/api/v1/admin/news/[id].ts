@@ -21,13 +21,13 @@ handler
     const value = Array.isArray(id) ? id[0] : id;
     const valueId = Number(value) || null;
     if(!valueId){
-        response(res, 'failed', {data: null}, 'invalid id', 400);    
+      return response(res, 'failed', {data: null}, 'invalid id', 400);    
     }
     const result = await findOneById(valueId);
     if(!result){
-        response(res, 'failed', {data: null}, 'data not found', 404);
+      return response(res, 'failed', {data: null}, 'data not found', 404);
     }
-    response(res, 'success', {data: result}, 'get news', 200);
+    return response(res, 'success', {data: result}, 'get news', 200);
   })
   .delete( async (req, res) => {
     const { id } = req.query;
@@ -35,11 +35,11 @@ handler
     const valueId = Number(value) || null; 
     const findNews = await findOneById(valueId);
     if(!findNews)
-      response(res, 'failed', {data: null}, 'id not found', 400);
+    return response(res, 'failed', {data: null}, 'id not found', 400);
     
     await deleteNews(valueId)
     unlinkByFileName('images/news', findNews.image);
-    response(res, 'success', {data: null}, 'delete news', 200);
+    return response(res, 'success', {data: null}, 'delete news', 200);
   })
   .use(uploadMiddleware('images/news'))
   .put(validate({ body: news }), async (req: NextApiRequestModify, res) => {
@@ -47,11 +47,11 @@ handler
     const value = Array.isArray(id) ? id[0] : id;
     const valueId = Number(value) || null;
     if(!valueId){
-        response(res, 'failed', {data: null}, 'invalid id', 400);    
+      return response(res, 'failed', {data: null}, 'invalid id', 400);    
     }
     const findNews = await findOneById(valueId);
     if(!findNews)
-      response(res, 'failed', {data: null}, 'id not found', 400);
+    return response(res, 'failed', {data: null}, 'id not found', 400);
     
     const { title, content, category_news_id, author } = req.body;
     const { file, user } = req;
@@ -69,9 +69,9 @@ handler
     };
     const result = await updateById(valueId, doc);
     if(!result){
-        response(res, 'failed', {data: null}, 'data not found', 404);
+      return response(res, 'failed', {data: null}, 'data not found', 404);
     }
-    response(res, 'success', {data: result}, 'update news', 200);
+    return response(res, 'success', {data: result}, 'update news', 200);
   })
 
 export default handler

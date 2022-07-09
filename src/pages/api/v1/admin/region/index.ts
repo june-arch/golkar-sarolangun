@@ -20,7 +20,7 @@ handler
     const result = await findAllPagination(valuePage, valueLimit);
     const count = await countAll();
     if (!result) {
-      response(res, 'failed', { data: null }, 'data not found', 404);
+      return response(res, 'failed', { data: null }, 'data not found', 404);
     }
     const meta = {
       page: valuePage,
@@ -28,7 +28,7 @@ handler
       totalDataOnPage: result.length,
     }
 
-    responsePage(res, 'success', { data: result, meta }, 'get all regional', 200);
+    return responsePage(res, 'success', { data: result, meta }, 'get all regional', 200);
   })
   .post(async (req, res) => {
     const { name, kemendagri_code } = req.body;
@@ -37,7 +37,7 @@ handler
       kemendagri_code,
     };
     const result = await create(region)
-    response(res, 'success', { data: result }, 'created new regional', 201);
+    return response(res, 'success', { data: result }, 'created new regional', 201);
   })
 
 export default handler

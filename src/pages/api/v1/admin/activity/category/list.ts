@@ -13,10 +13,10 @@ handler
     // You do not generally want to return the whole user object
     const result = await findAll();
     if (!result) {
-      response(res, 'failed', { data: null }, 'data not found', 404);
+      return response(res, 'failed', { data: null }, 'data not found', 404);
     }
 
-    responsePage(res, 'success', { data: result }, 'get all category activity', 200);
+    return responsePage(res, 'success', { data: result }, 'get all category activity', 200);
   })
 
 export default handler

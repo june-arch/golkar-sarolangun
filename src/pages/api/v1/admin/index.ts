@@ -19,7 +19,7 @@ handler
     const result = await findAllAdminPagination(valuePage, valueLimit);
     const count = await countAllAdmin();
     if(!result){
-        response(res, 'failed', {data: null}, 'data not found', 404);
+        return response(res, 'failed', {data: null}, 'data not found', 404);
     }
     const meta = {
         page: valuePage,
@@ -27,7 +27,7 @@ handler
         totalDataOnPage: result.length,
     }
 
-    responsePage(res, 'success', {data: result, meta}, 'get all admin', 200);
+    return responsePage(res, 'success', {data: result, meta}, 'get all admin', 200);
   })
   .post( async (req, res) => {
     const { fullname, username, password, photo, address, phone_number } = req.body;
@@ -41,7 +41,7 @@ handler
         created_date: new Date(),
     };
     const result = await createAdmin(admin)
-    response(res, 'success', {data: result}, 'created new admin', 201);
+    return response(res, 'success', {data: result}, 'created new admin', 201);
   })
 
 export default handler

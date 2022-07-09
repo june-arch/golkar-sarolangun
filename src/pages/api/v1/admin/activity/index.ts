@@ -25,7 +25,7 @@ handler
     const result = await findAllPagination(valuePage, valueLimit);
     const count = await countAll();
     if (!result) {
-      response(res, 'failed', { data: null }, 'data not found', 404);
+      return response(res, 'failed', { data: null }, 'data not found', 404);
     }
     const meta = {
       page: valuePage,
@@ -33,7 +33,7 @@ handler
       totalDataOnPage: result.length,
     }
 
-    responsePage(res, 'success', { data: result, meta }, 'get all activity', 200);
+    return responsePage(res, 'success', { data: result, meta }, 'get all activity', 200);
   })
   .use(uploadMultipleMiddleware('images/activity'))
   .post(validate({ body: activity }), async (req: NextApiRequestModify, res: NextApiResponse) => {
@@ -52,7 +52,7 @@ handler
       created_date: new Date()
     };
     const result = await create(doc)
-    response(res, 'success', {data: result}, 'success create activity', 201);
+    return response(res, 'success', {data: result}, 'success create activity', 201);
   })
 
 export default handler

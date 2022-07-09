@@ -34,7 +34,7 @@ handler
     await worker.terminate();
     const regex = new RegExp(`${nik}$`,'m');
     if (!(ocr.data && regex.test(ocr.data.text))) {
-      response(res, 'failed', {data: null}, 'failed photo ktp tidak sesuai', 400);
+      return response(res, 'failed', {data: null}, 'failed photo ktp tidak sesuai', 400);
     }
 
     const doc: Member = {
@@ -53,7 +53,7 @@ handler
       photo_ktp: files ? files['photo_ktp'][0].filename : '',
     };
     const result = await create(doc)
-    response(res, 'success', {data: result}, 'success register member', 201);
+    return response(res, 'success', {data: result}, 'success register member', 201);
   })
 
 export default handler

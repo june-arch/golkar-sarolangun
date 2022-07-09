@@ -18,11 +18,11 @@ handler
         };
         const result = await findOneAdminByUserame(username);
         if(!result){
-            response(res, 'failed', { data: null }, 'user not found', 404);    
+            return response(res, 'failed', { data: null }, 'user not found', 404);    
         }
 
         if(!validatePassword(result, password)){
-            response(res, 'failed', { data: null }, 'wrong password', 400);
+            return response(res, 'failed', { data: null }, 'wrong password', 400);
         }
         const payload = {
             sub: result.id_admin,
@@ -37,7 +37,7 @@ handler
             username: result.username,
             token
         };
-        response(res, 'success', { data: data }, 'success login admin', 200);
+        return response(res, 'success', { data: data }, 'success login admin', 200);
     })
 
 export default handler

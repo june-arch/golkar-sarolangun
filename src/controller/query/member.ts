@@ -30,7 +30,9 @@ export const updateById = async (id: number, doc: Member) => {
         where: { 
             id_member: id,
         },
-        data: doc
+        data: {
+            ...doc,
+        }
     });
 }
 

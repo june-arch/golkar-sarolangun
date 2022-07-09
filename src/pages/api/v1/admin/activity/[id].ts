@@ -21,20 +21,20 @@ handler
     const value = Array.isArray(id) ? id[0] : id;
     const valueId = Number(value) || null;
     if(!valueId){
-        response(res, 'failed', {data: null}, 'invalid id', 400);    
+      return response(res, 'failed', {data: null}, 'invalid id', 400);    
     }
     const result = await findOneById(Number(valueId));
     if(!result){
-        response(res, 'failed', {data: null}, 'data not found', 404);
+      return response(res, 'failed', {data: null}, 'data not found', 404);
     }
-    response(res, 'success', {data: result}, 'get activity', 200);
+    return response(res, 'success', {data: result}, 'get activity', 200);
   })
   .delete( async (req, res) => {
     const { id } = req.query;
     const value = Array.isArray(id) ? id[0] : id;
     const valueId = Number(value) || null; 
     await deleteActivity(valueId)
-    response(res, 'success', {data: null}, 'delete activity', 200);
+    return response(res, 'success', {data: null}, 'delete activity', 200);
   })
   .use(uploadMultipleMiddleware('images/activity'))
   .put(validate({ body: activity }), async (req, res) => {
@@ -42,11 +42,11 @@ handler
     const value = Array.isArray(id) ? id[0] : id;
     const valueId = Number(value) || null;
     if(!valueId){
-        response(res, 'failed', {data: null}, 'invalid id', 400);    
+      return response(res, 'failed', {data: null}, 'invalid id', 400);    
     }
     const findActivity = await findOneById(valueId);
     if(!findActivity)
-      response(res, 'failed', {data: null}, 'id not found', 400);
+    return response(res, 'failed', {data: null}, 'id not found', 400);
     const { title, category_activity_id, video } = req.body;
     const { files, user } = req;
     await removeFileImages(files, findActivity);
@@ -65,9 +65,9 @@ handler
     };
     const result = await updateById(valueId, activity);
     if(!result){
-        response(res, 'failed', {data: null}, 'data not found', 404);
+      return response(res, 'failed', {data: null}, 'data not found', 404);
     }
-    response(res, 'success', {data: result}, 'update activity', 200);
+    return response(res, 'success', {data: result}, 'update activity', 200);
   })
 
   const removeFileImages = async (files: Express.Multer.File[], data: Activity) => {

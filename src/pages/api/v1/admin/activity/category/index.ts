@@ -20,7 +20,7 @@ handler
     const result = await findAllPagination(valuePage, valueLimit);
     const count = await countAll();
     if (!result) {
-      response(res, 'failed', { data: null }, 'data not found', 404);
+      return response(res, 'failed', { data: null }, 'data not found', 404);
     }
     const meta = {
       page: valuePage,
@@ -28,7 +28,7 @@ handler
       totalDataOnPage: result.length,
     }
 
-    responsePage(res, 'success', { data: result, meta }, 'get all category activity', 200);
+    return responsePage(res, 'success', { data: result, meta }, 'get all category activity', 200);
   })
   .post(async (req, res) => {
     const { name, description } = req.body;
@@ -37,7 +37,7 @@ handler
       description,
     };
     const result = await create(categoryactivity)
-    response(res, 'success', { data: result }, 'created new category activity', 201);
+    return response(res, 'success', { data: result }, 'created new category activity', 201);
   })
 
 export default handler
