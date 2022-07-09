@@ -46,7 +46,7 @@ handler
     }
     const findActivity = await findOneById(valueId);
     if(!findActivity)
-    return response(res, 'failed', {data: null}, 'id not found', 400);
+    return response(res, 'failed', {data: null}, 'id not found', 404);
     const { title, category_activity_id, video } = req.body;
     const { files, user } = req;
     await removeFileImages(files, findActivity);
