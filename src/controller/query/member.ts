@@ -7,7 +7,6 @@ export const create = async (payload: Member) => {
     const news: Member = {
         ...payload
     }
-    console.log(news)
     return await prisma.member.create({
         data:{
             ...news,
@@ -16,15 +15,16 @@ export const create = async (payload: Member) => {
 }
 
 export const findOneById = async (id: number) => {
-    const result = await prisma.member.findUnique({
+    const result = await prisma.member.findFirst({
         where:{
             id_member:id,
-        }
+            is_deleted: 0,
+        },
     })
     return result; 
 }
 
-export const updateById = async (id: number, doc: Member) => {
+export const updateById = async (id: number, doc: any) => {
     // Here you update the user based on id/username in the database
     return await prisma.member.update({
         where: { 
@@ -48,7 +48,7 @@ export const updateStatusById = async (id: number, status: number) => {
 }
 
 export const deleteMember = async (id: number) => {
-    // Here you should delete the user in the database
+    // middleware to soft delete
     return await prisma.member.delete({
         where: {
             id_member: id,
@@ -58,6 +58,9 @@ export const deleteMember = async (id: number) => {
 
 export const findAllPagination = async (page: number, limit: number) => {
     const result = await prisma.member.findMany({
+        where:{
+            is_deleted: 0,
+        },
         skip: (page-1)*limit,
         take: limit,
     });
@@ -65,7 +68,11 @@ export const findAllPagination = async (page: number, limit: number) => {
 }
 
 export const countAll = async () => {
-    const result = await prisma.member.count();
+    const result = await prisma.member.count({
+        where: {
+            is_deleted: 0,
+        }
+    });
     return result;
 }
 

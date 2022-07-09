@@ -9,7 +9,6 @@ import { unlinkByFileName } from '@/lib/filter-uploads'
 import validate from "@/controller/middleware/validation";
 import { configNext } from '@/controller/middleware/configNext'
 import { updateMember } from '@/controller/dto/member.dto'
-import { Member } from '@/controller/interface/member'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
 
@@ -35,11 +34,9 @@ handler
     const valueId = Number(value) || null; 
     const find = await findOneById(valueId);
     if(!find)
-      return response(res, 'failed', {data: null}, 'id not found', 400);
+      return response(res, 'failed', {data: null}, 'id not found', 404);
     
     await deleteMember(valueId)
-    unlinkByFileName('images/users', find.photo);
-    unlinkByFileName('images/users', find.photo_ktp);
     return response(res, 'success', {data: null}, 'delete member', 200);
   })
   .use(uploadDiffMiddleware('images/users'))
@@ -52,27 +49,31 @@ handler
     }
     const find = await findOneById(valueId);
     if(!find)
-      return response(res, 'failed', {data: null}, 'id not found', 400);
+      return response(res, 'failed', {data: null}, 'id not found', 404);
     
-    const { region_id, nik, fullname, address, phone_number, email, place_of_birth, date_of_birth, gender, status } = req.body;
+    const { region_id, status, date_of_birth, ...updateMember } = req.body;
     const { files, user } = req;
-    
-    const doc: Member = {
-      region_id: Number(region_id),
-      nik,
-      fullname,
-      address,
-      phone_number,
-      email,
-      place_of_birth,
-      date_of_birth: new Date(date_of_birth),
-      gender,
-      status: Number(status),
-      photo: files ? files['photo'][0].filename : '',
-      created_date: new Date(),
-      photo_ktp: files ? files['photo_ktp'][0].filename : '',
-    };
-    const result = await updateById(valueId, doc);
+
+    if(region_id){
+      updateMember['region_id'] = Number(region_id); 
+    }
+    if(date_of_birth){
+      updateMember['date_of_birth'] = new Date(date_of_birth);
+    }
+    if(status){
+      updateMember['status'] = Number(status)
+    }
+    if(files){
+      if(files['photo'] && files['photo'].length > 0){
+        updateMember['photo'] = files['photo'][0].filename;
+      }
+      if(files['photo_ktp'] && files['photo_ktp'].length > 0){
+        updateMember['photo_ktp'] = files['photo_ktp'][0].filename;
+      }
+    }
+    updateMember['updated_by'] = user.id_admin;
+
+    const result = await updateById(valueId, updateMember);
     if(!result){
         return response(res, 'failed', {data: null}, 'data not found', 404);
     }

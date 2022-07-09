@@ -5,14 +5,13 @@ import { NextApiRequestModify } from '@/controller/interface/admin'
 import { response } from '@/lib/wrapper'
 import { findOneById, updateStatusById } from '@/controller/query/member'
 import validate from "@/controller/middleware/validation";
-import { configNext } from '@/controller/middleware/configNext'
 import { updateStatusMember } from '@/controller/dto/member.dto'
 
-const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
+const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
 
 handler
   .use(jwt)
-  .patch(validate({ body: updateStatusMember }), async (req: NextApiRequestModify, res) => {
+  .put(validate({ body: updateStatusMember }), async (req: NextApiRequestModify, res) => {
     const { id } = req.query;
     const value = Array.isArray(id) ? id[0] : id;
     const valueId = Number(value) || null;
@@ -33,8 +32,3 @@ handler
   })
 
 export default handler
-export const config = {
-  api: {
-    bodyParser: false, // Disallow body parsing, consume as stream
-  },
-};

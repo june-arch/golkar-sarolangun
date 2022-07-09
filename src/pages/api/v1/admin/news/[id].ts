@@ -35,7 +35,7 @@ handler
     const valueId = Number(value) || null; 
     const findNews = await findOneById(valueId);
     if(!findNews)
-    return response(res, 'failed', {data: null}, 'id not found', 400);
+    return response(res, 'failed', {data: null}, 'id not found', 404);
     
     await deleteNews(valueId)
     unlinkByFileName('images/news', findNews.image);
@@ -51,7 +51,7 @@ handler
     }
     const findNews = await findOneById(valueId);
     if(!findNews)
-    return response(res, 'failed', {data: null}, 'id not found', 400);
+    return response(res, 'failed', {data: null}, 'id not found', 404);
     
     const { title, content, category_news_id, author } = req.body;
     const { file, user } = req;

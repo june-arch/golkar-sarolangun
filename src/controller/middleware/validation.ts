@@ -10,7 +10,6 @@ export default withJoi({
         data[err.context.key]=err.message;
         return data;
       });
-      console.log(errData)
       return response(res, 'failed', {data: errData}, 'bad request', 400);
     }
   },
