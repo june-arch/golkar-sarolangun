@@ -1,5 +1,4 @@
 import nextConnect from 'next-connect'
-import jwt from '@/controller/middleware/jwt'
 import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/controller/interface/admin'
 import { response } from '@/lib/wrapper'
@@ -9,15 +8,15 @@ import { uploadDiffMiddleware } from '@/controller/middleware/uploads'
 
 import validate from "@/controller/middleware/validation";
 import { configNext } from '@/controller/middleware/configNext'
-import { member } from '@/controller/dto/member.dto'
-import Tesseract, { createWorker } from 'tesseract.js';
+import { createMember } from '@/controller/dto/member.dto'
 import { readFileSync } from 'fs'
+import { createWorker } from 'tesseract.js'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
 
 handler
   .use(uploadDiffMiddleware('images/users'))
-  .post(validate({ body: member }), async (req: NextApiRequestModify, res: NextApiResponse) => {
+  .post(validate({ body: createMember }), async (req: NextApiRequestModify, res: NextApiResponse) => {
     const { region_id, nik, fullname, address, phone_number, email, place_of_birth, date_of_birth, gender, status } = req.body;
     const { file, files, user } = req;
     const config = {

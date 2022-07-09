@@ -70,6 +70,8 @@ model member {
   admin_id       Int?
   updated_by     Int?
   updated_date   DateTime?      @default(now()) @db.DateTime(0)
+  is_deleted     Int?
+  deleted_date   DateTime?      @db.DateTime(0)
   admin          admin?         @relation(fields: [admin_id], references: [id_admin], onDelete: Restrict, onUpdate: Restrict, map: "member_ibfk_2")
   region         region         @relation(fields: [region_id], references: [id_regional], onUpdate: Restrict, map: "member_ibfk_1")
 
@@ -101,23 +103,6 @@ model region {
   name            String   @db.VarChar(25)
   kemendagri_code String?  @db.VarChar(10)
   member          member[]
-}
-
-model member_log_delete {
-  id         Int      @id @default(autoincrement())
-  member_id  Int?
-  deleted_at DateTime @default(now()) @db.DateTime(0)
-  action     String?  @db.VarChar(200)
-}
-
-model member_log_update {
-  id         Int      @id @default(autoincrement())
-  member_id  Int?
-  admin_id   Int?
-  before     String?  @db.VarChar(500)
-  after      String?  @db.VarChar(500)
-  updated_at DateTime @default(now()) @db.DateTime(0)
-  action     String?  @db.VarChar(200)
 }
 
 model user_log {

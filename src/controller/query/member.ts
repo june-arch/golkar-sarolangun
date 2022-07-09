@@ -35,6 +35,17 @@ export const updateById = async (id: number, doc: Member) => {
         }
     });
 }
+export const updateStatusById = async (id: number, status: number) => {
+    // Here you update the user based on id/username in the database
+    return await prisma.member.update({
+        where: { 
+            id_member: id,
+        },
+        data: {
+            status,
+        }
+    });
+}
 
 export const deleteMember = async (id: number) => {
     // Here you should delete the user in the database

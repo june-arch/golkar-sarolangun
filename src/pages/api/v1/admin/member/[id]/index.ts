@@ -8,7 +8,7 @@ import { uploadDiffMiddleware } from '@/controller/middleware/uploads'
 import { unlinkByFileName } from '@/lib/filter-uploads'
 import validate from "@/controller/middleware/validation";
 import { configNext } from '@/controller/middleware/configNext'
-import { member } from '@/controller/dto/member.dto'
+import { updateMember } from '@/controller/dto/member.dto'
 import { Member } from '@/controller/interface/member'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
@@ -43,7 +43,7 @@ handler
     return response(res, 'success', {data: null}, 'delete member', 200);
   })
   .use(uploadDiffMiddleware('images/users'))
-  .patch(validate({ body: member }), async (req: NextApiRequestModify, res) => {
+  .patch(validate({ body: updateMember }), async (req: NextApiRequestModify, res) => {
     const { id } = req.query;
     const value = Array.isArray(id) ? id[0] : id;
     const valueId = Number(value) || null;
