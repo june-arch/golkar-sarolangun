@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import { contentOne } from '@/lib/data';
 import { NavItem } from '@/controller/interface/types';
 
-import Footer from '@/components/layout/Footer';
-import Layout from '@/components/layout/Layout';
-import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/landing-page/Footer';
+import Layout from '@/components/landing-page/Layout';
+import Navbar from '@/components/landing-page/Navbar';
 import Image from 'next/image';
 
 

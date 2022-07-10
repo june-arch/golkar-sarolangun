@@ -10,15 +10,12 @@ export const Sidenav = () => {
   const { open, setOpen } = useMenuContext();
   return (
     <>
-      {/* this is the ovelay faster duration */}
       <div
         onClick={() => setOpen(false)}
-        className={`fixed inset-y-0 inset-x-0 ${open ? "translate-x-0" : "-translate-x-full"
-          }  transition-all duration-75 bg-[#3a3a3a70]`}
+        className={`fixed inset-y-0 inset-x-0 ${open ? "translate-x-0" : "-translate-x-full"}  transition-all duration-75 bg-[#3a3a3a70]`}
       />
       <div
-        className={`fixed w-80 z-50  bg-gray-600 h-full ${open ? "translate-x-0" : "-translate-x-full"
-          } transform transition-all duration-300 overflow-y-auto`}
+        className={`fixed w-80 z-50  bg-gray-600 h-full ${open ? "translate-x-0" : "-translate-x-full"} transform transition-all duration-300 overflow-y-auto`}
       >
         <div className="flex space-x-3 items-center justify-center p-10">
           <button className="absolute right-4" onClick={() => setOpen(!open)}>
@@ -26,8 +23,7 @@ export const Sidenav = () => {
           </button>
           <Link href="/">
             <a>
-              <span className="text-2xl text-gray-50">DEABB.</span>
-              <span className="text-2xl text-yellow-500">ONLINE</span>
+              <span className="text-2xl text-yellow-500">GOLKAR SAROLANGUN</span>
             </a>
           </Link>
         </div>

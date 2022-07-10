@@ -1,11 +1,17 @@
 import { useFormik } from 'formik'
 import * as Yup from 'yup';
 import React from 'react'
+import { postLogin } from '@/service/admin/auth.admin';
+import { useRouter } from 'next/router';
+import { useAppDispatch } from '@/components/hook';
+import { setIsLogin, setToken } from '@/context/auth-slice';
+
 
 const login = () => {
-
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const formik = useFormik({
-    initialValues:{
+    initialValues: {
       username: '',
       password: '',
     },
@@ -17,12 +23,21 @@ const login = () => {
         .max(20, 'Must be 20 characters or less')
         .required('Required'),
     }),
-    onSubmit: values => {
-      alert(JSON.stringify(values, null, 2))
+    onSubmit: async values => {
+      const { data, code } = await postLogin(values);
+      if (code !== 200) {
+        formik.errors.username = 'username salah';
+        formik.errors.password = 'password salah';
+      }
+      if (data) {
+        dispatch(setIsLogin(true))
+        dispatch(setToken(data.token))
+        router.push('/admin')
+      }
     }
   });
-
-
+  
+  
   return (
     <section className="h-screen">
       <div className="px-6 h-full text-gray-800">
@@ -65,6 +80,7 @@ const login = () => {
               <div className="text-center lg:text-left">
                 <button
                   type="submit"
+                  disabled={formik.isSubmitting}
                   className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 >
                   Login

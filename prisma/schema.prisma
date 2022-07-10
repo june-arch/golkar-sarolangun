@@ -71,7 +71,7 @@ model member {
   updated_by     Int?
   updated_date   DateTime?      @default(now()) @db.DateTime(0)
   is_deleted     Int?
-  deleted_date   DateTime?      @default(now()) @db.DateTime(0)
+  deleted_date   DateTime?      @db.DateTime(0)
   admin          admin?         @relation(fields: [admin_id], references: [id_admin], onDelete: Restrict, onUpdate: Restrict, map: "member_ibfk_2")
   region         region         @relation(fields: [region_id], references: [id_regional], onUpdate: Restrict, map: "member_ibfk_1")
 

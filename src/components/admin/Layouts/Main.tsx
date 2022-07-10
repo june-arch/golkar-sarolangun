@@ -1,8 +1,7 @@
 import { MenuProvider } from "@/context/Menu.context"
 import React from "react"
-
-import { Header } from "../header/Header"
-import { Sidenav } from "../sidenav/Sidenav"
+import { Header } from "../Header"
+import { Sidenav } from "../Sidenav"
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
 

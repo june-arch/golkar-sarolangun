@@ -2,9 +2,10 @@ import React from 'react'
 
 import { weeklyData } from '@/lib/utils/weeklyData'
 
-import { Cards } from '@/components/admin/cards/Card'
-import { LatestOrders } from '@/components/admin/LatestOrders/LatestOrders'
+import { Cards } from '@/components/admin/Card'
+import { LatestOrders } from '@/components/admin/LatestOrders'
 import { Layout } from '@/components/admin/Layouts/Main'
+
 
 const index = () => {
   return (

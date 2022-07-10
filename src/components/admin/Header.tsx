@@ -5,18 +5,24 @@ import Link from "next/link";
 import { headerRightItemsLogin } from "@/lib/utils/headerRight/headerRightItems";
 
 import { useMenuContext } from "@/context/Menu.context";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../hook";
+import { selectIsLogin, setIsLogin, setToken } from "@/context/auth-slice";
+import { useRouter } from "next/router";
+
 
 export const Header = () => {
-  const { isLogin, setIsLogin, setOpen } = useMenuContext();
-
-  useEffect(() => {
-    const sess = localStorage.getItem("sessLogin");
-    console.log(sess)
-
-    return sess ? setIsLogin(true) : setIsLogin(false);
-  }, [isLogin])
-
+  const dispatch = useAppDispatch();
+  const { setOpen } = useMenuContext();
+  const isLogin = useAppSelector(selectIsLogin);
+  const router = useRouter();
+  const handleLogout = (e, path: string) => {
+    setTimeout(() => {
+      dispatch(setIsLogin(false));
+      dispatch(setToken(null));  
+    }, 1000);
+    return router.push(path);
+  }
   const menuIsLogin = () => {
     const layout = (
       <Menu>
@@ -28,14 +34,12 @@ export const Header = () => {
           as="div"
           className="absolute top-full bg-gray-600 w-full flex space-y-2 flex-col "
         >
-          {headerRightItemsLogin.map(({ title, icon }, index) => (
+          {headerRightItemsLogin.map(({ title, icon, link }, index) => (
             <Menu.Item key={index}>
-              <Link href="/">
-                <a className="flex p-4 hover:bg-gray-500 text-gray-50 space-x-3">
-                  <span>{icon}</span>
-                  <span>{title}</span>
-                </a>
-              </Link>
+              <a onClick={(e) => handleLogout(e, link)} className="flex p-4 hover:bg-gray-500 text-gray-50 space-x-3">
+                <span>{icon}</span>
+                <span>{title}</span>
+              </a>
             </Menu.Item>
           ))}
         </Menu.Items>
@@ -56,6 +60,7 @@ export const Header = () => {
     return layout;
   }
 
+
   return (
     <div className="bg-gray-600 p-10 flex flex-col md:flex-row  md:space-y-0 items-center space-y-5 justify-around">
       <div className="flex space-x-3 items-center justify-center">
@@ -64,7 +69,7 @@ export const Header = () => {
         </button>
         <Link href="/admin">
           <a>
-            <span className="text-3xl text-yellow-500">GOLKAR.SAROLANGUN</span>
+            <span className="text-3xl text-yellow-500">GOLKAR SAROLANGUN</span>
           </a>
         </Link>
       </div>

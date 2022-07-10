@@ -1,16 +1,19 @@
 export const tabelHeader = [
     {
-        title: "Order #"
+        title: "no"
     },
     {
-        title: "Product name"
+        title: "fullname"
     },
 
     {
-        title: "Quantity"
+        title: "gender"
     },
     {
-        title: "Status "
+        title: "status"
+    },
+    {
+        title: "created"
     },
 ]
 

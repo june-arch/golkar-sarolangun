@@ -10,14 +10,14 @@ import {
 } from '@/lib/data';
 import { CardIdiom, NavItem, NewsItem, VideoItem } from '@/controller/interface/types';
 
-import Card from '@/components/layout/Card';
-import ContactUs from '@/components/layout/ContactUs';
-import Footer from '@/components/layout/Footer';
-import JoinUs from '@/components/layout/JoinUs';
-import Layout from '@/components/layout/Layout';
-import Navbar from '@/components/layout/Navbar';
-import News from '@/components/layout/News';
-import FloatingWhatsApp from '@/components/layout/FloatingWhatsapp';
+import Card from '@/components/landing-page/Card';
+import ContactUs from '@/components/landing-page/ContactUs';
+import Footer from '@/components/landing-page/Footer';
+import JoinUs from '@/components/landing-page/JoinUs';
+import Layout from '@/components/landing-page/Layout';
+import Navbar from '@/components/landing-page/Navbar';
+import News from '@/components/landing-page/News';
+import FloatingWhatsApp from '@/components/landing-page/FloatingWhatsapp';
 
 // const axios = request.default;
 type Props = {
@@ -33,7 +33,7 @@ export default function HomePage({
   newsItem,
   cardIdiom,
 }: Props) {
-  const Player = dynamic(() => import('@/components/layout/Video'));
+  const Player = dynamic(() => import('@/components/landing-page/Video'));
   return (
     <Layout>
 
