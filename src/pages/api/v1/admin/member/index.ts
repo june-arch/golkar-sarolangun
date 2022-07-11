@@ -25,6 +25,7 @@ handler
       page: valuePage,
       totalData: count,
       totalDataOnPage: result.length,
+      totalPage: Math.ceil(count / valueLimit),
     }
 
     return responsePage(res, 'success', { data: result, meta }, 'get all member', 200);

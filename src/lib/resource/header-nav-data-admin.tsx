@@ -4,6 +4,6 @@ export const headerRightItemsLogin = [
     {
         title: "Logout",
         icon: <LogoutIcon className='h-7 w-7 text-2xl '/>,
-        link: '/admin/login',
+        link: '/admin/auth/login',
     },
 ]

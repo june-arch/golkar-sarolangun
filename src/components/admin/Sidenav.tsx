@@ -21,21 +21,21 @@ export const Sidenav = () => {
           <button className="absolute right-4" onClick={() => dispatch(setOpen(!open))}>
             <XIcon className="h-8 w-8 text-gray-50" />
           </button>
-          <Link href="/">
+          <Link href="/admin">
             <a>
               <span className="text-2xl text-yellow-500">GOLKAR SAROLANGUN</span>
             </a>
           </Link>
         </div>
-        {navData.menuItems.map((item, index) => (
+        {navData.menuItems.map((value, index) => (
           <div key={index} className="flex flex-col space-y-2 mb-2">
-            {item.items.map(({ seconTitle, title, icon }, index) => (
+            {value.items.map(({ seconTitle, title, icon, link }, index) => (
               <div key={index} className="text-gray-50 flex flex-col">
                 {seconTitle && (
                   <span className="pl-5 text-gray-400">{seconTitle}</span>
                 )}
                 {title && (
-                  <Link href="/">
+                  <Link href={link}>
                     <a
                       className="flex space-x-4 items-center p-4 hover:bg-gray-500 text-gray-50"
                       onClick={() => dispatch(setOpen(!open))}

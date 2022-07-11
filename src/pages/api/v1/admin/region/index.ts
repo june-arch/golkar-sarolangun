@@ -19,13 +19,14 @@ handler
     const valueLimit = Number(dataLimit) || 10;
     const result = await findAllPagination(valuePage, valueLimit);
     const count = await countAll();
-    if (!result) {
+    if (result.length == 0) {
       return response(res, 'failed', { data: null }, 'data not found', 404);
     }
     const meta = {
       page: valuePage,
       totalData: count,
       totalDataOnPage: result.length,
+      totalPage: Math.ceil(count / valueLimit),
     }
 
     return responsePage(res, 'success', { data: result, meta }, 'get all regional', 200);

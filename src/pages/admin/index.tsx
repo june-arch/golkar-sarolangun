@@ -3,8 +3,9 @@ import React from 'react'
 import { weeklyData } from '@/lib/resource/weekly-data-admin'
 
 import { Cards } from '@/components/admin/Card'
-import { LatestOrders } from '@/components/admin/LatestOrders'
-import { Layout } from '@/components/admin/Layouts/Main'
+import { Table } from '@/components/admin/Table'
+import { Layout } from '@/components/admin/layout/Main'
+import { tableAdmin } from '@/lib/resource/table-admin'
 
 
 const index = () => {
@@ -21,7 +22,7 @@ const index = () => {
             ))}
           </div>
         </div>
-        <LatestOrders />
+        <Table title={tableAdmin.MEMBER} />
       </div>
     </Layout>
   )
