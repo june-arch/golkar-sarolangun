@@ -7,7 +7,7 @@ import {
   contentOne,
   contentTwo,
   contentVideo,
-} from '@/lib/data';
+} from '@/lib/resource/nav-data';
 import { CardIdiom, NavItem, NewsItem, VideoItem } from '@/controller/interface/types';
 
 import Card from '@/components/landing-page/Card';

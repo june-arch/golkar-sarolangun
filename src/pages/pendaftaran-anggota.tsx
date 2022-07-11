@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import React from 'react';
 
-import { contentOne } from '@/lib/data';
+import { contentOne } from '@/lib/resource/nav-data';
 import { NavItem } from '@/controller/interface/types';
 
 import Footer from '@/components/landing-page/Footer';

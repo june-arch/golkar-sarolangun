@@ -2,19 +2,18 @@ import { Menu } from "@headlessui/react";
 import { MenuIcon, UserIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 
-import { headerRightItemsLogin } from "@/lib/utils/headerRight/headerRightItems";
+import { headerRightItemsLogin } from "@/lib/resource/header-nav-data-admin";
 
-import { useMenuContext } from "@/context/Menu.context";
-import { useEffect, useLayoutEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hook";
-import { selectIsLogin, setIsLogin, setToken } from "@/context/auth-slice";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hook";
+import { selectIsLogin, setIsLogin, setToken } from "@/lib/redux/slice/auth-slice-admin";
 import { useRouter } from "next/router";
+import { selectOpen, setOpen } from "@/lib/redux/slice/navigation-slice-admin";
 
 
 export const Header = () => {
   const dispatch = useAppDispatch();
-  const { setOpen } = useMenuContext();
   const isLogin = useAppSelector(selectIsLogin);
+  const open = useAppSelector(selectOpen);
   const router = useRouter();
   const handleLogout = (e, path: string) => {
     setTimeout(() => {
@@ -64,7 +63,7 @@ export const Header = () => {
   return (
     <div className="bg-gray-600 p-10 flex flex-col md:flex-row  md:space-y-0 items-center space-y-5 justify-around">
       <div className="flex space-x-3 items-center justify-center">
-        <button onClick={() => setOpen(true)}>
+        <button onClick={() => dispatch(setOpen(!open))}>
           <MenuIcon className="h-8 w-8 text-gray-50" />
         </button>
         <Link href="/admin">

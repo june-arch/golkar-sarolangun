@@ -1,4 +1,4 @@
-import { Data } from "@/lib/utils/weeklyData";
+import { Data } from "@/lib/resource/weekly-data-admin";
 type Props = {
   items: Data
 }

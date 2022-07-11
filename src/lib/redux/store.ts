@@ -3,14 +3,16 @@ import {
     configureStore,
     ThunkAction,
 } from '@reduxjs/toolkit';
-import authReducer from '../context/auth-slice';
 import storage from 'redux-persist/lib/storage';
 import {combineReducers} from "redux";
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
+import authReducer from './slice/auth-slice-admin';
+import navigationReducer from './slice/navigation-slice-admin';
 
 const reducers = combineReducers({
     auth: authReducer,
+    navigationAdmin: navigationReducer,
 })
 
 const persistConfig = {

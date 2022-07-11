@@ -3,8 +3,8 @@ import * as Yup from 'yup';
 import React from 'react'
 import { postLogin } from '@/service/admin/auth.admin';
 import { useRouter } from 'next/router';
-import { useAppDispatch } from '@/components/hook';
-import { setIsLogin, setToken } from '@/context/auth-slice';
+import { useAppDispatch } from '@/lib/redux/hook';
+import { setIsLogin, setToken } from '@/lib/redux/slice/auth-slice-admin';
 
 
 const login = () => {

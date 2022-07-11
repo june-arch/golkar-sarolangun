@@ -1,24 +1,24 @@
 import { XIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 
-import { navData } from "@/lib/utils/sidenavitems";
-
-import { useMenuContext } from "@/context/Menu.context";
-
+import { navData } from "@/lib/resource/side-nav-data-admin";
+import { selectOpen, setOpen } from "@/lib/redux/slice/navigation-slice-admin";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hook";
 
 export const Sidenav = () => {
-  const { open, setOpen } = useMenuContext();
+  const dispatch = useAppDispatch();
+  const open = useAppSelector(selectOpen);
   return (
     <>
       <div
-        onClick={() => setOpen(false)}
+        onClick={() => dispatch(setOpen(!open))}
         className={`fixed inset-y-0 inset-x-0 ${open ? "translate-x-0" : "-translate-x-full"}  transition-all duration-75 bg-[#3a3a3a70]`}
       />
       <div
         className={`fixed w-80 z-50  bg-gray-600 h-full ${open ? "translate-x-0" : "-translate-x-full"} transform transition-all duration-300 overflow-y-auto`}
       >
         <div className="flex space-x-3 items-center justify-center p-10">
-          <button className="absolute right-4" onClick={() => setOpen(!open)}>
+          <button className="absolute right-4" onClick={() => dispatch(setOpen(!open))}>
             <XIcon className="h-8 w-8 text-gray-50" />
           </button>
           <Link href="/">
@@ -38,7 +38,7 @@ export const Sidenav = () => {
                   <Link href="/">
                     <a
                       className="flex space-x-4 items-center p-4 hover:bg-gray-500 text-gray-50"
-                      onClick={() => setOpen(false)}
+                      onClick={() => dispatch(setOpen(!open))}
                     >
                       <span>{icon}</span>
                       <span className="text-lg capitalize ">{title}</span>

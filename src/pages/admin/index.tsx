@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { weeklyData } from '@/lib/utils/weeklyData'
+import { weeklyData } from '@/lib/resource/weekly-data-admin'
 
 import { Cards } from '@/components/admin/Card'
 import { LatestOrders } from '@/components/admin/LatestOrders'

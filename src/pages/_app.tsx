@@ -4,8 +4,7 @@ import { AppProps } from "next/app";
 import { Provider } from 'react-redux';
 
 import '@/styles/globals.css';
-import { store } from '@/components/store';
-import { MenuProvider } from '@/context/Menu.context';
+import { store } from '@/lib/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 TimeAgo.setDefaultLocale(en.locale);
@@ -17,9 +16,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <MenuProvider>
-            <Component {...pageProps} />
-          </MenuProvider>
+          <Component {...pageProps} />
         </PersistGate>
       </Provider>
   );

@@ -38,9 +38,3 @@ export const weeklyData: Data[] = [
         bigIcon: <FcDoughnutChart className='h-28 w-28 text-yellow-800' />
     }
 ]
-
-
-// i have already prepared this data, link in the description as usual 
-
-
-// we will continue and build real charts next part. thank u for watching...
