@@ -49,7 +49,7 @@ export const Header = () => {
 
   const menuIsLogout = () => {
     const layout = (
-      <Link href="/admin/login">
+      <Link href="/admin/auth/login">
         <a className="flex px-10 py-2 border-gray-50 border-2 space-x-3 text-gray-50  rounded-md">
           <UserIcon className="h-5 w-5 " />
           <span>Login</span>

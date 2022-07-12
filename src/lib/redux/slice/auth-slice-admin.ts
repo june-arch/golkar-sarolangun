@@ -8,11 +8,13 @@ import {
 export type authState = {
     isLogin: boolean;
     token: string;
+    expirated: number;
 };
 
 const initialState: authState = {
     isLogin: false,
-    token: null
+    token: null,
+    expirated: 0,
 };
 
 export const authSlice = createSlice({
@@ -29,6 +31,7 @@ export const authSlice = createSlice({
         },
         setToken: (state, action: PayloadAction<string>) => {
             state.token = action.payload;
+            state.expirated = action.payload ? new Date().getTime() : 0;
         },
     },
 });
@@ -41,6 +44,7 @@ export const {
 // calling the above actions would be useless if we could not access the data in the state. So, we use something called a selector which allows us to select a value from the state.
 export const selectIsLogin = (state: RootState) => state.auth.isLogin;
 export const selectToken = (state: RootState) => state.auth.token;
+export const selectExpirated = (state: RootState) => state.auth.expirated;
 
 // exporting the reducer here, as we need to add this to the store
 export default authSlice.reducer;

@@ -1,29 +1,25 @@
 export const paginate = (currentPage, totalPages) => {
-    let endPage = totalPages;
-    
-    let pages = [];
-    if (currentPage >= totalPages - 3 && totalPages > 3) {
-        totalPages != 4 && pages.push(1);
-        totalPages != 4 && pages.push('...');
-        for (let i =totalPages - 3; i <= totalPages; i++) {
-            pages.push(i);
-        }
-    } else {
-        let limit = 3;
-        endPage < limit && (limit = endPage);
-        if(totalPages <= 3){
-            for (let i = 1; i <= limit; i++) {
-                pages.push(i);
-            }
-        }else{
-            for (let i = currentPage; i < currentPage + limit; i++) {
-                pages.push(i);
-            }
-        }
 
-        if (endPage > 3) {
-            pages.push('...');
-            pages.push(endPage);
+    let pages = [];
+
+    let limit = 5;
+    if (totalPages > limit) {
+        const nearEnd = totalPages - limit;
+        if(currentPage > nearEnd){
+            for (let i = nearEnd + 1; i <= totalPages; i++) {
+                pages.push(i);
+            }
+        }
+        if(currentPage <= nearEnd){
+            for (let i = 0; i < limit; i++) {
+                pages.push(currentPage + i);
+            }
+        }
+    }
+    if(totalPages <= limit) {
+        totalPages < limit && (limit = totalPages);
+        for (let i = 0; i < limit; i++) {
+            pages.push(i+1);
         }
     }
     return pages;
