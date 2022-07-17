@@ -40,6 +40,24 @@ export const useGetNewsCategories = (
     isError: error,
   }
 }
+export const useGetNewsCategoryList = (token: string) => {
+    const { data, error }: SWRResponse<any, any> = useSWR(
+    [
+      `${address}/list`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    ],
+    fetcher
+  )
+  return {
+    newsCategory: data,
+    isLoading: !error && !data,
+    isError: error,
+  }
+}
 
 export const useGetNewsCategory = (params: { id: string }, token: string) => {
   const { id } = params

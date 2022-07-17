@@ -1,23 +1,12 @@
-export const Form = ({ formik, header, children }) => {
+import { Input } from "./Input"
+
+export const Form = ({ formik, header, data, content, children } : {formik:any, header:any, data?:any, content?: any, children?:any}) => {
   return (
     <div className="w-full">
       {children}
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
         {header.map((value, key) => (
-          <div className="mb-6" key={key}>
-          <input
-            type="text"
-            className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-            id={value}
-            name={value}
-            onChange={formik.handleChange}
-            value={formik.values[value]}
-            placeholder={`Name of ${value}`}
-          />
-          {formik.touched[value] && formik.errors[value] ? (
-            <p className=" text-red-500">{formik.errors[value]}</p>
-          ) : null}
-        </div>
+          <Input value={value} formik={formik} data={data} content={content} key={key}/>
         ))}
 
         <div className="text-center lg:text-left">

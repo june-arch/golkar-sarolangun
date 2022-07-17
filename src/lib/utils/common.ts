@@ -10,7 +10,7 @@ export const formatDate = (dateString: string) => {
 
 export const isDate = function (value: string) {
   const checkDate = Date.parse(value)
-  if(value){
+  if (value) {
     if (Number(value)) {
       return false
     }
@@ -23,4 +23,49 @@ export const isDate = function (value: string) {
     }
   }
   return checkDate
+}
+
+export function checkIfFilesAreTooBigArr(files?: [File]): boolean {
+  let valid = true
+  if (files) {
+    files.map(file => {
+      const size = file.size / 1024 / 1024
+      if (size > 10) {
+        valid = false
+      }
+    })
+  }
+  return valid
+}
+
+export function checkIfFilesAreCorrectTypeArr(files?: [File]): boolean {
+  let valid = true
+  if (files) {
+    files.map(file => {
+      if (!['application/pdf', 'image/jpeg', 'image/png'].includes(file.type)) {
+        valid = false
+      }
+    })
+  }
+  return valid
+}
+
+export function checkIfFilesAreTooBig(file?: File): boolean {
+  let valid = true
+  if (file) {
+    if (file.size >  (1000 * 1024)) {
+      valid = false
+    }
+  }
+  return valid
+}
+
+export function checkIfFilesAreCorrectType(file?: File): boolean {
+  let valid = true
+  if (file) {
+    if (!['image/jpg', 'image/jpeg', 'image/png'].includes(file.type)) {
+      valid = false
+    }
+  }
+  return valid
 }

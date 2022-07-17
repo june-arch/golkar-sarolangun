@@ -2,8 +2,10 @@ import useSWR, { SWRResponse } from 'swr'
 
 const domain = process.env.DOMAIN_API
 const address = `${domain}/api/v1/admin/news`
-const fetcher = (...args: [string, object]) =>
-  fetch(...args).then((res) => res.json())
+const fetcher = async (...args: [string, object]) => {
+  const res = await fetch(...args)
+  return res.json()
+}
 
 type responsePage = {
   success: boolean
@@ -41,7 +43,7 @@ export const useGetNewss = (
   }
 }
 
-export const useGeNews = (params: { id: string }, token: string) => {
+export const useGetNews = (params: { id: string }, token: string) => {
   const { id } = params
   const { data, error } = useSWR([`${address}/${id}`, {
     headers: {
@@ -56,17 +58,23 @@ export const useGeNews = (params: { id: string }, token: string) => {
 }
 
 export const postNews = async (
-  payload: { name: string; kemendagri_code: string },
+  payload,
   token: string
 ) => {
+  const formData = new FormData();
+  Object.keys(payload).forEach(key => {
+    formData.append(key, payload[key]);
+  });
   const result = await fetcher(address, {
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Accept': '*/*',
       Authorization: `Bearer ${token}`,
     },
+    onUploadProgress: (event) => {
+      console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
+    },
     method: 'POST',
-    body: JSON.stringify(payload),
+    body: formData,
   })
   return result
 }
