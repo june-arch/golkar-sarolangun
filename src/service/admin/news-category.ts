@@ -56,7 +56,7 @@ export const useGetNewsCategory = (params: { id: string }, token: string) => {
 }
 
 export const postNewsCategory = async (
-  payload: { name: string; kemendagri_code: string },
+  payload: { name: string; description: string },
   token: string
 ) => {
   const result = await fetcher(address, {
@@ -71,8 +71,8 @@ export const postNewsCategory = async (
   return result
 }
 
-export const patchNewsCategory = async (
-  payload: { name?: string; kemendagri_code?: string },
+export const putNewsCategory = async (
+  payload: { name: string; description: string },
   id,
   token: string
 ) => {
@@ -82,7 +82,7 @@ export const patchNewsCategory = async (
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-    method: 'PATCH',
+    method: 'PUT',
     body: JSON.stringify(payload),
   })
   return result

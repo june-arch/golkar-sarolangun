@@ -44,7 +44,7 @@ function GetNewsCategorySwr() {
     const pages = paginate(page, meta.totalPage);
     return (
         <Table
-            title="Activity Category"
+            title="News Category"
             header={headerItemNewsCateogries}
             data={data}
             page={page}
@@ -53,7 +53,7 @@ function GetNewsCategorySwr() {
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             handleAdd={handleAdd}
-            id="id_category_activity"
+            id="id_category_news"
         >
             <nav
                 aria-label="Page navigation"
