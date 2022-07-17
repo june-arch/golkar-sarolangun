@@ -1,26 +1,29 @@
-import { Menu } from "@headlessui/react";
-import { MenuIcon, UserIcon } from "@heroicons/react/outline";
-import Link from "next/link";
+import { Menu } from '@headlessui/react'
+import { MenuIcon, UserIcon } from '@heroicons/react/outline'
+import Link from 'next/link'
 
-import { headerRightItemsLogin } from "@/lib/resource/header-nav-data-admin";
+import { headerRightItemsLogin } from '@/lib/resource/header-nav-data-admin'
 
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hook";
-import { selectIsLogin, setIsLogin, setToken } from "@/lib/redux/slice/auth-slice-admin";
-import { useRouter } from "next/router";
-import { selectOpen, setOpen } from "@/lib/redux/slice/navigation-slice-admin";
-
+import { useAppDispatch, useAppSelector } from '@/lib/redux/hook'
+import {
+  selectIsLogin,
+  setIsLogin,
+  setToken,
+} from '@/lib/redux/slice/auth-slice-admin'
+import { useRouter } from 'next/router'
+import { selectOpen, setOpen } from '@/lib/redux/slice/navigation-slice-admin'
 
 export const Header = () => {
-  const dispatch = useAppDispatch();
-  const isLogin = useAppSelector(selectIsLogin);
-  const open = useAppSelector(selectOpen);
-  const router = useRouter();
+  const dispatch = useAppDispatch()
+  const isLogin = useAppSelector(selectIsLogin)
+  const open = useAppSelector(selectOpen)
+  const router = useRouter()
   const handleLogout = (e, path: string) => {
     setTimeout(() => {
-      dispatch(setIsLogin(false));
-      dispatch(setToken(null));  
-    }, 1000);
-    return router.push(path);
+      dispatch(setIsLogin(false))
+      dispatch(setToken(null))
+    }, 1000)
+    return router.push(path)
   }
   const menuIsLogin = () => {
     const layout = (
@@ -35,7 +38,10 @@ export const Header = () => {
         >
           {headerRightItemsLogin.map(({ title, icon, link }, index) => (
             <Menu.Item key={index}>
-              <a onClick={(e) => handleLogout(e, link)} className="flex p-4 hover:bg-gray-500 text-gray-50 space-x-3">
+              <a
+                onClick={(e) => handleLogout(e, link)}
+                className="flex p-4 hover:bg-gray-500 text-gray-50 space-x-3"
+              >
                 <span>{icon}</span>
                 <span>{title}</span>
               </a>
@@ -44,7 +50,7 @@ export const Header = () => {
         </Menu.Items>
       </Menu>
     )
-    return layout;
+    return layout
   }
 
   const menuIsLogout = () => {
@@ -56,9 +62,8 @@ export const Header = () => {
         </a>
       </Link>
     )
-    return layout;
+    return layout
   }
-
 
   return (
     <div className="bg-gray-600 p-10 flex flex-col md:flex-row  md:space-y-0 items-center space-y-5 justify-around">
@@ -72,9 +77,7 @@ export const Header = () => {
           </a>
         </Link>
       </div>
-      <div className="relative">
-        {isLogin ? menuIsLogin() : menuIsLogout()}
-      </div>
+      <div className="relative">{isLogin ? menuIsLogin() : menuIsLogout()}</div>
     </div>
-  );
-};
+  )
+}

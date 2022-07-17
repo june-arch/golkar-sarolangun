@@ -1,9 +1,9 @@
-import { Data } from "@/lib/resource/weekly-data-admin";
+import { Data } from '@/lib/resource/weekly-data-admin'
 type Props = {
   items: Data
 }
 export const Cards = ({ items }: Props) => {
-  const { title, description, smallIcon, bigIcon, amount } = items || {};
+  const { title, description, smallIcon, bigIcon, amount } = items || {}
   return (
     <div className="flex p-5 bg-gray-100 rounded items-center justify-around">
       <div className="flex flex-col items-center space-y-3">
@@ -16,9 +16,9 @@ export const Cards = ({ items }: Props) => {
         </div>
       </div>
       <div>
-        {" "}
+        {' '}
         <span className="text-9xl">{bigIcon}</span>
       </div>
     </div>
-  );
-};
+  )
+}

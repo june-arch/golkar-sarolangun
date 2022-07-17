@@ -1,42 +1,41 @@
-import { GetStaticProps } from 'next';
-import React, { useState } from 'react';
+import { GetStaticProps } from 'next'
+import React, { useState } from 'react'
 
-import { contentOne } from '@/lib/resource/nav-data';
-import { NavItem } from '@/controller/interface/types';
+import { contentOne } from '@/lib/resource/nav-data'
+import { NavItem } from '@/controller/interface/types'
 
-import Footer from '@/components/landing-page/Footer';
-import Layout from '@/components/landing-page/Layout';
-import Navbar from '@/components/landing-page/Navbar';
-import Image from 'next/image';
-
+import Footer from '@/components/landing-page/Footer'
+import Layout from '@/components/landing-page/Layout'
+import Navbar from '@/components/landing-page/Navbar'
+import Image from 'next/image'
 
 type Props = {
-  navItem: NavItem;
-};
+  navItem: NavItem
+}
 
 const Profil = ({ navItem }: Props) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   return (
     <Layout>
       {/* <Seo templateTitle='Home' /> */}
-      
+
       <main>
-        <div className='sticky top-0 z-50 bg-yellow-300'>
+        <div className="sticky top-0 z-50 bg-yellow-300">
           <Navbar nav-items={navItem['nav-items']} />
         </div>
-        <section className='mx-auto flex flex-col items-center p-4 sm:flex-row sm:items-start lg:w-[90vh] xl:w-[110vh]'>
+        <section className="mx-auto flex flex-col items-center p-4 sm:flex-row sm:items-start lg:w-[90vh] xl:w-[110vh]">
           <Image
-            src='/images/profil-golkar.png'
-            alt='logo-golkar'
-            className='mb-4 h-[380px] w-[380px] basis-4/12'
+            src="/images/profil-golkar.png"
+            alt="logo-golkar"
+            className="mb-4 h-[380px] w-[380px] basis-4/12"
             height={1200}
             width={1149}
-            layout='responsive'
-            objectFit='contain'
+            layout="responsive"
+            objectFit="contain"
           />
-          <div className='basis-8/12 p-2'>
-            <div className='flow-root text-justify'>
-              <div className='my-2'>
+          <div className="basis-8/12 p-2">
+            <div className="flow-root text-justify">
+              <div className="my-2">
                 Golongan Karya (Golkar) muncul dari kolaborasi gagasan tiga
                 tokoh, Soekarno, Soepomo, dan Ki Hadjar Dewantara. Ketiganya,
                 mengajukan gagasan integralistik-kolektivitis sejak 1940. Saat
@@ -47,8 +46,8 @@ const Profil = ({ navItem }: Props) => {
                 sebagai Golkar.
               </div>
             </div>
-            <div className='flow-root text-justify'>
-              <div className='my-2'>
+            <div className="flow-root text-justify">
+              <div className="my-2">
                 Pada dekade 1950-an, pembentukan Golongan Karya semula
                 diorientasikan sebagai perwakilan dari golongan-golongan di
                 tegah masyarakat. Perwakilan ini diharapkan bisa
@@ -58,8 +57,8 @@ const Profil = ({ navItem }: Props) => {
                 Dewantara.
               </div>
             </div>
-            <div className='flow-root text-justify'>
-              <div className='my-2'>
+            <div className="flow-root text-justify">
+              <div className="my-2">
                 Pada awal berdiri, Golkar bukan mewujud sebuah partai, melainkan
                 perwakilan golongan melalui Golongan Karya. Ide awal Golkar
                 yaitu sebagai sistem perwakilan (alternatif) dan dasar
@@ -70,8 +69,8 @@ const Profil = ({ navItem }: Props) => {
                 golongan-golongan fungsional.
               </div>
             </div>
-            <div className='flow-root text-justify'>
-              <div className='my-2'>
+            <div className="flow-root text-justify">
+              <div className="my-2">
                 Golkar juga memiliki tujuan untuk membangun organisasi
                 masyarakat atau ormas. Golkar beralih menjadi sebuah partai
                 politik ketika Bung Karno yang bertindak sebagai konseptor dan
@@ -80,8 +79,8 @@ const Profil = ({ navItem }: Props) => {
                 sebagai sebuah partai politik untuk melawan PKI.
               </div>
             </div>
-            <div className='flow-root text-justify'>
-              <div className='my-2'>
+            <div className="flow-root text-justify">
+              <div className="my-2">
                 Hal ini bertentangan dengan konsep awal Golkar yang menolak
                 konsep partai dan PKI yang menuntut perbedaan kelas. Golkar
                 memiliki konsep untuk menumbuhkan persatuan dan kerjasama.
@@ -90,8 +89,8 @@ const Profil = ({ navItem }: Props) => {
                 justru menjadi sebuah partai yang eksis hingga saat ini.
               </div>
             </div>
-            <div className='flow-root text-justify'>
-              <div className='my-2'>
+            <div className="flow-root text-justify">
+              <div className="my-2">
                 Partai Golongan Karya sebelumnya bernama Golongan Karya dan
                 Sekretariat Bersama Golongan Karya (Sekber Golkar), adalah
                 sebuah partai politik di Indonesia. Partai Golkar bermula dengan
@@ -101,8 +100,8 @@ const Profil = ({ navItem }: Props) => {
                 dalam kehidupan politik.\
               </div>
             </div>
-            <div className='flow-root text-justify'>
-              <div className='my-2'>
+            <div className="flow-root text-justify">
+              <div className="my-2">
                 Golkar merupakan partai yang telah dirintis sejak zaman Orde
                 Lama. Kehadirannya di masa Orde Baru dalam rangka pembaruan
                 politik di Indonesia. Pada Pemilu 3 Juli 1971, Sekber Golkar
@@ -113,8 +112,8 @@ const Profil = ({ navItem }: Props) => {
                 mendapatkan 6,9 % dan Permusi, penerus Masyumi hanya 5,4%.
               </div>
             </div>
-            <div className='flow-root text-justify'>
-              <div className='my-2'>
+            <div className="flow-root text-justify">
+              <div className="my-2">
                 Partai Golongan Karya (Partai Golkar), sebelumnya bernama
                 Golongan Karya (Golkar) dan Sekretariat Bersama Golongan Karya
                 (Sekber Golkar), merupakan partai politik di Indonesia. Partai
@@ -122,25 +121,26 @@ const Profil = ({ navItem }: Props) => {
                 Suhardiman.
               </div>
             </div>
-            <div className='my-4 font-bold'>
+            <div className="my-4 font-bold">
               Berikut Ketua dari Partai Golkar dari tahun ke tahun hingga
               sekarang
             </div>
-            <div className='font-bold text-slate-500'>
-              <div className='flex w-full flex-row items-center border-2 border-slate-300 p-2 text-lg'>
+            <div className="font-bold text-slate-500">
+              <div className="flex w-full flex-row items-center border-2 border-slate-300 p-2 text-lg">
                 <div
-                  className='relative z-50 flex h-5 w-5 flex-col items-center justify-between'
+                  className="relative z-50 flex h-5 w-5 flex-col items-center justify-between"
                   onClick={() => {
-                    setOpen(!open);
+                    setOpen(!open)
                   }}
                 >
-                  <span className='h-1 w-full translate-y-2 transform bg-slate-500 transition duration-300 ease-in-out' />
+                  <span className="h-1 w-full translate-y-2 transform bg-slate-500 transition duration-300 ease-in-out" />
                   <span
-                    className={`h-1 w-full -translate-y-2 -rotate-90 transform bg-slate-500 transition-all duration-300 ease-in-out ${open ? 'w-0 bg-slate-500 ' : 'w-full'
-                      }`}
+                    className={`h-1 w-full -translate-y-2 -rotate-90 transform bg-slate-500 transition-all duration-300 ease-in-out ${
+                      open ? 'w-0 bg-slate-500 ' : 'w-full'
+                    }`}
                   />
                 </div>
-                <div className='ml-3'>1964 - 1969</div>
+                <div className="ml-3">1964 - 1969</div>
               </div>
             </div>
           </div>
@@ -148,16 +148,16 @@ const Profil = ({ navItem }: Props) => {
         <Footer />
       </main>
     </Layout>
-  );
-};
+  )
+}
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const navItem = contentOne;
+  const navItem = contentOne
   return {
     props: {
       navItem,
     },
-  };
-};
+  }
+}
 
-export default Profil;
+export default Profil

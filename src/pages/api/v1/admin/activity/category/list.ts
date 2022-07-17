@@ -7,16 +7,20 @@ import { findAll } from '@/controller/query/category-activity'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
 
-handler
-  .use(jwt)
-  .get(async (req, res) => {
-    // You do not generally want to return the whole user object
-    const result = await findAll();
-    if (!result) {
-      return response(res, 'failed', { data: null }, 'data not found', 404);
-    }
+handler.use(jwt).get(async (req, res) => {
+  // You do not generally want to return the whole user object
+  const result = await findAll()
+  if (!result) {
+    return response(res, 'failed', { data: null }, 'data not found', 404)
+  }
 
-    return responsePage(res, 'success', { data: result }, 'get all category activity', 200);
-  })
+  return responsePage(
+    res,
+    'success',
+    { data: result },
+    'get all category activity',
+    200
+  )
+})
 
 export default handler

@@ -1,11 +1,11 @@
-import { readdir, readFileSync, unlink } from 'fs';
+import { readdir, unlink } from 'fs';
 import { extname, join } from 'path';
 import { v4 } from 'uuid';
 
 export const imageFileFilter = (
   req,
   file: Express.Multer.File,
-  callback: Function,
+  callback: (val, msg) => void,
 ) => {
   if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
     return callback(
@@ -19,7 +19,7 @@ export const imageFileFilter = (
 export const imageKtpFilter = (
   req,
   file: Express.Multer.File,
-  callback: Function,
+  callback: (val, msg) => void,
 ) => {
   if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
     return callback(
@@ -33,7 +33,7 @@ export const imageKtpFilter = (
 export const videoFileFilter = (
   req,
   file: Express.Multer.File,
-  callback: Function,
+  callback: (val, msg) => void,
 ) => {
   if (!file.originalname.match(/\.(mp4|ogg)$/)) {
     return callback(
@@ -47,7 +47,7 @@ export const videoFileFilter = (
 export const documentFileFilter = (
   req,
   file: Express.Multer.File,
-  callback: Function,
+  callback: (val, msg) => void,
 ) => {
   if (!file.originalname.match(/\.(pdf|word)$/)) {
     return callback(
@@ -61,7 +61,7 @@ export const documentFileFilter = (
 export const editFileName = (
   req,
   file: Express.Multer.File,
-  callback: Function,
+  callback: (val, msg) => void,
 ) => {
   const uuid = v4();
   const fileExtName = extname(file.originalname);

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { fontFamily, screens } = require('tailwindcss/defaultTheme');
+const { fontFamily, screens } = require('tailwindcss/defaultTheme')
 
 function withOpacityValue(variable) {
   return ({ opacityValue }) => {
     if (opacityValue === undefined) {
-      return `rgb(var(${variable}))`;
+      return `rgb(var(${variable}))`
     }
-    return `rgb(var(${variable}) / ${opacityValue})`;
-  };
+    return `rgb(var(${variable}) / ${opacityValue})`
+  }
 }
 
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
@@ -93,4 +93,4 @@ module.exports = {
     require('@tailwindcss/line-clamp'),
     require('tailwindcss-nested-groups'),
   ],
-};
+}
