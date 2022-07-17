@@ -1,7 +1,7 @@
 import useSWR, { SWRResponse } from 'swr'
 
 const domain = process.env.DOMAIN_API
-const address = `${domain}/api/v1/admin/member`
+const address = `${domain}/api/v1/admin/activity`
 const fetcher = (...args: [string, object]) =>
   fetch(...args).then((res) => res.json())
 
@@ -18,7 +18,7 @@ type responsePage = {
   code: number
 }
 
-export const useGetMembers = (
+export const useGetActivities = (
   queries: { page: string; limit: string },
   token: string
 ) => {
@@ -35,13 +35,13 @@ export const useGetMembers = (
     fetcher
   )
   return {
-    member: data,
+    activity: data,
     isLoading: !error && !data,
     isError: error,
   }
 }
 
-export const useGetMember = (params: { id: string }, token: string) => {
+export const useGetActivity = (params: { id: string }, token: string) => {
   const { id } = params
   const { data, error } = useSWR([`${address}/${id}`, {
     headers: {
@@ -49,13 +49,13 @@ export const useGetMember = (params: { id: string }, token: string) => {
     },
   }], fetcher, {shouldRetryOnError: false})
   return {
-    member: data,
+    activity: data,
     isLoading: !error && !data,
     isError: error,
   }
 }
 
-export const postMember = async (
+export const postActivity = async (
   payload: { name: string; kemendagri_code: string },
   token: string
 ) => {
@@ -71,7 +71,7 @@ export const postMember = async (
   return result
 }
 
-export const patchMember = async (
+export const patchActivity = async (
   payload: { name?: string; kemendagri_code?: string },
   id,
   token: string
@@ -88,7 +88,7 @@ export const patchMember = async (
   return result
 }
 
-export const deleteMember = async (id, token: string) => {
+export const deleteActivity = async (id, token: string) => {
   const result = await fetcher(`${address}/${id}`, {
     headers: {
       Accept: 'application/json',

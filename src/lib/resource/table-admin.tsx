@@ -22,6 +22,13 @@ export const headerItemMembers = [
   'status',
   'created_date',
 ]
+export const headerItemActivityCateogries = ['name','description']
+export const headerItemNewsCateogries = ['name','description']
+export const headerItemNews = ['title','created_date','author','updated_by','updated_date'];
+export const headerItemActivity = ['title','created_date','updated_by','updated_date'];
+export const formNews = ['category_news_id','title','content','created_date','image','author','updated_by','updated_date'];
+export const formActivity = ['category_activity_id','title','created_date','image','video','updated_by','updated_date'];
+
 
 export const itemLimit = [5, 10, 20, 30, 40, 50]
 

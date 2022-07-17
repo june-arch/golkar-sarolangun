@@ -32,16 +32,18 @@ export const Table = ({
 }: Props) => {
   return (
     <div className="">
-      {title && setLimit && handleAdd && (
+      {title && setLimit && (
         <>
           <div className="py-6 flex flex-col md:flex-row  md:space-y-0 items-center space-y-5 justify-between">
             <h1 className="text-2xl font-medium">{title}</h1>
-            <button
-              onClick={() => handleAdd()}
-              className=" p-2 border-gray-200 border-2 space-x-3 text-gray-600 rounded-md hover:bg-gray-600 hover:text-white hover:border-white"
-            >
-              tambah data
-            </button>
+            {handleAdd && (
+              <button
+                onClick={() => handleAdd()}
+                className=" p-2 border-gray-200 border-2 space-x-3 text-gray-600 rounded-md hover:bg-gray-600 hover:text-white hover:border-white"
+              >
+                tambah data
+              </button>
+            )}
           </div>
           <div className="py-6 flex flex-col md:flex-row  md:space-y-0 items-center space-y-5 justify-between">
             <div className="flex items-center">

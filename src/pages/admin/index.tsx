@@ -6,11 +6,11 @@ import { headerItemMembers } from '@/lib/resource/table-admin'
 import Swal from 'sweetalert2'
 import { useAppSelector } from '@/lib/redux/hook'
 import { selectToken } from '@/lib/redux/slice/auth-slice-admin'
-import { getMembers } from '@/service/admin/member.admin'
+import { useGetMembers } from '@/service/admin/member.admin'
 
 function GetMemberSwr() {
   const token = useAppSelector(selectToken)
-  const { member, isError, isLoading } = getMembers(
+  const { member, isError, isLoading } = useGetMembers(
     { page: '1', limit: '10' },
     token
   )

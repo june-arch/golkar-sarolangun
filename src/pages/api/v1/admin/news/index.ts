@@ -31,6 +31,7 @@ handler
       page: valuePage,
       totalData: count,
       totalDataOnPage: result.length,
+      totalPage: Math.ceil(count / valueLimit),
     }
 
     return responsePage(

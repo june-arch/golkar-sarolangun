@@ -4,7 +4,7 @@ module.exports = {
     'plugin:@next/next/recommended',
   ],
   images: {
-    domains: ['i.ytimg.com'],
+    domains: ['i.ytimg.com','mdbcdn.b-cdn.net'],
   },
   env: {
     DOMAIN_API: process.env.DOMAIN_API,
