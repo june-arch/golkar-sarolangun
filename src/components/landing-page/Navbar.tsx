@@ -5,6 +5,7 @@ import { Menus } from '@/controller/interface/types'
 import MobileNavbar from './MobileNavbar'
 import Link from 'next/link'
 import Image from 'next/image'
+import css from '@/styles/nav.module.css'
 
 type Data = {
   'nav-items': Menus[]
@@ -31,16 +32,15 @@ export default function Navbar(navItems: Data) {
       <div className="flex basis-1/12 justify-end self-center">
         <span className="cursor-pointer px-2">
           <Link href="/">
-            <a>
-              <div className="mr-1 sm:mr-5">
+            <a className="mr-1 sm:mr-5">
+              <div className="">
                 <Image
                   src="/images/logo.png"
                   alt="logo-golkar"
                   className="h-14 w-14"
                   height={1200}
                   width={1149}
-                  layout="responsive"
-                  objectFit="contain"
+                  layout="fill"
                 />
               </div>
             </a>
