@@ -33,14 +33,14 @@ export default function Navbar(navItems: Data) {
         <span className="cursor-pointer px-2">
           <Link href="/">
             <a className="mr-1 sm:mr-5">
-              <div className="">
+              <div className="h-14 w-14">
                 <Image
                   src="/images/logo.png"
                   alt="logo-golkar"
-                  className="h-14 w-14"
                   height={1200}
                   width={1149}
-                  layout="fill"
+                  layout="responsive"
+                  objectFit="contain"
                 />
               </div>
             </a>

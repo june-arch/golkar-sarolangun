@@ -10,7 +10,7 @@ export const uploadMiddleware = (path: string) => {
   const upload = multer({
     limits: { fileSize: 1000 * 1024 },
     storage: multer.diskStorage({
-      destination: './public/uploads/' + path,
+      destination: './tmp/uploads/' + path,
       filename: editFileName,
     }),
     fileFilter: imageFileFilter,
@@ -22,7 +22,7 @@ export const uploadMultipleMiddleware = (path: string) => {
   const upload = multer({
     limits: { fileSize: 1000 * 1024 },
     storage: multer.diskStorage({
-      destination: './public/uploads/' + path,
+      destination: './tmp/uploads/' + path,
       filename: editFileName,
     }),
     fileFilter: imageFileFilter,
@@ -34,7 +34,7 @@ export const uploadDiffMiddleware = (path: string) => {
   const upload = multer({
     limits: { fileSize: 1000 * 1024 },
     storage: multer.diskStorage({
-      destination: './public/uploads/' + path,
+      destination: './tmp/uploads/' + path,
       filename: editFileName,
     }),
     fileFilter: imageKtpFilter,

@@ -10,6 +10,7 @@ import { uploadMiddleware } from '@/controller/middleware/uploads'
 import validate from '@/controller/middleware/validation'
 import { configNext } from '@/controller/middleware/configNext'
 import { news } from '@/controller/dto/news.dto'
+import mv from 'mv'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
 
@@ -57,6 +58,9 @@ handler
         author,
         created_date: new Date(),
       }
+      let oldPath = `./tmp/uploads/images/news/${file.filename}`;
+      let newPath = `./public/uploads/images/news/${file.filename}`;
+      mv(oldPath, newPath, (err) => console.log(err));
       const result = await create(doc)
       return response(
         res,
