@@ -56,34 +56,43 @@ export const useGetActivity = (params: { id: string }, token: string) => {
 }
 
 export const postActivity = async (
-  payload: { name: string; kemendagri_code: string },
+  payload,
   token: string
 ) => {
+  const formData = new FormData();
+  Object.keys(payload).forEach(key => {
+    formData.append(key, payload[key]);
+  });
   const result = await fetcher(address, {
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Accept': '*/*',
       Authorization: `Bearer ${token}`,
     },
+    onUploadProgress: (event) => {
+      console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
+    },
     method: 'POST',
-    body: JSON.stringify(payload),
+    body: formData,
   })
   return result
 }
 
-export const patchActivity = async (
-  payload: { name?: string; kemendagri_code?: string },
+export const putActivity = async (
+  payload,
   id,
   token: string
 ) => {
+  const formData = new FormData();
+  Object.keys(payload).forEach(key => {
+    formData.append(key, payload[key]);
+  });
   const result = await fetcher(`${address}/${id}`, {
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Accept': '*/*',
       Authorization: `Bearer ${token}`,
     },
-    method: 'PATCH',
-    body: JSON.stringify(payload),
+    method: 'PUT',
+    body: formData,
   })
   return result
 }

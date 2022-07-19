@@ -79,19 +79,22 @@ export const postNews = async (
   return result
 }
 
-export const patchNews = async (
-  payload: { name?: string; kemendagri_code?: string },
+export const putNews = async (
+  payload,
   id,
   token: string
 ) => {
+  const formData = new FormData();
+  Object.keys(payload).forEach(key => {
+    formData.append(key, payload[key]);
+  });
   const result = await fetcher(`${address}/${id}`, {
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Accept': '*/*',
       Authorization: `Bearer ${token}`,
     },
-    method: 'PATCH',
-    body: JSON.stringify(payload),
+    method: 'PUT',
+    body: formData,
   })
   return result
 }

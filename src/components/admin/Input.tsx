@@ -17,7 +17,7 @@ export const Input = ({ value, formik, data, content }: { value: string, formik:
                     onChange={(e) => formik.setFieldValue(value, e.currentTarget.files[0])}
                     accept={'image/*'}
                     />
-                    {content.image && <Image id={value} src={'/uploads/images/news/'+content.image} alt="your image" width={200} height={200} />}
+                    {(content && content.image) && <Image id={value} src={'/uploads/images/news/'+content.image} alt="your image" width={200} height={200} />}
                 </div>)
         }
         if(value == 'content'){
