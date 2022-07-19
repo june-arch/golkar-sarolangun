@@ -1,4 +1,6 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
   extends: [
     //...
     'plugin:@next/next/recommended',
@@ -12,3 +14,4 @@ module.exports = {
     YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY,
   },
 }
+module.exports = nextConfig

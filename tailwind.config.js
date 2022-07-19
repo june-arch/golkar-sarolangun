@@ -12,7 +12,7 @@ function withOpacityValue(variable) {
 
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       backgroundImage: {
@@ -88,9 +88,12 @@ module.exports = {
       },
     },
   },
+  mode: "jit",
   plugins: [
     require('tailwind-scrollbar-hide'),
     require('@tailwindcss/line-clamp'),
-    require('tailwindcss-nested-groups'),
+    require("tailwindcss-scoped-groups")({
+      groups: ["one", "two"],
+  }),
   ],
 }

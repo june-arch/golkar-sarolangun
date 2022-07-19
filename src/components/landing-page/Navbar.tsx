@@ -51,7 +51,7 @@ export default function Navbar(navItems: Data) {
         {navItems['nav-items'].map((value, i) => {
           return (
             <li
-              className="last-child-custom group relative cursor-pointer"
+              className="group-one last-child-custom relative cursor-pointer"
               key={i}
             >
               <div className="transform whitespace-nowrap transition-transform duration-300 md:text-xs lg:text-sm">
@@ -69,7 +69,7 @@ export default function Navbar(navItems: Data) {
                   viewBox="0 0 20 20"
                   className={`${
                     value.subMenu.length > 0 ? '' : 'hidden'
-                  } mt-1 ml-1 inline h-4 w-4 transform transition-transform duration-200 group-hover:rotate-180 md:-mt-1`}
+                  } mt-1 ml-1 inline h-4 w-4 transform transition-transform duration-200 group-one-hover:rotate-180 md:-mt-1`}
                 >
                   <path
                     fillRule="evenodd"
@@ -78,7 +78,7 @@ export default function Navbar(navItems: Data) {
                   ></path>
                 </svg>
               </div>
-              <ol className="absolute hidden whitespace-nowrap group-hover:block">
+              <ol className="absolute hidden whitespace-nowrap group-one-hover:block">
                 <div className="child-custom">
                   <svg width="12" height="12" viewBox="0 0 50 43.3">
                     <polygon points="0,43.3 25,0 50,43.3" fill="white" />
@@ -88,7 +88,7 @@ export default function Navbar(navItems: Data) {
                   {value.subMenu?.map((item, j) => {
                     return (
                       <li
-                        className="group-scope last-subChild-custom relative border-b-[1px] border-slate-400 py-2 text-xs last:border-b-0"
+                        className="group-two last-subChild-custom relative border-b-[1px] border-slate-400 py-2 text-xs last:border-b-0"
                         key={j}
                       >
                         <div className="flex flex-row ">
@@ -116,7 +116,7 @@ export default function Navbar(navItems: Data) {
                             ></path>
                           </svg>
                         </div>
-                        <ol className="group-scope-hover:block absolute left-full top-0 hidden whitespace-nowrap pl-4">
+                        <ol className="group-two-hover:block absolute left-full top-0 hidden whitespace-nowrap pl-4">
                           <div
                             className={`${
                               item.subMenu.length > 0 ? '' : 'hidden'
