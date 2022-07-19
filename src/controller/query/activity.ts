@@ -15,12 +15,13 @@ export const create = async (payload: Activity) => {
 }
 
 export const findOneById = async (id: number) => {
+  
   const result = await prisma.activity.findUnique({
     where: {
       id_activity: id,
-    },
+    }
   })
-  return result
+  return result 
 }
 
 export const updateById = async (id: number, doc: Activity) => {
@@ -46,6 +47,11 @@ export const findAllPagination = async (page: number, limit: number) => {
   const result = await prisma.activity.findMany({
     skip: (page - 1) * limit,
     take: limit,
+    orderBy: [
+      {
+        created_date: 'desc',
+      },
+    ]
   })
   return result
 }

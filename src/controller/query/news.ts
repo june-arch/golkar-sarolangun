@@ -17,7 +17,7 @@ export const findOneById = async (id: number) => {
   const result = await prisma.news.findUnique({
     where: {
       id_news: id,
-    },
+    }
   })
   return result
 }
@@ -45,6 +45,11 @@ export const findAllPagination = async (page: number, limit: number) => {
   const result = await prisma.news.findMany({
     skip: (page - 1) * limit,
     take: limit,
+    orderBy: [
+      {
+        created_date: 'desc',
+      },
+    ]
   })
   return result
 }
