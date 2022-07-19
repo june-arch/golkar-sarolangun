@@ -96,7 +96,7 @@ export default function HomePage({
         </section>
 
         <ContactUs />
-        <Youtube data={dataYoutube} />
+        {dataYoutube && <Youtube data={dataYoutube} />}
         <FloatingWhatsApp />
         <Footer />
       </main>
@@ -105,8 +105,8 @@ export default function HomePage({
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const YOUTUBE_PLAYLIST_ITEMS_API =
-    'https://www.googleapis.com/youtube/v3/playlistItems' //stores API endpoint
+  // const YOUTUBE_PLAYLIST_ITEMS_API =
+  //   'https://www.googleapis.com/youtube/v3/playlistItems' //stores API endpoint
   const navItem = contentOne
   const videoItem = contentVideo
   const cardIdiom = contentTwo
@@ -114,17 +114,17 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   //snippet:this tells the API we want the snippet
   //
 
-  const res = await fetch(
-    `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=10&playlistId=PL6rKmks47C2vRvYpBy51BQV2oHwFpljql&key=${process.env.YOUTUBE_API_KEY}`
-  )
-  const data = await res.json() //transfer to JSON
+  // const res = await fetch(
+  //   `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&maxResults=10&playlistId=PL6rKmks47C2vRvYpBy51BQV2oHwFpljql&key=${process.env.YOUTUBE_API_KEY}`
+  // )
+  // const data = await res.json() //transfer to JSON
   return {
     props: {
       navItem,
       videoItem,
       cardIdiom,
       newsItem,
-      dataYoutube: data,
+      dataYoutube: null,
     },
   }
 }
