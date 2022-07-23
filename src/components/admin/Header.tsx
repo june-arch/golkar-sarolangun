@@ -2,16 +2,16 @@ import { Menu } from '@headlessui/react'
 import { MenuIcon, UserIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 
-import { headerRightItemsLogin } from '@/lib/resource/header-nav-data-admin'
+import { headerRightItemsLogin } from '@/helpers/resource/header-nav-data-admin'
 
-import { useAppDispatch, useAppSelector } from '@/lib/redux/hook'
+import { useAppDispatch, useAppSelector } from '@/helpers/redux/hook'
 import {
   selectIsLogin,
   setIsLogin,
   setToken,
-} from '@/lib/redux/slice/auth-slice-admin'
+} from '@/helpers/redux/slice/auth-slice-admin'
 import { useRouter } from 'next/router'
-import { selectOpen, setOpen } from '@/lib/redux/slice/navigation-slice-admin'
+import { selectOpen, setOpen } from '@/helpers/redux/slice/navigation-slice-admin'
 
 export const Header = () => {
   const dispatch = useAppDispatch()

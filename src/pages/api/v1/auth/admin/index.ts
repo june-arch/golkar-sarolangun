@@ -1,45 +1,22 @@
 import nextConnect from 'next-connect'
-import {
-  findOneAdminByUserame,
-  validatePassword,
-} from '@/controller/query/admin'
 import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/controller/interface/admin'
-import { response } from '@/lib/wrapper'
-import { Login } from '@/controller/interface/auth'
-import jwt from 'jsonwebtoken'
-import { generateToken } from '@/controller/middleware/jwt'
+import { NextApiRequestModify } from '@/controller/admin/interface'
+import * as wrapper from '@/helpers/wrapper'
+import { authLogin } from '@/controller/admin/domain'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
 
 handler.post(async (req, res) => {
   const { username, password } = req.body
-  const admin: Login = {
-    username,
-    password,
-  }
-  const result = await findOneAdminByUserame(username)
-  if (!result) {
-    return response(res, 'failed', { data: null }, 'user not found', 404)
-  }
+  const domain = async (username: string, password: string) => {
+    return authLogin(username, password);
+  };
 
-  if (!validatePassword(result, password)) {
-    return response(res, 'failed', { data: null }, 'wrong password', 400)
-  }
-  const payload = {
-    sub: result.id_admin,
-    username: result.username,
-  }
-
-  const token = await generateToken(payload, '12h')
-
-  // return basic user details and token
-  const data = {
-    id: result.id_admin,
-    username: result.username,
-    token,
-  }
-  return response(res, 'success', { data: data }, 'success login admin', 200)
+  const sendResponse = async (result) => {
+    return (result.err) ? wrapper.response(res, 'failed', result, 'login admin')
+      : wrapper.responsePage(res, 'success', result, 'login admin', 200);
+  };
+  return sendResponse(await domain(username, password));
 })
 
 export default handler

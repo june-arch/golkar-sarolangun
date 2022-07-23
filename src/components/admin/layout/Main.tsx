@@ -1,4 +1,4 @@
-import { useCheckLogin } from '@/lib/utils/checkLogin'
+import { useCheckLogin } from '@/helpers/utils/checkLogin'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { Header } from '../Header'

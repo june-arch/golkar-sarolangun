@@ -1,60 +1,41 @@
 import nextConnect from 'next-connect'
-import jwt from '@/controller/middleware/jwt'
+import jwt from '@/helpers/middleware/jwt'
 import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/controller/interface/admin'
-import { response, responsePage } from '@/lib/wrapper'
-import {
-  countAll,
-  create,
-  findAllPagination,
-} from '@/controller/query/category-news'
-import { CategoryNews } from '@/controller/interface/category-news'
+import { NextApiRequestModify } from '@/controller/admin/interface'
+import * as wrapper from '@/helpers/wrapper'
+import { createCategory, getAllPagination } from '@/controller/news-category/domain'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
 
 handler
   .use(jwt)
   .get(async (req, res) => {
-    // You do not generally want to return the whole user object
-    const { page, limit } = req.query
-    const dataPage = Array.isArray(page) ? page[0] : page
-    const dataLimit = Array.isArray(limit) ? limit[0] : limit
-    const valuePage = Number(dataPage) || 1
-    const valueLimit = Number(dataLimit) || 10
-    const result = await findAllPagination(valuePage, valueLimit)
-    const count = await countAll()
-    if (!result) {
-      return response(res, 'failed', { data: null }, 'data not found', 404)
-    }
-    const meta = {
-      page: valuePage,
-      totalData: count,
-      totalDataOnPage: result.length,
-      totalPage: Math.ceil(count / valueLimit),
-    }
-
-    return responsePage(
-      res,
-      'success',
-      { data: result, meta },
-      'get all category news',
-      200
-    )
+    const { page: p, limit: l } = req.query
+    const dataPage = Array.isArray(p) ? p[0] : p
+    const dataLimit = Array.isArray(l) ? l[0] : l
+    const page = Number(dataPage) || 1
+    const limit = Number(dataLimit) || 10
+    const domain = async (page, limit) => {
+      return getAllPagination(page, limit);
+    };
+  
+    const sendResponse = async (result) => {
+      return (result.err) ? wrapper.response(res, 'failed', result, 'get all news category')
+        : wrapper.responsePage(res, 'success', result, 'get all news category', 200);
+    };
+    return sendResponse(await domain(page, limit));
   })
   .post(async (req, res) => {
-    const { name, description } = req.body
-    const categoryNews: CategoryNews = {
-      name,
-      description,
-    }
-    const result = await create(categoryNews)
-    return response(
-      res,
-      'success',
-      { data: result },
-      'created new category news',
-      201
-    )
+    const payload = req.body
+    const domain = async (payload) => {
+      return createCategory(payload);
+    };
+  
+    const sendResponse = async (result) => {
+      return (result.err) ? wrapper.response(res, 'failed', result, 'get news category')
+        : wrapper.response(res, 'success', result, 'create news category', 200);
+    };
+    return sendResponse(await domain(payload));
   })
 
 export default handler

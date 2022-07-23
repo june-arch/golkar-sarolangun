@@ -2,10 +2,10 @@ import React from 'react'
 
 import { Table } from '@/components/admin/Table'
 import { Layout } from '@/components/admin/layout/Main'
-import { headerItemMembers } from '@/lib/resource/table-admin'
+import { headerItemMembers } from '@/helpers/resource/table-admin'
 import Swal from 'sweetalert2'
-import { useAppSelector } from '@/lib/redux/hook'
-import { selectToken } from '@/lib/redux/slice/auth-slice-admin'
+import { useAppSelector } from '@/helpers/redux/hook'
+import { selectToken } from '@/helpers/redux/slice/auth-slice-admin'
 import { useGetMembers } from '@/service/admin/member.admin'
 
 function GetMemberSwr() {

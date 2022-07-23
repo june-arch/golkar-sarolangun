@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 
 import { Table } from '@/components/admin/Table'
 import { Layout } from '@/components/admin/layout/Main'
-import { headerItemActivity, styleActive, styleNotActive } from '@/lib/resource/table-admin'
-import { useAppSelector } from '@/lib/redux/hook'
-import { selectToken } from '@/lib/redux/slice/auth-slice-admin'
+import { headerItemActivity, styleActive, styleNotActive } from '@/helpers/resource/table-admin'
+import { useAppSelector } from '@/helpers/redux/hook'
+import { selectToken } from '@/helpers/redux/slice/auth-slice-admin'
 import { useRouter } from 'next/router'
-import { paginate } from '@/lib/utils/paginate'
+import { paginate } from '@/helpers/utils/paginate'
 import { deleteActivity, useGetActivities } from '@/service/admin/activity'
 
 function GetActivitySwr() {

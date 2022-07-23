@@ -1,58 +1,56 @@
 import nextConnect from 'next-connect'
-import jwt from '@/controller/middleware/jwt'
+import jwt from '@/helpers/middleware/jwt'
 import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/controller/interface/admin'
-import { response } from '@/lib/wrapper'
-import { Region } from '@/controller/interface/region'
-import {
-  deleteRegional,
-  findOneById,
-  updateById,
-} from '@/controller/query/region'
+import { NextApiRequestModify } from '@/controller/admin/interface'
+import * as wrapper from '@/helpers/wrapper'
+import { deleteRegion, editRegion, getOne } from '@/controller/region/domain'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
 
 handler
   .use(jwt)
   .get(async (req, res) => {
-    // You do not generally want to return the whole user object
-    const { id } = req.query
-    const value = Array.isArray(id) ? id[0] : id
-    const valueId = Number(value) || null
-    if (!valueId) {
-      return response(res, 'failed', { data: null }, 'invalid id', 400)
-    }
-    const result = await findOneById(Number(valueId))
-    if (!result) {
-      return response(res, 'failed', { data: null }, 'data not found', 404)
-    }
-    return response(res, 'success', { data: result }, 'get regional', 200)
+    const { id: i } = req.query
+    const value = Array.isArray(i) ? i[0] : i;
+    const id = Number(value) || null
+    const domain = async (id) => {
+      return getOne(id);
+    };
+  
+    const sendResponse = async (result) => {
+      return (result.err) ? wrapper.response(res, 'failed', result, 'get one region')
+        : wrapper.response(res, 'success', result, 'get one region', 200);
+    };
+    return sendResponse(await domain(id));
   })
   .patch(async (req, res) => {
-    const { id } = req.query
-    const value = Array.isArray(id) ? id[0] : id
-    const valueId = Number(value) || null
-    if (!valueId) {
-      return response(res, 'failed', { data: null }, 'invalid id', 400)
-    }
-    const { ...editRegion } = req.body
-    const region: Region = editRegion
-    const result = await updateById(valueId, region)
-    if (!result) {
-      return response(res, 'failed', { data: null }, 'data not found', 404)
-    }
-    return response(res, 'success', { data: result }, 'get regional', 200)
+    const payload = req.body;
+    const { id: i } = req.query;
+    const value = Array.isArray(i) ? i[0] : i;
+    const id = Number(value) || null;
+    const domain = async (id, payload) => {
+      return editRegion(id, payload);
+    };
+  
+    const sendResponse = async (result) => {
+      return (result.err) ? wrapper.response(res, 'failed', result, 'edit one region')
+        : wrapper.response(res, 'success', result, 'edit one region', 200);
+    };
+    return sendResponse(await domain(id, payload));
   })
   .delete(async (req, res) => {
-    const { id } = req.query
-    const value = Array.isArray(id) ? id[0] : id
-    const valueId = Number(value) || null
-    const find = await findOneById(valueId)
-    if (!find)
-      return response(res, 'failed', { data: null }, 'id not found', 404)
-
-    await deleteRegional(valueId)
-    return response(res, 'success', { data: null }, 'delete region', 200)
+    const { id: i } = req.query;
+    const value = Array.isArray(i) ? i[0] : i;
+    const id = Number(value) || null;
+    const domain = async (id) => {
+      return deleteRegion(id);
+    };
+  
+    const sendResponse = async (result) => {
+      return (result.err) ? wrapper.response(res, 'failed', result, 'remove one region')
+        : wrapper.response(res, 'success', result, 'remove one region', 200);
+    };
+    return sendResponse(await domain(id));
   })
 
 export default handler

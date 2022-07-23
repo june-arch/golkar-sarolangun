@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { VideoItem } from '@/controller/interface/types'
+import { VideoItem } from '@/helpers/interface/types'
 
 type Props = {
   payload: VideoItem

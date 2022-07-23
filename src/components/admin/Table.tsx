@@ -1,5 +1,5 @@
-import { itemLimit } from '@/lib/resource/table-admin'
-import { formatDate, isDate } from '@/lib/utils/common'
+import { itemLimit } from '@/helpers/resource/table-admin'
+import { formatDate, isDate } from '@/helpers/utils/common'
 import { Menu } from '@headlessui/react'
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline'
 

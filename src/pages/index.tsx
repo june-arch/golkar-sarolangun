@@ -7,13 +7,13 @@ import {
   contentOne,
   contentTwo,
   contentVideo,
-} from '@/lib/resource/nav-data'
+} from '@/helpers/resource/nav-data'
 import {
   CardIdiom,
   NavItem,
   NewsItem,
   VideoItem,
-} from '@/controller/interface/types'
+} from '@/helpers/interface/types'
 
 import Card from '@/components/landing-page/Card'
 import ContactUs from '@/components/landing-page/ContactUs'

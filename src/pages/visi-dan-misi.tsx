@@ -1,8 +1,8 @@
 import { GetStaticProps } from 'next'
 import React from 'react'
 
-import { contentOne } from '@/lib/resource/nav-data'
-import { NavItem } from '@/controller/interface/types'
+import { contentOne } from '@/helpers/resource/nav-data'
+import { NavItem } from '@/helpers/interface/types'
 
 import Footer from '@/components/landing-page/Footer'
 import Layout from '@/components/landing-page/Layout'

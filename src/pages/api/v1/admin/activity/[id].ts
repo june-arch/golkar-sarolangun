@@ -1,89 +1,64 @@
 import nextConnect from 'next-connect'
-import jwt from '@/controller/middleware/jwt'
+import jwt from '@/helpers/middleware/jwt'
 import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/controller/interface/admin'
-import { response } from '@/lib/wrapper'
-import { Activity } from '@/controller/interface/activity'
-import {
-  deleteActivity,
-  findOneById,
-  updateById,
-} from '@/controller/query/activity'
-import { uploadMultipleMiddleware } from '@/controller/middleware/uploads'
-import { activity } from '@/controller/dto/activity.dto'
-import validate from '@/controller/middleware/validation'
-import { unlinkByFileName } from '@/lib/filter-uploads'
-import { configNext } from '@/controller/middleware/configNext'
+import { NextApiRequestModify } from '@/controller/admin/interface'
+import * as wrapper from '@/helpers/wrapper'
+import { uploadMultipleMiddleware } from '@/helpers/middleware/uploads'
+import { activity } from '@/controller/activity/dto'
+import validate from '@/helpers/middleware/validation'
+import { configNext } from '@/helpers/middleware/configNext'
+import { editActivity, getById, removeActivity } from '@/controller/activity/domain'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
 
 handler
   .use(jwt)
   .get(async (req, res) => {
-    // You do not generally want to return the whole user object
-    const { id } = req.query
-    const value = Array.isArray(id) ? id[0] : id
-    const valueId = Number(value) || null
-    if (!valueId) {
-      return response(res, 'failed', { data: null }, 'invalid id', 400)
-    }
-    const result = await findOneById(Number(valueId))
-    if (!result) {
-      return response(res, 'failed', { data: null }, 'data not found', 404)
-    }
-    return response(res, 'success', { data: result }, 'get activity', 200)
+    const { id: i } = req.query
+    const value = Array.isArray(i) ? i[0] : i
+    const id = Number(value) || null
+    
+    const domain = async (id: number) => {
+      return getById(id);
+    };
+
+    const sendResponse = async (result) => {
+      return (result.err) ? wrapper.response(res, 'failed', result, 'get activity')
+        : wrapper.response(res, 'success', result, 'get activity', 200);
+    };
+    return sendResponse(await domain(id));
   })
   .delete(async (req, res) => {
-    const { id } = req.query
-    const value = Array.isArray(id) ? id[0] : id
-    const valueId = Number(value) || null
-    await deleteActivity(valueId)
-    return response(res, 'success', { data: null }, 'delete activity', 200)
+    const { id: i } = req.query
+    const value = Array.isArray(i) ? i[0] : i
+    const id = Number(value) || null
+    const domain = async (id: number) => {
+      return removeActivity(id);
+    };
+  
+    const sendResponse = async (result) => {
+      return (result.err) ? wrapper.response(res, 'failed', result, 'remove activity')
+        : wrapper.response(res, 'success', result, 'remove activity', 200);
+    };
+    return sendResponse(await domain(id));
   })
   .use(uploadMultipleMiddleware('images/activity'))
-  .put(validate({ body: activity }), async (req, res) => {
-    const { id } = req.query
-    const value = Array.isArray(id) ? id[0] : id
-    const valueId = Number(value) || null
-    if (!valueId) {
-      return response(res, 'failed', { data: null }, 'invalid id', 400)
-    }
-    const findActivity = await findOneById(valueId)
-    if (!findActivity)
-      return response(res, 'failed', { data: null }, 'id not found', 404)
-    const { title, category_activity_id, video } = req.body
+  .patch(validate({ body: activity }), async (req, res) => {
+    const payload = req.body
     const { files, user } = req
-    await removeFileImages(files, findActivity)
-    let imagesFilename = []
-    if (files && files.length > 0) {
-      files.forEach((value) => imagesFilename.push(value.filename))
-    }
-    const activity: Activity = {
-      title,
-      category_activity_id: Number(category_activity_id),
-      admin_id: findActivity.admin_id,
-      image: imagesFilename.join(','),
-      video,
-      updated_by: user.id_admin,
-      created_date: new Date(),
-    }
-    const result = await updateById(valueId, activity)
-    if (!result) {
-      return response(res, 'failed', { data: null }, 'data not found', 404)
-    }
-    return response(res, 'success', { data: result }, 'update activity', 200)
-  })
-
-const removeFileImages = async (
-  files: Express.Multer.File[],
-  data: Activity
-) => {
-  if (files && files.length > 0) {
-    for (let item of data.image.split(',')) {
-      unlinkByFileName('images/activity', item)
-    }
-  }
-}
+    const { id: i } = req.query
+    const value = Array.isArray(i) ? i[0] : i
+    const id = Number(value) || null
+    const domain = async (payload, id, files, user) => {
+      return editActivity(payload, id, files, user);
+    };
+  
+    const sendResponse = async (result) => {
+      return (result.err) ? wrapper.response(res, 'failed', result, 'edit activity')
+        : wrapper.response(res, 'success', result, 'edit activity', 200);
+    };
+    return sendResponse(await domain(payload, id, files, user));
+})
 export default handler
 export const config = {
   api: {

@@ -1,76 +1,62 @@
 import nextConnect from 'next-connect'
-import jwt from '@/controller/middleware/jwt'
+import jwt from '@/helpers/middleware/jwt'
 import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/controller/interface/admin'
-import { response } from '@/lib/wrapper'
-import { News } from '@/controller/interface/news'
-import { deleteNews, findOneById, updateById } from '@/controller/query/news'
-import { uploadMiddleware } from '@/controller/middleware/uploads'
-import { unlinkByFileName } from '@/lib/filter-uploads'
-import { news } from '@/controller/dto/news.dto'
-import validate from '@/controller/middleware/validation'
-import { configNext } from '@/controller/middleware/configNext'
+import { NextApiRequestModify } from '@/controller/admin/interface'
+import * as wrapper from '@/helpers/wrapper'
+import { uploadMiddleware } from '@/helpers/middleware/uploads'
+import { news } from '@/controller/news/dto'
+import validate from '@/helpers/middleware/validation'
+import { configNext } from '@/helpers/middleware/configNext'
+import { editNews, getById, removeNews } from '@/controller/news/domain'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
 
 handler
   .use(jwt)
   .get(async (req, res) => {
-    // You do not generally want to return the whole user object
-    const { id } = req.query
-    const value = Array.isArray(id) ? id[0] : id
-    const valueId = Number(value) || null
-    if (!valueId) {
-      return response(res, 'failed', { data: null }, 'invalid id', 400)
-    }
-    const result = await findOneById(valueId)
-    if (!result) {
-      return response(res, 'failed', { data: null }, 'data not found', 404)
-    }
-    return response(res, 'success', { data: result }, 'get news', 200)
+    const { id: i } = req.query
+    const value = Array.isArray(i) ? i[0] : i
+    const id = Number(value) || null
+    const domain = async (id: number) => {
+      return getById(id);
+    };
+  
+    const sendResponse = async (result) => {
+      return (result.err) ? wrapper.response(res, 'failed', result, 'get one news')
+        : wrapper.response(res, 'success', result, 'get one news', 200);
+    };
+    return sendResponse(await domain(id));
   })
   .delete(async (req, res) => {
-    const { id } = req.query
-    const value = Array.isArray(id) ? id[0] : id
-    const valueId = Number(value) || null
-    const findNews = await findOneById(valueId)
-    if (!findNews)
-      return response(res, 'failed', { data: null }, 'id not found', 404)
-
-    await deleteNews(valueId)
-    unlinkByFileName('images/news', findNews.image)
-    return response(res, 'success', { data: null }, 'delete news', 200)
+    const { id: i } = req.query
+    const value = Array.isArray(i) ? i[0] : i
+    const id = Number(value) || null
+    const domain = async (id: number) => {
+      return removeNews(id);
+    };
+  
+    const sendResponse = async (result) => {
+      return (result.err) ? wrapper.response(res, 'failed', result, 'remove activity')
+        : wrapper.response(res, 'success', result, 'remove activity', 200);
+    };
+    return sendResponse(await domain(id));
   })
   .use(uploadMiddleware('images/news'))
-  .put(validate({ body: news }), async (req: NextApiRequestModify, res) => {
-    const { id } = req.query
-    const value = Array.isArray(id) ? id[0] : id
-    const valueId = Number(value) || null
-    if (!valueId) {
-      return response(res, 'failed', { data: null }, 'invalid id', 400)
-    }
-    const findNews = await findOneById(valueId)
-    if (!findNews)
-      return response(res, 'failed', { data: null }, 'id not found', 404)
-
-    const { title, content, category_news_id, author } = req.body
+  .patch(validate({ body: news }), async (req: NextApiRequestModify, res) => {
+    const payload = req.body
     const { file, user } = req
-    if (file) unlinkByFileName('images/news', findNews.image)
-
-    const doc: News = {
-      title,
-      category_news_id: Number(category_news_id),
-      admin_id: findNews.admin_id,
-      image: file ? file.filename : '',
-      content,
-      author,
-      updated_by: user.id_admin,
-    }
-    const result = await updateById(valueId, doc)
-    if (!result) {
-      return response(res, 'failed', { data: null }, 'data not found', 404)
-    }
-    return response(res, 'success', { data: result }, 'update news', 200)
+    const { id: i } = req.query
+    const value = Array.isArray(i) ? i[0] : i
+    const id = Number(value) || null
+    const domain = async (payload, id, file, user) => {
+      return editNews(payload, id, file, user);
+    };
+  
+    const sendResponse = async (result) => {
+      return (result.err) ? wrapper.response(res, 'failed', result, 'edit news')
+        : wrapper.response(res, 'success', result, 'edit news', 200);
+    };
+    return sendResponse(await domain(payload, id, file, user));
   })
 
 export default handler

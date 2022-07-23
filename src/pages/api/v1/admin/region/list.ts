@@ -1,20 +1,22 @@
 import nextConnect from 'next-connect'
-import jwt from '@/controller/middleware/jwt'
+import jwt from '@/helpers/middleware/jwt'
 import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/controller/interface/admin'
-import { response, responsePage } from '@/lib/wrapper'
-import { findAll } from '@/controller/query/region'
+import { NextApiRequestModify } from '@/controller/admin/interface'
+import * as wrapper from '@/helpers/wrapper'
+import { getAll } from '@/controller/region/domain'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
 
 handler.use(jwt).get(async (req, res) => {
-  // You do not generally want to return the whole user object
-  const result = await findAll()
-  if (!result) {
-    return response(res, 'failed', { data: null }, 'data not found', 404)
-  }
+  const domain = async () => {
+    return getAll();
+  };
 
-  return responsePage(res, 'success', { data: result }, 'get all regional', 200)
+  const sendResponse = async (result) => {
+    return (result.err) ? wrapper.response(res, 'failed', result, 'get all region')
+      : wrapper.response(res, 'success', result, 'get all region', 200);
+  };
+  return sendResponse(await domain());
 })
 
 export default handler

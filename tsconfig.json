@@ -1,12 +1,17 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "esModuleInterop": true,
     "module": "esnext",
     "baseUrl": ".",
@@ -15,15 +20,31 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
-      "@/*": ["./src/*"],
-      "~/*": ["./public/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "~/*": [
+        "./public/*"
+      ]
     },
-    "incremental": true
+    "incremental": true,
+    "noEmit": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"],
-  "moduleResolution": ["node_modules", ".next", "node"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "moduleResolution": [
+    "node_modules",
+    ".next",
+    "node"
+  ],
   "ts-node": {
+    "transpileOnly": true,
     "compilerOptions": {
       "module": "commonjs"
     }

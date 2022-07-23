@@ -1,12 +1,12 @@
 import { Form } from '@/components/admin/Form'
 import { Layout } from '@/components/admin/layout/Main'
-import { useAppSelector } from '@/lib/redux/hook'
+import { useAppSelector } from '@/helpers/redux/hook'
 import { useRouter } from 'next/router'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { selectToken } from '@/lib/redux/slice/auth-slice-admin'
+import { selectToken } from '@/helpers/redux/slice/auth-slice-admin'
 import { patchRegion, useGetRegion } from '@/service/admin/region.admin'
-import { headerItemRegions } from '@/lib/resource/table-admin'
+import { headerItemRegions } from '@/helpers/resource/table-admin'
 import { useEffect } from 'react'
 
 function EditRegion() {

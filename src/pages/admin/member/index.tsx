@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 
 import { Table } from '@/components/admin/Table'
 import { Layout } from '@/components/admin/layout/Main'
-import { headerItemMembers, styleActive, styleNotActive } from '@/lib/resource/table-admin'
+import { headerItemMembers, styleActive, styleNotActive } from '@/helpers/resource/table-admin'
 import Swal from 'sweetalert2'
-import { useAppSelector } from '@/lib/redux/hook'
-import { selectToken } from '@/lib/redux/slice/auth-slice-admin'
+import { useAppSelector } from '@/helpers/redux/hook'
+import { selectToken } from '@/helpers/redux/slice/auth-slice-admin'
 import { deleteMember, useGetMembers } from '@/service/admin/member.admin'
 import { useRouter } from 'next/router'
-import { paginate } from '@/lib/utils/paginate'
+import { paginate } from '@/helpers/utils/paginate'
 
 function GetMemberSwr() {
     const [page, setPage] = useState(1)

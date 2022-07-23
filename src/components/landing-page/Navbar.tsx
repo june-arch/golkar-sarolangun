@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Menus } from '@/controller/interface/types'
+import { Menus } from '@/helpers/interface/types'
 
 import MobileNavbar from './MobileNavbar'
 import Link from 'next/link'

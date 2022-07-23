@@ -1,33 +1,31 @@
 import nextConnect from 'next-connect'
 import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/controller/interface/admin'
-import { response } from '@/lib/wrapper'
-import {
-  deleteActivity,
-  findOneById,
-  updateById,
-} from '@/controller/query/activity'
-import { configNext } from '@/controller/middleware/configNext'
+import { NextApiRequestModify } from '@/controller/admin/interface'
+import * as wrapper from '@/helpers/wrapper'
+import { configNext } from '@/helpers/middleware/configNext'
+import { getById } from '@/controller/activity/domain'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
 
 handler.get(async (req, res) => {
-  // You do not generally want to return the whole user object
-  const { id } = req.query
-  const value = Array.isArray(id) ? id[0] : id
-  const valueId = Number(value) || null
-  if (!valueId) {
-    return response(res, 'failed', { data: null }, 'invalid id', 400)
-  }
-  const result = await findOneById(Number(valueId))
-  if (!result) {
-    return response(res, 'failed', { data: null }, 'data not found', 404)
-  }
-  return response(res, 'success', { data: result }, 'get activity', 200)
+  const { id: i } = req.query
+  const value = Array.isArray(i) ? i[0] : i
+  const id = Number(value) || null
+  
+  const domain = async (id: number) => {
+    return getById(id);
+  };
+
+  const sendResponse = async (result) => {
+    return (result.err) ? wrapper.response(res, 'failed', result, 'get activity')
+      : wrapper.response(res, 'success', result, 'get activity', 200);
+  };
+  return sendResponse(await domain(id));
 })
 export default handler
-export const config = {
-  api: {
-    bodyParser: false, // Disallow body parsing, consume as stream
-  },
-}
+//consume req as stream if commented as raw json
+// export const config = {
+//   api: {
+//     bodyParser: false, // Disallow body parsing, consume as stream
+//   },
+// }
