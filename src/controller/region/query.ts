@@ -4,8 +4,10 @@ import { Region } from "./interface";
 const table = 'region';
 
 export const create = async (payload: Region) => {
-    let query = `insert into ${table} values(?)`
-    const result = await execute(query,[payload]);
+    const fields = Object.keys(payload).map((key) => [key]);
+	const values = Object.keys(payload).map((key) => `'${payload[key]}'`);
+	let query = `insert into ${table} (${fields.join(',')}) values(${values.join(',')})`;
+    const result = await execute(query,[]);
     return result;
 }
 
@@ -16,14 +18,14 @@ export const findOneById = async (id: number) => {
 }
 
 export const updateById = async (id: number, doc: Region) => {
-    let set = '';
+	let set = [];
 	let param: any[] = [];
 	Object.keys(doc).map((value) => {
-		set += `set ${value} = ? `;
+		set.push(`${value} = ?`);
 		param.push(doc[value]);
 	});
 	param.push(id);
-	let query = `update ${table} ${set} where id_regional = ?`;
+	let query = `update ${table} set ${set.join(',')} where id_regional = ?`;
 	const result = await execute(query,param);
 	return result;
 }

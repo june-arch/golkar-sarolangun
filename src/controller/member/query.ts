@@ -10,31 +10,31 @@ export const create = async (payload: Member) => {
 }
 
 export const findOneById = async (id: number) => {
-    let query = `select * from ${table} where id = ?`;
+    let query = `select * from ${table} where member_id = ?`;
 	const result = await execute(query,[id]);
 	return result;
 }
 
 export const updateById = async (id: number, doc: any) => {
-    let set = '';
+    let set = [];
 	let param: any[] = [];
 	Object.keys(doc).map((value) => {
-		set += `set ${value} = ? `;
+		set.push(`${value} = ?`);
 		param.push(doc[value]);
 	});
 	param.push(id);
-	let query = `update ${table} ${set} where id = ?`;
+	let query = `update ${table} set ${set.join(',')} where member_id = ?`;
 	const result = await execute(query,param);
 	return result;
 }
 export const updateStatusById = async (id: number, status: number) => {
-	let query = `update ${table} set status = ? where id = ?`;
+	let query = `update ${table} set status = ? where member_id = ?`;
 	const result = await execute(query,[status, id]);
 	return result;
 }
 
 export const remove = async (id: number) => {
-    let query = `delete from ${table} where id = ?`;
+    let query = `delete from ${table} where member_id = ?`;
 	const result = await execute(query,[id]);
 	return result;
 }

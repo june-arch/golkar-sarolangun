@@ -17,7 +17,11 @@ export const create = async (admin: Admin) => {
         .pbkdf2Sync(admin.password, salt, 1000, 24, 'sha512')
         .toString('hex')
     admin.password = hash
-    return await execute(`insert into ${table} values(?)`, [admin]);
+    const fields = Object.keys(admin).map((key) => [key]);
+	const values = Object.keys(admin).map((key) => `'${admin[key]}'`);
+	let query = `insert into ${table} (${fields.join(',')}) values(${values.join(',')})`;
+    const result = await execute(query,[]);
+    return result;
 }
 
 export const findOneByUserame = async (username: string) => {
@@ -35,14 +39,14 @@ export const updateById = async (id: number, doc: Admin) => {
         .toString('hex')
         doc.password = hash
     }
-    let set = '';
+    let set = [];
 	let param: any[] = [];
 	Object.keys(doc).map((value) => {
-		set += `set ${value} = ? `;
+		set.push(`${value} = ?`);
 		param.push(doc[value]);
 	});
 	param.push(id);
-    let query = `update ${table} ${set} where id_admin = ?`;
+	let query = `update ${table} set ${set.join(',')} where id_admin = ?`;
 	const result = await execute(query,param);
 	return result;
 }
