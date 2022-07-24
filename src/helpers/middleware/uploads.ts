@@ -2,7 +2,6 @@ import {
   editFileName,
   imageFileFilter,
   imageKtpFilter,
-  videoFileFilter,
 } from '@/helpers/filter-uploads'
 import multer from 'multer'
 
@@ -10,7 +9,7 @@ export const uploadMiddleware = (path: string) => {
   const upload = multer({
     limits: { fileSize: 1000 * 1024 },
     storage: multer.diskStorage({
-      destination: './tmp/uploads/' + path,
+      destination: './public/uploads/' + path,
       filename: editFileName,
     }),
     fileFilter: imageFileFilter,
@@ -22,7 +21,7 @@ export const uploadMultipleMiddleware = (path: string) => {
   const upload = multer({
     limits: { fileSize: 1000 * 1024 },
     storage: multer.diskStorage({
-      destination: './tmp/uploads/' + path,
+      destination: './public/uploads/' + path,
       filename: editFileName,
     }),
     fileFilter: imageFileFilter,
@@ -34,7 +33,7 @@ export const uploadDiffMiddleware = (path: string) => {
   const upload = multer({
     limits: { fileSize: 1000 * 1024 },
     storage: multer.diskStorage({
-      destination: './tmp/uploads/' + path,
+      destination: './public/uploads/' + path,
       filename: editFileName,
     }),
     fileFilter: imageKtpFilter,
