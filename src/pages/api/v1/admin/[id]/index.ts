@@ -23,7 +23,7 @@ handler
     };
     return sendResponse(await domain(id));
   })
-  .put(async (req, res) => {
+  .patch(async (req, res) => {
     const { id: i } = req.query;
     const payload = req.body;
     const value = Array.isArray(i) ? i[0] : i;

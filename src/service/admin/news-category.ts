@@ -100,7 +100,7 @@ export const putNewsCategory = async (
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-    method: 'PUT',
+    method: 'PATCH',
     body: JSON.stringify(payload),
   })
   return result

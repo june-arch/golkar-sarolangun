@@ -1,4 +1,4 @@
-export default class Unauthorized {
+export default class UnauthorizedError {
   message: any;
   data: any;
   code: any;

@@ -3,9 +3,10 @@ import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/controller/admin/interface'
 import jwt from 'jsonwebtoken'
 import { SignOptions } from '@/helpers/interface/jwt'
-import prisma from '@/lib/db/connection'
-import { findOneAdminById } from '@/controller/admin/query'
 import * as wrapper from '@/helpers/wrapper'
+import { findOneById } from '@/controller/admin/query'
+import ForbiddenError from '../error/forbidden_error'
+import UnauthorizedError from '../error/unauthorized_error'
 // audience from Blowfish algrithm CTR model https://codebeautify.org/encrypt-decrypt
 // pass ask developer
 
@@ -43,27 +44,25 @@ const auth = nextConnect<NextApiRequestModify, NextApiResponse>().use(
       audience: 'PooCBigub8bskokGglBluJw1jZ5S2lo=',
       issuer: 'ngopieDev',
     }
-
     const token = getToken(req.headers)
     if (!token) {
-      return wrapper.response(res, 'failed', { data: null }, 'Unauthorized', 403)
+      return wrapper.response(res, 'failed', wrapper.error(new UnauthorizedError('Unauthorized')))
     }
     let decodedToken
     try {
       decodedToken = jwt.verify(token, publicKey, verifyOptions)
     } catch (error) {
       if (error instanceof jwt.TokenExpiredError) {
-        return wrapper.response(res, 'failed', { data: null }, 'Token Is expired', 401)
+        return wrapper.response(res, 'failed', wrapper.error(new ForbiddenError('Access token expired!')))
       }
-      return wrapper.response(res, 'failed', { data: null }, 'Token Is Invalid', 401)
+      return wrapper.response(res, 'failed', wrapper.error(new ForbiddenError('Token is invalid!')))
     }
-
     const sessId = decodedToken.sub
-    const user = await findOneAdminById(sessId)
-    if (!user) {
-      return wrapper.response(res, 'failed', { data: null }, 'Unauthorized', 403)
+    const user = await findOneById(sessId)
+    if (user['err'] || user['data'].lenth == 0) {
+      return wrapper.response(res, 'failed',wrapper.error(new UnauthorizedError('Unauthorized')))
     }
-    req.user = user
+    req.user = user['data'][0]
     next()
   }
 )

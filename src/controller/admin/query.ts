@@ -25,7 +25,7 @@ export const findOneByUserame = async (username: string) => {
 }
 
 export const findOneById = async (id: number) => {
-    return await execute(`select * from ${table} where id = ?`, [id]);
+    return await execute(`select * from ${table} where id_admin = ?`, [id]);
 }
 
 export const updateById = async (id: number, doc: Admin) => {
@@ -42,13 +42,13 @@ export const updateById = async (id: number, doc: Admin) => {
 		param.push(doc[value]);
 	});
 	param.push(id);
-    let query = `update ${table} ${set} where id = ?`;
+    let query = `update ${table} ${set} where id_admin = ?`;
 	const result = await execute(query,param);
 	return result;
 }
 
 export const remove = async (id: number) => {
-    let query = `delete from ${table} where id = ?`;
+    let query = `delete from ${table} where id_admin = ?`;
 	const result = await execute(query,[id]);
 	return result;
 }

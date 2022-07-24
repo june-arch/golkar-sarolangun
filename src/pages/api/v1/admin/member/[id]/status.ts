@@ -12,7 +12,7 @@ const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
 
 handler
   .use(jwt)
-  .put(
+  .patch(
     validate({ body: updateStatusMember }),
     async (req: NextApiRequestModify, res) => {
       const { status } = req.body

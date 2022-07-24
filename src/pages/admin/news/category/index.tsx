@@ -29,7 +29,7 @@ function GetNewsCategorySwr() {
         return router.reload()
     }
     const { newsCategory, isError, isLoading } = useGetNewsCategories(
-        { page: '1', limit: '10' },
+        { page: page.toString(), limit: limit.toString() },
         token
     )
     if (isError)

@@ -17,11 +17,12 @@ export const getAllPagination = async (page, limit) => {
     if (result['data'].length == 0) {
         return wrapper.error(new NotFoundError('data not found'))
     }
-
+    console.log(result, count)
     const meta = {
         page,
         totalData: count['data'][0].count,
         totalDataOnPage: result['data'].length,
+        totalPage: Math.ceil(count['data'][0].count / limit),
     }
     return wrapper.dataPagination(result['data'], meta);
 }

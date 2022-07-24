@@ -9,8 +9,8 @@ export const create = async (payload: Region) => {
     return result;
 }
 
-export const findOneById = async (id: number): Promise<Region> => {
-    let query = `select * from ${table} where id = ?`;
+export const findOneById = async (id: number) => {
+    let query = `select * from ${table} where id_regional = ?`;
 	const result = await execute(query,[id]);
 	return result;
 }
@@ -23,13 +23,13 @@ export const updateById = async (id: number, doc: Region) => {
 		param.push(doc[value]);
 	});
 	param.push(id);
-	let query = `update ${table} ${set} where id = ?`;
+	let query = `update ${table} ${set} where id_regional = ?`;
 	const result = await execute(query,param);
 	return result;
 }
 
 export const remove = async (id: number) => {
-    let query = `delete from ${table} where id = ?`;
+    let query = `delete from ${table} where id_regional = ?`;
 	const result = await execute(query,[id]);
 	return result;
 }

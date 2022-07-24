@@ -1,7 +1,7 @@
 import { ActivityCategory } from "./interface";
 import { execute } from "@/helpers/db/mysql";
 
-const table = 'activity_category';
+const table = 'category_activity';
 
 export const create = async (payload: ActivityCategory) => {
     let query = `insert into ${table} values(?)`

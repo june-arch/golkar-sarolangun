@@ -93,7 +93,7 @@ export const putNews = async (
       'Accept': '*/*',
       Authorization: `Bearer ${token}`,
     },
-    method: 'PUT',
+    method: 'PATCH',
     body: formData,
   })
   return result

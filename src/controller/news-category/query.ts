@@ -1,35 +1,37 @@
 import { execute } from "@/helpers/db/mysql";
 import { NewsCategory } from "./interface"
 
-const table = 'news_category';
+const table = 'category_news';
 
 export const create = async (payload: NewsCategory) => {
-    let query = `insert into ${table} values(?)`
-    const result = await execute(query,[payload]);
+	const fields = Object.keys(payload).map((key) => [key]);
+	const values = Object.keys(payload).map((key) => `'${payload[key]}'`);
+	let query = `insert into ${table} (${fields.join(',')}) values(${values.join(',')})`;
+    const result = await execute(query,[]);
     return result;
 }
 
 export const findOneById = async (id: number) => {
-    let query = `select * from ${table} where id = ?`;
+    let query = `select * from ${table} where id_category_news = ?`;
 	const result = await execute(query,[id]);
 	return result;
 }
 
 export const updateById = async (id: number, doc: NewsCategory) => {
-    let set = '';
+    let set = [];
 	let param: any[] = [];
 	Object.keys(doc).map((value) => {
-		set += `set ${value} = ? `;
+		set.push(`${value} = ?`);
 		param.push(doc[value]);
 	});
 	param.push(id);
-	let query = `update ${table} ${set} where id = ?`;
+	let query = `update ${table} set ${set.join(',')} where id_category_news = ?`;
 	const result = await execute(query,param);
 	return result;
 }
 
 export const remove = async (id: number) => {
-    let query = `delete from ${table} where id = ?`;
+    let query = `delete from ${table} where id_category_news = ?`;
 	const result = await execute(query,[id]);
 	return result;
 }

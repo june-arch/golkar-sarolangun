@@ -9,6 +9,7 @@ import { Admin } from './interface'
 export const getAllPagination = async (page, limit) => {
     const result = await findAllPagination(page, limit)
     const count = await countAll()
+
     if (result['err']) {
         return wrapper.error(new InternalServerError(result['err']))
     }
@@ -20,6 +21,7 @@ export const getAllPagination = async (page, limit) => {
         page,
         totalData: count['data'][0].count,
         totalDataOnPage: result['data'].length,
+        totalPage: Math.ceil(count['data'][0].count / limit),
     }
     return wrapper.dataPagination(result['data'], meta);
 }
@@ -50,10 +52,9 @@ export const authLogin = async (username: string, password: string) => {
         return wrapper.error(new BadRequestError('wrong password'));
     }
     const payload = {
-        sub: result['data'].id_admin,
-        username: result['data'].username,
+        sub: result['data'][0].id_admin,
+        username: result['data'][0].username,
     }
-
     const token = await generateToken(payload, '12h')
 
     // return basic user details and token

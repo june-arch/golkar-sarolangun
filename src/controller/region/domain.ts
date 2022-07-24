@@ -30,6 +30,7 @@ export const getAllPagination = async (page, limit) => {
         page,
         totalData: count['data'][0].count,
         totalDataOnPage: result['data'].length,
+        totalPage: Math.ceil(count['data'][0].count / limit),
     }
     return wrapper.dataPagination(result['data'], meta);
 }
