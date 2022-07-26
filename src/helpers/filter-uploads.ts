@@ -63,6 +63,7 @@ export const editFileName = (
   file: Express.Multer.File,
   callback: (val, msg) => void,
 ) => {
+  
   const uuid = v4();
   const fileExtName = extname(file.originalname);
   callback(null, `${uuid}${fileExtName}`);
@@ -70,7 +71,7 @@ export const editFileName = (
 
 export const unlinkByFileName = (path: string, fileName: string) => {
   try {
-    unlink(`./public/uploads/${path}/${fileName}`, (err) => {
+    unlink(`./tmp/${path}/${fileName}`, (err) => {
       if (err) throw err;
     });
     return true;
@@ -81,11 +82,11 @@ export const unlinkByFileName = (path: string, fileName: string) => {
 
 export const unlinkAllFile = (path: string) => {
   try {
-    readdir('./public/uploads/'+path, (err, files) => {
+    readdir('./tmp/'+path, (err, files) => {
       if (err) throw err;
 
       for (const file of files) {
-        unlink(join('./public/uploads/'+path, file), (err) => {
+        unlink(join('./tmp/'+path, file), (err) => {
           if (err) throw err;
         });
       }

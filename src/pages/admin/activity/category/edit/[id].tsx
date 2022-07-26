@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Form } from '@/components/admin/Form'
 import { Layout } from '@/components/admin/layout/Main'
 import { useAppSelector } from '@/helpers/redux/hook'

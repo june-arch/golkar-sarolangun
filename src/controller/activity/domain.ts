@@ -35,7 +35,7 @@ export const getById = async (id: number) => {
     if (result['data'].length == 0) {
         return wrapper.error(new NotFoundError('data not found'))
     }
-    return wrapper.data(result['data']);
+    return wrapper.data(result['data'][0]);
 }
 
 export const createActivity = async (payload, files, user) => {
@@ -49,7 +49,6 @@ export const createActivity = async (payload, files, user) => {
         category_activity_id: Number(category_activity_id),
         admin_id: user.id_admin,
         image: imagesFilename.join(','),
-        created_date: new Date(),
     }
     const result = await create(doc)
     return wrapper.data(result['data']);
@@ -70,6 +69,9 @@ export const removeActivity = async (id) => {
     if(result['err']){
         return wrapper.error(result['err'])
     }
+    for (let item of find['data'][0].image.split(',')) {
+        unlinkByFileName('images/activity', item)
+      }
     return wrapper.data(result['data']);
 }
 
@@ -85,8 +87,6 @@ export const editActivity = async (payload, id, files, user) => {
     if (find['data'].length == 0) {
         return wrapper.error(new NotFoundError('data not found'))
     }
-    
-    await removeFileImages(files, find['data'][0])
     let imagesFilename = []
     if (files && files.length > 0) {
         files.forEach((value) => imagesFilename.push(value.filename))
@@ -106,6 +106,7 @@ export const editActivity = async (payload, id, files, user) => {
     if (result['err']) {
         return wrapper.error(find['err'])
     }
+    await removeFileImages(files, find['data'][0])
     return wrapper.data(result['data']);
 }
 

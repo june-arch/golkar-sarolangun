@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Form } from '@/components/admin/Form'
 import { Layout } from '@/components/admin/layout/Main'
 import { useAppSelector } from '@/helpers/redux/hook'
@@ -19,7 +20,7 @@ function EditActivity() {
             title: '',
             category_activity_id: '',
             video: '',
-            image: '',
+            image: [],
         },
         validationSchema: Yup.object({
             title: Yup.string()
@@ -28,7 +29,9 @@ function EditActivity() {
             category_activity_id: Yup.number()
                 .max(20, 'Must be number')
                 .required('Required'),
-            image: Yup.mixed().test("fileSize", "The file is too large", checkIfFilesAreTooBig).test("fileType","The file type invalid", checkIfFilesAreCorrectType).nullable(),
+            image: Yup.array(
+                Yup.mixed().test("fileSize", "The file is too large", checkIfFilesAreTooBig).test("fileType", "The file type invalid", checkIfFilesAreCorrectType).required()
+            ).nullable(),
             video: Yup.string().matches(
                 /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/,
                 'Enter correct url!'
@@ -57,7 +60,7 @@ function EditActivity() {
                 title: activity.data ? activity.data.title : '',
                 category_activity_id: activity.data ? activity.data.category_activity_id : '',
                 video: activity.data ? activity.data.video : '',
-                image: '',
+                image: [],
             })
         }
 
@@ -74,7 +77,7 @@ function EditActivity() {
     return (
         <div className="p-5 max-w-7xl mx-auto ">
             <FormikProvider value={formik}>
-                <Form formik={formik} header={formActivity} data={listCategory} content={activity.data} >
+                <Form formik={formik} header={formActivity} data={listCategory} content={activity.data} bucket='images/activity' isMultiple={true}>
                     <div className="py-6 flex flex-col md:flex-row  md:space-y-0 items-center space-y-5 justify-between">
                         <div className="text-3xl">Tambah Activity</div>
                     </div>

@@ -1,5 +1,6 @@
 import withJoi from 'next-joi'
 import * as wrapper from '@/helpers/wrapper'
+import BadRequestError from '../error/bad_request_error'
 
 export default withJoi({
   onValidationError: (_, res, error) => {
@@ -9,7 +10,7 @@ export default withJoi({
         data[err.context.key] = err.message
         return data
       })
-      return wrapper.response(res, 'failed', { data: errData }, 'bad request', 400)
+      return wrapper.response(res, 'failed', wrapper.errorData(errData, new BadRequestError()))
     }
   },
 })

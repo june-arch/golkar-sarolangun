@@ -17,7 +17,7 @@ export const dataPagination = (data, meta) => ({ err: null, data, meta});
 
 export const error = (err) => ({ err, data: null });
 
-export const errorData = (data, err) => ({ data:data, err, });
+export const errorData = (data, err) => ({ data:data, err });
 
 export const response = (
   res: NextApiResponse,

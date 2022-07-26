@@ -35,16 +35,16 @@ handler
     validate({ body: news }),
     async (req: NextApiRequestModify, res: NextApiResponse) => {
       const payload = req.body;
-      const { files, user } = req;
-      const domain = async (payload, files, user) => {
-        return createNews(payload, files, user);
+      const { file, user } = req;
+      const domain = async (payload, file, user) => {
+        return createNews(payload, file, user);
       };
     
       const sendResponse = async (result) => {
         return (result.err) ? wrapper.response(res, 'failed', result, 'create news')
           : wrapper.response(res, 'success', result, 'create news', 201);
       };
-      return sendResponse(await domain(payload, files, user));
+      return sendResponse(await domain(payload, file, user));
     }
   )
 

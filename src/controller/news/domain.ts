@@ -35,22 +35,19 @@ export const getById = async (id: number) => {
     if (result['data'].length == 0) {
         return wrapper.error(new NotFoundError('data not found'))
     }
-    return wrapper.data(result['data']);
+    return wrapper.data(result['data'][0]);
 }
 
 
-export const createNews = async (payload, files, user) => {
+export const createNews = async (payload, file, user) => {
     const {category_news_id, ...dataNews} = payload;
-    let imagesFilename = []
-    if (files && files.length > 0) {
-        files.forEach((value) => imagesFilename.push(value.filename))
+    if (file) {
+        dataNews['image'] = file.filename;
     }
     const doc: News = {
         ...dataNews,
         category_news_id: Number(category_news_id),
         admin_id: user.id_admin,
-        image: imagesFilename.join(','),
-        created_date: new Date(),
     }
     const result = await create(doc)
     return wrapper.data(result['data']);
@@ -71,6 +68,7 @@ export const removeNews = async (id) => {
     if(result['err']){
         return wrapper.error(result['err'])
     }
+    unlinkByFileName('images/news',find['data'][0].image);
     return wrapper.data(result['data']);
 }
 
@@ -88,7 +86,7 @@ export const editNews = async (payload, id, file, user) => {
     }
     
     if(category_news_id){
-        dataNews['category_activity_id'] = Number(category_news_id);
+        dataNews['category_news_id'] = Number(category_news_id);
     }
     if(file){
         dataNews['image'] = file.filename;
@@ -101,7 +99,8 @@ export const editNews = async (payload, id, file, user) => {
     }
     const result = await updateById(id, news)
     if (result['err']) {
-        return wrapper.error(find['err'])
+        return wrapper.error(result['err'])
     }
+    console.log(result);
     return wrapper.data(result['data']);
 }

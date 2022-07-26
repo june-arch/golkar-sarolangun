@@ -15,6 +15,6 @@ const videos = Joi.object({
 export const activity = Joi.object({
   title: Joi.string().required(),
   category_activity_id: Joi.string().required(),
-  image: Joi.array().items(images).allow(''),
+  image: Joi.string().allow(''),
   video: Joi.string().allow(''),
 })

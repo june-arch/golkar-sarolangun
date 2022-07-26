@@ -84,6 +84,12 @@ export const putActivity = async (
 ) => {
   const formData = new FormData();
   Object.keys(payload).forEach(key => {
+    if(typeof payload[key] == 'object'){
+      for(let item of payload[key]){
+        console.log('value', item);
+        formData.append(key, item)
+      }
+    }
     formData.append(key, payload[key]);
   });
   const result = await fetcher(`${address}/${id}`, {

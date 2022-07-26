@@ -1,12 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  extends: [
-    //...
-    'plugin:@next/next/recommended',
-  ],
   images: {
-    domains: ['i.ytimg.com','mdbcdn.b-cdn.net'],
+    domains: ['i.ytimg.com','mdbcdn.b-cdn.net','localhost'],
   },
   env: {
     DOMAIN_API: process.env.DOMAIN_API,

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Form } from '@/components/admin/Form'
 import { Layout } from '@/components/admin/layout/Main'
 import { useAppSelector } from '@/helpers/redux/hook'
@@ -43,6 +44,7 @@ function EditNews() {
                     result.data.map(value => Object.keys(value).map(key => formik.errors[key] = value[key]))
                 }
             }
+            console.log('masuk', JSON.stringify(result.data))
             if (result.data && (result.success == true)) {
                 return router.push('/admin/news')
             }
@@ -76,9 +78,9 @@ function EditNews() {
     return (
         <div className="p-5 max-w-7xl mx-auto ">
             <FormikProvider value={formik}>
-                <Form formik={formik} header={formNews} data={listCategory} content={news.data} >
+                <Form formik={formik} header={formNews} data={listCategory} content={news.data} bucket='images/news' >
                     <div className="py-6 flex flex-col md:flex-row  md:space-y-0 items-center space-y-5 justify-between">
-                        <div className="text-3xl">Tambah News</div>
+                        <div className="text-3xl">Edit News</div>
                     </div>
                 </Form>
             </FormikProvider>

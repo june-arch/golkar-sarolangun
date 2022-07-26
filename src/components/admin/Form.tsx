@@ -1,12 +1,12 @@
 import { Input } from "./Input"
 
-export const Form = ({ formik, header, data, content, children } : {formik:any, header:any, data?:any, content?: any, children?:any}) => {
+export const Form = ({ formik, header, data, content, bucket, isMultiple, children } : {formik:any, header:any, data?:any, content?: any, bucket?: string, isMultiple?: boolean, children?:any}) => {
   return (
     <div className="w-full">
       {children}
       <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
         {header.map((value, key) => (
-          <Input value={value} formik={formik} data={data} content={content} key={key}/>
+          <Input value={value} formik={formik} data={data} content={content} bucket={bucket} key={key} isMultiple={isMultiple}/>
         ))}
 
         <div className="text-center lg:text-left">
