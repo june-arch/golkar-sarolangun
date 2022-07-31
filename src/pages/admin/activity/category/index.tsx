@@ -29,7 +29,7 @@ function GetActivityCategorySwr() {
         return router.reload()
     }
     const { activityCategory, isError, isLoading } = useGetActivityCategories(
-        { page: '1', limit: '10' },
+        { page: page.toString(), limit: limit.toString() },
         token
     )
     if (isError)

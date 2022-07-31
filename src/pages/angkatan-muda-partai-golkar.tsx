@@ -7,6 +7,8 @@ import { NavItem } from '@/helpers/interface/types'
 import Footer from '@/components/landing-page/Footer'
 import Layout from '@/components/landing-page/Layout'
 import Navbar from '@/components/landing-page/Navbar'
+import Image from 'next/image'
+import styles from "@/styles/img.module.css"
 
 type Props = {
   navItem: NavItem
@@ -18,10 +20,25 @@ const AngkatanMudaPartaiGolkar = ({ navItem }: Props) => {
       {/* <Seo templateTitle='Home' /> */}
 
       <main>
-        <div className="sticky top-0 z-50 bg-yellow-300">
+        <div className="sticky top-0 z-50 bg-primary">
           <Navbar nav-items={navItem['nav-items']} />
         </div>
-        <section className="mx-auto flex flex-col items-center p-4 sm:flex-row sm:items-start lg:w-[90vh] xl:w-[110vh]"></section>
+        <section className="mx-auto flex flex-col items-center p-4 sm:flex-row sm:items-start lg:w-[90vh] xl:w-[110vh]">
+	<div className="items-center justify-center bg-light self-center">
+        <div className={styles.pictures}>
+        <div className={styles.img}>
+        <Image
+                  src="/images/angkatan-muda-partai-golkar.png"
+                  alt="angkatan muda partai golkar"
+                  height={1200}
+                  width={1149}
+                  objectFit="contain"
+        />
+        </div>
+        </div>
+        </div>
+
+	</section>
         <Footer />
       </main>
     </Layout>

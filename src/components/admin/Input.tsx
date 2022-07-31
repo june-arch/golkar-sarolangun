@@ -20,7 +20,7 @@ export const Input = ({ value, formik, data, content, bucket, isMultiple }: { va
                             accept={'image/*'}
                             multiple={true}
                         />
-                        {(content && content.image) && content.image.split(',').map((item, index) => <Image key={index} id={value} src={'http://localhost:3000/api/v1?file='+item+'&bucket='+bucket} alt="your image" width={200} height={200} />)}
+                        {(content && content.image) && content.image.split(',').map((item, index) => <Image key={index} id={value} src={process.env.DOMAIN_API+'/api/v1?file='+item+'&bucket='+bucket} alt="your image" width={200} height={200} />)}
                     </>
                     ):(
                     <>
@@ -32,7 +32,7 @@ export const Input = ({ value, formik, data, content, bucket, isMultiple }: { va
                             onChange={(e) => formik.setFieldValue(value, e.currentTarget.files[0])}
                             accept={'image/*'}
                         />
-                        {(content && content.image) && <Image id={value} src={'http://localhost:3000/api/v1?file='+content.image+'&bucket='+bucket} alt="your image" width={200} height={200} />}   
+                        {(content && content.image) && <Image id={value} src={process.env.DOMAIN_API+'/api/v1?file='+content.image+'&bucket='+bucket} alt="your image" width={200} height={200} />}   
                     </>
                     )}
                     

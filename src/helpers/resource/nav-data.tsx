@@ -212,7 +212,7 @@ export const contentOne = {
         },
         {
           name: 'kesatuan perempuan partai (KPPG)',
-          slug: 'kesatuan-perempuan-partai-(kppg)',
+          slug: 'kesatuan-perempuan-partai-golkar',
           subMenu: [],
         },
         {

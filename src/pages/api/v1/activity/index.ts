@@ -3,7 +3,7 @@ import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/controller/admin/interface'
 import * as wrapper from '@/helpers/wrapper'
 import { configNext } from '@/helpers/middleware/configNext'
-import { getAllPagination } from '@/controller/activity/domain'
+import { getAllPaginationHome } from '@/controller/activity/domain'
 
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
@@ -15,7 +15,7 @@ handler.get(async (req, res) => {
   const page = Number(dataPage) || 1
   const limit = Number(dataLimit) || 10
   const domain = async (page: number, limit: number) => {
-    return getAllPagination(page, limit);
+    return getAllPaginationHome(page, limit);
   };
 
   const sendResponse = async (result) => {

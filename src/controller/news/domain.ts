@@ -1,5 +1,5 @@
 import NotFoundError from '@/helpers/error/not_found_error'
-import { countAll, create, findAllPagination, findOneById, remove, updateById } from './query'
+import { countAll, create, findAllPagination, findAllPaginationHome, findOneById, remove, updateById } from './query'
 import * as wrapper from '@/helpers/wrapper'
 import BadRequestError from '@/helpers/error/bad_request_error'
 import { unlinkByFileName } from '@/helpers/filter-uploads'
@@ -7,6 +7,25 @@ import { News } from './interface'
 
 export const getAllPagination = async (page: number, limit: number) => {
     const result = await findAllPagination(page, limit)
+    const count = await countAll()
+    if (result['err']) {
+        return wrapper.error(new NotFoundError(result['err']))
+    }
+    if (result['data'].length == 0) {
+        return wrapper.error(new NotFoundError('data not found'))
+    }
+
+    const meta = {
+        page,
+        totalData: count['data'][0].count,
+        totalDataOnPage: result['data'].length,
+        totalPage: Math.ceil(count['data'][0].count / limit),
+    }
+    return wrapper.dataPagination(result['data'], meta);
+}
+
+export const getAllPaginationHome = async (page: number, limit: number) => {
+    const result = await findAllPaginationHome(page, limit)
     const count = await countAll()
     if (result['err']) {
         return wrapper.error(new NotFoundError(result['err']))

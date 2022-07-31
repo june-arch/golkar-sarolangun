@@ -8,6 +8,14 @@ export const formatDate = (dateString: string) => {
   })
 }
 
+export const formatDateHome = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
 export const isDate = function (value: string) {
   const checkDate = Date.parse(value)
   if (value) {

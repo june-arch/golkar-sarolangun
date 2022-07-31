@@ -6,8 +6,8 @@
 }
 
 .whatsappButton {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,8 +24,8 @@
 
 @media (min-width: 0px) and (max-width: 600px) {
   .whatsappButton {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,8 +44,8 @@
 .whatsappButton:after {
   content: '';
   border-color: inherit;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   position: absolute;
   opacity: 0;

@@ -109,19 +109,20 @@ const MobileNavbar = (props: Props) => {
         open ? '-translate-x-0' : '-translate-x-full'
       } drop-shadow-md filter transition-transform duration-300 ease-in-out `}
     >
-      <div className="flex h-20 items-center justify-center bg-white drop-shadow-md filter">
+      <div className="flex h-16 items-center justify-center bg-white drop-shadow-md filter">
         <div className="cursor-pointer text-xl font-semibold">
-          <Link href="/">
-            <a>
-              <Image
-                src="/images/logo.png"
-                alt="logo-golkar"
-                className="mr-5 h-14 w-14"
-                height={1200}
-                width={1149}
-                layout="responsive"
-                objectFit="contain"
-              />
+        <Link href="/">
+            <a className="">
+              <div className="h-[51px] w-[48px]">
+                <Image
+                  src="/images/logo.png"
+                  alt="logo-golkar"
+                  height={1200}
+                  width={1149}
+                  layout="responsive"
+                  objectFit="contain"
+                />
+              </div>
             </a>
           </Link>
         </div>
@@ -131,7 +132,11 @@ const MobileNavbar = (props: Props) => {
           return (
             <div key={i} className="py-2 text-sm font-medium">
               <div className="flex">
-                <button className="grow-0 uppercase">{value.name}</button>
+                <Link href={'/' + value.slug}>
+                  <button className={`grow-0 uppercase ${
+                      value.slug == '#disable' && 'pointer-events-none'
+                    }`}>{value.name}</button>
+                </Link>
                 <div
                   className="grow"
                   onClick={() =>
@@ -166,9 +171,11 @@ const MobileNavbar = (props: Props) => {
                     return (
                       <div key={j} className="hidden py-2 pl-2">
                         <div className="flex">
-                          <button className="grow-0 text-left uppercase">
-                            {item.name}
-                          </button>
+                          <Link href={'/' + item.slug}>
+                            <button className={`grow-0 text-left uppercase ${
+                                item.slug == '#disable' && 'pointer-events-none'
+                              }`}>{item.name}</button>
+                          </Link>
                           <div
                             className="grow"
                             onClick={() =>
@@ -207,9 +214,11 @@ const MobileNavbar = (props: Props) => {
                               return (
                                 <div key={k} className="hidden py-2 pl-4">
                                   <div className="flex">
-                                    <button className="grow-0 text-left uppercase">
-                                      {isi.name}
-                                    </button>
+                                    <Link href={'/' + isi.slug}>
+                                      <button className={`grow-0 text-left uppercase ${
+                                          isi.slug == '#disable' && 'pointer-events-none'
+                                        }`}>{isi.name}</button>
+                                    </Link>
                                     <div
                                       className="grow"
                                       onClick={() =>

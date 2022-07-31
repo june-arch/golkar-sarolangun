@@ -20,7 +20,7 @@ export default function Navbar(navItems: Data) {
     posisi: 0,
   })
   return (
-    <nav className="flex flex-row py-4 px-6">
+    <nav className="flex flex-row py-2 px-8 items-center">
       <MobileNavbar
         open={open}
         openSub1={openSub1}
@@ -29,11 +29,10 @@ export default function Navbar(navItems: Data) {
         setOpenSub2={setOpenSub2}
         navItems={navItems}
       />
-      <div className="flex basis-1/12 justify-end self-center">
-        <span className="cursor-pointer px-2">
-          <Link href="/">
-            <a className="mr-1 sm:mr-5">
-              <div className="h-14 w-14">
+      <div className="flex basis-1/12 items-center cursor-pointer">
+        <Link href="/">
+            <a className="">
+              <div className="h-[51px] w-[48px]">
                 <Image
                   src="/images/logo.png"
                   alt="logo-golkar"
@@ -45,9 +44,8 @@ export default function Navbar(navItems: Data) {
               </div>
             </a>
           </Link>
-        </span>
       </div>
-      <ol className="text-md hidden flex-row justify-evenly self-center font-sans uppercase text-slate-700 md:flex md:basis-11/12 xl:basis-6/12">
+      <ol className="text-md hidden self-center flex-row justify-evenly font-sans uppercase text-slate-700 md:flex md:basis-11/12 xl:basis-6/12">
         {navItems['nav-items'].map((value, i) => {
           return (
             <li
@@ -154,7 +152,7 @@ export default function Navbar(navItems: Data) {
           )
         })}
       </ol>
-      <div className="hidden basis-5/12 justify-around self-center xl:flex ">
+      <div className="hidden basis-5/12 xl:flex ">
         <div className="self-center xl:w-96">
           <div className="flex w-full flex-row rounded">
             <input
@@ -187,31 +185,31 @@ export default function Navbar(navItems: Data) {
           </div>
         </div>
       </div>
-      <div className="flex basis-11/12 items-center justify-between px-2 md:hidden">
-        <div className="text-lg font-bold uppercase text-black">
-          Partai Golkar <br />
-          Kabupaten Sarolangun
+      <div className="flex basis-11/12 items-center justify-between md:hidden">
+        <div className="uppercase flex flex-col px-4 tracking-tighter">
+          <span className="text-header font-[900] text-black">Partai Golkar</span>
+          <span className="text-header-sub font-[900] text-secondary">Kabupaten Sarolangun</span>
         </div>
         <div
-          className="relative z-50 flex h-8 w-8 flex-col items-center justify-between"
+          className={`relative z-50 flex h-6 w-[25px] flex-col justify-between ${open ? 'items-center' : 'items-end'}`}
           onClick={() => {
             setOpen(!open)
           }}
         >
           {/* hamburger button */}
           <span
-            className={`h-1 w-full transform rounded-lg bg-black transition duration-300 ease-in-out ${
-              open ? 'translate-y-3.5 rotate-45 ' : ''
+            className={`h-[6px] w-[25px] rounded-lg bg-secondary duration-300 transition-all ease-in-out ${
+              open ? 'translate-y-[9px] rotate-45 ' : ''
             }`}
           />
           <span
-            className={`h-1 w-full rounded-lg bg-black transition-all duration-300 ease-in-out ${
-              open ? 'w-0 bg-black' : 'w-full '
+            className={`h-[6px] rounded-lg bg-secondary duration-300 transition-all ease-in-out ${
+              open ? 'w-0' : 'w-[18px] '
             }`}
           />
           <span
-            className={`h-1 w-full transform rounded-lg bg-black transition duration-300 ease-in-out ${
-              open ? '-translate-y-3.5 -rotate-45 ' : ''
+            className={`h-[6px] rounded-lg bg-secondary duration-300 transition-all ease-in-out ${
+              open ? '-translate-y-[9px] -rotate-45 w-full' : 'w-[12px]'
             }`}
           />
         </div>

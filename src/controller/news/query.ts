@@ -42,6 +42,18 @@ export const findAllPagination = async (page: number, limit: number) => {
 	return result;
 }
 
+export const findAllPaginationHome = async (page: number, limit: number) => {
+	let query = `SELECT a.id_news, b.name AS category, a.title, a.content, a.created_date,  a.image, a.author
+	FROM news a
+	LEFT JOIN category_news b
+	ON a.category_news_id = b.id_category_news
+	ORDER BY a.created_date DESC 
+	LIMIT ?
+	OFFSET ?`;
+	const result = await execute(query,[limit, (page-1)*limit]);
+	return result;
+}
+
 export const countAll = async () => {
     let query = `select count(*) as count from ${table}`;
 	const result = await execute(query,[]);

@@ -30,7 +30,7 @@ function GetActivitySwr() {
         return router.reload()
     }
     const { activity, isError, isLoading } = useGetActivities(
-        { page: '1', limit: '10' },
+        { page: page.toString(), limit: limit.toString()},
         token
     )
     if (isError)

@@ -1,14 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { fontFamily, screens } = require('tailwindcss/defaultTheme')
-
-function withOpacityValue(variable) {
-  return ({ opacityValue }) => {
-    if (opacityValue === undefined) {
-      return `rgb(var(${variable}))`
-    }
-    return `rgb(var(${variable}) / ${opacityValue})`
-  }
-}
+const { fontFamily } = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin');
 
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
@@ -43,23 +35,22 @@ module.exports = {
         '2xl': '1536px',
       },
       fontFamily: {
-        primary: ['Inter', ...fontFamily.sans],
+        sans: ['Roboto'],
       },
       colors: {
-        primary: {
-          // Customize it on globals.css :root
-          50: withOpacityValue('--tw-color-primary-50'),
-          100: withOpacityValue('--tw-color-primary-100'),
-          200: withOpacityValue('--tw-color-primary-200'),
-          300: withOpacityValue('--tw-color-primary-300'),
-          400: withOpacityValue('--tw-color-primary-400'),
-          500: withOpacityValue('--tw-color-primary-500'),
-          600: withOpacityValue('--tw-color-primary-600'),
-          700: withOpacityValue('--tw-color-primary-700'),
-          800: withOpacityValue('--tw-color-primary-800'),
-          900: withOpacityValue('--tw-color-primary-900'),
-        },
+        primary: '#FFC300',
+        secondary: '#2F4858',
+        other: '#2C4062',
+        bgSecondary: '#F4F4FC',
         dark: '#222222',
+      },
+      fontSize: {
+        header: ['18px', {
+          lineHeight: '21px',
+        }],
+        'header-sub': ['11px', {
+          lineHeight: '13px',
+        }],
       },
       keyframes: {
         flicker: {
@@ -94,6 +85,13 @@ module.exports = {
     require('@tailwindcss/line-clamp'),
     require("tailwindcss-scoped-groups")({
       groups: ["one", "two"],
-  }),
+    }),
+    plugin(function({ addBase, theme }) {
+      addBase({
+        'h1': { fontSize: theme('fontSize.2xl') },
+        'h2': { fontSize: theme('fontSize.xl') },
+        'h3': { fontSize: theme('fontSize.lg') },
+      })
+    }),
   ],
 }

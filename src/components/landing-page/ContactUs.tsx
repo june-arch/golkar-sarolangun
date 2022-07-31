@@ -6,10 +6,8 @@ import { RiWhatsappFill } from 'react-icons/ri'
 const ContactUs = () => {
   const Maps = dynamic(() => import('@/components/landing-page/Maps'))
   return (
-    <section className="flex flex-col py-10 2xl:px-20">
-      <div className="md:text4xl text-center text-2xl sm:text-3xl lg:text-5xl">
-        <div className="mb-10">Hubungi Kami</div>
-      </div>
+    <section className="flex flex-col space-y-8 w-full p-8 bg-[#F9F9F9]">
+      <h1 className="text-center uppercase text-secondary font-[600]"><p className="inline text-black underline-offset-4 underline decoration-[7px] decoration-secondary font-[900]">Hubungi</p> Kami</h1>
       <div id="map" className="">
         <Maps />
       </div>

@@ -30,7 +30,7 @@ function GetNewsSwr() {
         return router.reload()
     }
     const { news, isError, isLoading } = useGetNewss(
-        { page: '1', limit: '10' },
+        { page: page.toString(), limit: limit.toString() },
         token
     )
     if (isError)
