@@ -1,35 +1,18 @@
+import { tableProps } from '@/helpers/interface/pagination.interface'
 import { itemLimit } from '@/helpers/resource/table-admin'
-import { formatDate, isDate } from '@/helpers/utils/common'
 import { Menu } from '@headlessui/react'
-import { PencilIcon, TrashIcon } from '@heroicons/react/outline'
+import ContentTable from './ContentTable';
 
-type Props = {
-  title: string
-  header: string[]
-  data: any[]
-  page?: number
-  limit?: number
-  setLimit?: (value: number) => void
-  handleDelete?: (value: string) => void
-  handleEdit?: (value: string) => void
-  handleAdd?: () => void
-  id?: string
-  children?: React.ReactNode
-}
 
 export const Table = ({
   title,
   header,
-  data,
-  page,
-  limit,
-  setLimit,
-  handleDelete,
-  handleEdit,
-  handleAdd,
+  result,
   id,
-  children,
-}: Props) => {
+  props,
+}: tableProps) => {
+  const { page, limit, setLimit, setPage, handleAdd, handleDelete, handleEdit, searchKeyword, debouncedSearch, setSearchKeyword, handleView  } = props;
+
   return (
     <div className="">
       {title && setLimit && (
@@ -73,67 +56,32 @@ export const Table = ({
               <div className="ml-2">entries</div>
             </div>
             <div className="sm:w-1/6">
-              <input
-                type="search"
-                className="form-control m-0 block w-full min-w-0 flex-auto rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="button-addon2"
-              />
+              <form>
+                  <input
+                    type="search"
+                    className="form-control m-0 block w-full min-w-0 flex-auto rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
+                    placeholder="Search"
+                    value={searchKeyword}
+                    onChange={(e) => setSearchKeyword(e.target.value)}
+                    aria-label="Search"
+                    aria-describedby="button-addon2"
+                  />
+                </form>
             </div>
           </div>
         </>
       )}
-      <table className="w-full">
-        <thead className="bg-gray-600 bg-opacity-20 rounded">
-          <tr>
-            <th className="p-3">no</th>
-            {header.map((title, index) => (
-              <th key={index} className="p-3">
-                {title}
-              </th>
-            ))}
-            {handleEdit && handleDelete && <th className="p-3">action</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((value, index) => (
-            <tr key={index}>
-              <td className="text-center ">
-                {limit * (page - 1) + (index + 1)}
-              </td>
-              {header.map((title, i) => (
-                <td key={i} className="text-center">
-                  {isDate(value[title])
-                    ? formatDate(value[title])
-                    : value[title]}
-                </td>
-              ))}
-              {handleEdit && handleDelete && (
-                <td className="text-center flex justify-center">
-                  <a
-                    onClick={() => handleEdit(value[id])}
-                    className=" text-gray-500 cursor-pointer"
-                  >
-                    <span>
-                      <PencilIcon className="h-7 w-7 text-2xl " />
-                    </span>
-                  </a>
-                  <a
-                    onClick={() => handleDelete(value[id])}
-                    className=" text-red-500 cursor-pointer"
-                  >
-                    <span>
-                      <TrashIcon className="h-7 w-7 text-2xl " />
-                    </span>
-                  </a>
-                </td>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {children}
+      <ContentTable
+          header={header}
+          id={id}
+          result={result}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          handleView={handleView}
+        />
     </div>
   )
 }

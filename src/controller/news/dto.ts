@@ -11,3 +11,15 @@ export const news = Joi.object({
     .unknown()
     .allow(''),
 })
+
+export const newsOptional = Joi.object({
+  title: Joi.string().optional(),
+  content: Joi.string().optional(),
+  category_news_id: Joi.string().optional(),
+  author: Joi.string().optional(),
+  image: Joi.object({
+    type: Joi.string().valid('image/jpeg', 'image/png', 'image/jpg').allow(''),
+  })
+    .unknown()
+    .allow('').optional(),
+})

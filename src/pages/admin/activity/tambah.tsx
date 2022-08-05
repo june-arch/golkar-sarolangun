@@ -1,7 +1,7 @@
 import { Form } from '@/components/admin/Form'
 import { Layout } from '@/components/admin/layout/Main'
 import { useAppSelector } from '@/helpers/redux/hook'
-import { selectToken } from '@/helpers/redux/slice/auth-slice-admin'
+import { selectToken } from '@/helpers/redux/slice/auth-admin.slice'
 import { formActivity } from '@/helpers/resource/table-admin'
 import { checkIfFilesAreCorrectType, checkIfFilesAreTooBig } from '@/helpers/utils/common'
 import { postActivity } from '@/service/admin/activity'
@@ -37,8 +37,8 @@ function AddActivity() {
         onSubmit: async (values) => {
             const result = await postActivity(values, token)
             if (result.code !== 200) {
-                if(result.code == 400){
-                    result.data.map(value => Object.keys(value).map(key => formik.errors[key] = value[key]))
+                if (result.status == 400) {
+                    result.info.data.map(value => Object.keys(value).map(key => formik.setFieldError(key, value[key])))
                 }
             }
             if (result.data && (result.success == true)) {

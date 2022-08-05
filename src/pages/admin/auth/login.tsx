@@ -2,7 +2,7 @@
 import * as Yup from 'yup'
 import React from 'react'
 import { postLogin } from '@/service/admin/auth.admin'
-import { setIsLogin, setToken } from '@/helpers/redux/slice/auth-slice-admin'
+import { setIsLogin, setToken } from '@/helpers/redux/slice/auth-admin.slice'
 import { useAppDispatch } from '@/helpers/redux/hook'
 import { useRouter } from 'next/router'
 import { useFormik } from 'formik'

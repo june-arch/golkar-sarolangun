@@ -4,7 +4,7 @@ import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/controller/admin/interface'
 import * as wrapper from '@/helpers/wrapper'
 import { uploadMiddleware } from '@/helpers/middleware/uploads'
-import { news } from '@/controller/news/dto'
+import { newsOptional } from '@/controller/news/dto'
 import validate from '@/helpers/middleware/validation'
 import { configNext } from '@/helpers/middleware/configNext'
 import { editNews, getById, removeNews } from '@/controller/news/domain'
@@ -42,7 +42,7 @@ handler
     return sendResponse(await domain(id));
   })
   .use(uploadMiddleware('images/news'))
-  .patch(validate({ body: news }), async (req: NextApiRequestModify, res) => {
+  .patch(validate({ body: newsOptional }), async (req: NextApiRequestModify, res) => {
     const payload = req.body
     const { file, user } = req
     const { id: i } = req.query

@@ -9,9 +9,9 @@ import {
   selectIsLogin,
   setIsLogin,
   setToken,
-} from '@/helpers/redux/slice/auth-slice-admin'
+} from '@/helpers/redux/slice/auth-admin.slice'
 import { useRouter } from 'next/router'
-import { selectOpen, setOpen } from '@/helpers/redux/slice/navigation-slice-admin'
+import { selectOpen, setOpen } from '@/helpers/redux/slice/navigation-admin.slice'
 
 export const Header = () => {
   const dispatch = useAppDispatch()

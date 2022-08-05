@@ -106,6 +106,8 @@ export const editMember = async (payload, id, files, user) => {
     if (region_id) updateMember['region_id'] = Number(region_id)
     if (date_of_birth) updateMember['date_of_birth'] = new Date(date_of_birth)
     if (status) updateMember['status'] = Number(status)
+    delete updateMember['photo'];
+    delete updateMember['photo_ktp'];
     if (files) {
         if (files['photo'] && files['photo'].length > 0) {
             updateMember['photo'] = files['photo'][0].filename

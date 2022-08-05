@@ -18,3 +18,10 @@ export const activity = Joi.object({
   image: Joi.string().allow(''),
   video: Joi.string().allow(''),
 })
+
+export const activityOptional = Joi.object({
+  title: Joi.string().optional(),
+  category_activity_id: Joi.string().optional(),
+  image: Joi.string().allow('').optional(),
+  video: Joi.string().optional(),
+})

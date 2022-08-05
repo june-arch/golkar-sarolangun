@@ -25,7 +25,7 @@ const Carousel = ({activity}) => {
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper2"
         >
-            {activity && activity.data?.map((value, i) => {
+            {activity.data && activity.data.length > 0 && activity.data?.map((value, i) => {
                 return (
                     value.image && value.image.split(',').map((item, j) => {
                         return (
@@ -48,7 +48,7 @@ const Carousel = ({activity}) => {
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper"
         >
-            {activity && activity.data?.map((value, i) => {
+            {activity && activity.data.length > 0 && activity.data?.map((value, i) => {
                 return (
                     value.image && value.image.split(',').map((item, j) => {
                         return (

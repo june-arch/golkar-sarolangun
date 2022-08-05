@@ -5,7 +5,7 @@ import {
   selectToken,
   setIsLogin,
   setToken,
-} from '@/helpers/redux/slice/auth-slice-admin'
+} from '@/helpers/redux/slice/auth-admin.slice'
 
 export const useCheckLogin = () => {
   const dispatch = useAppDispatch()

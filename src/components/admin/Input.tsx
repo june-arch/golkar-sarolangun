@@ -48,14 +48,14 @@ export const Input = ({ value, formik, data, content, bucket, isMultiple }: { va
         }
         if(value.split('_').map((value) => value.toLowerCase()).find((item) => item == 'id')){
             return (
-                <Field
-                    className="custom-select"
-                    name={value}
-                    options={data}
-                    component={CustomSelect}
-                    placeholder="Select a id..."
-                    isMulti={false}
-                />
+                data && <Field
+                className="custom-select"
+                name={value}
+                options={data}
+                component={CustomSelect}
+                placeholder="Select a id..."
+                isMulti={false}
+            />
             )
         }
         return (

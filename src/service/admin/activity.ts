@@ -1,41 +1,50 @@
+import { responsePage } from '@/helpers/interface/pagination.interface';
 import useSWR, { SWRResponse } from 'swr'
 
 const domain = process.env.DOMAIN_API
 const address = `${domain}/api/v1/admin/activity`
-const fetcher = (...args: [string, object]) =>
-  fetch(...args).then((res) => res.json())
-
-type responsePage = {
-  success: boolean
-  data: any[]
-  meta: {
-    page: number
-    totalData: number
-    totalDataOnPage: number
-    totalPage: number
+const fetcher = async (...args: [string, object]) => {
+  const res = await fetch(...args);
+  if(!res.ok){
+    const error = new Error('An error occurred while fetching');
+    error['info'] = await res.json();
+    error['status'] = res.status;
+    throw error;
   }
-  message: string
-  code: number
+  
+  return await res.json();
 }
 
 export const useGetActivities = (
-  queries: { page: string; limit: string },
+  queries: { page: string; limit: string, debouncedSearch?: string },
   token: string
 ) => {
-  const { page, limit } = queries
+  const { page, limit, debouncedSearch } = queries
   const { data, error }: SWRResponse<responsePage, any> = useSWR(
     [
-      `${address}?page=${page}&limit=${limit}`,
+      `${address}?page=${page}&limit=${limit}${debouncedSearch && '&search='+debouncedSearch}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       },
     ],
-    fetcher
+    fetcher,
+    {
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        // Never retry on 404.
+        if (error.status === 404) return
+    
+        // Only retry up to 10 times.
+        if (retryCount >= 10) return
+    
+        // Retry after 5 seconds.
+        setTimeout(() => revalidate({ retryCount }), 5000)
+      }
+    }
   )
   return {
-    activity: data,
+    data,
     isLoading: !error && !data,
     isError: error,
   }
@@ -86,21 +95,24 @@ export const putActivity = async (
   Object.keys(payload).forEach(key => {
     if(typeof payload[key] == 'object'){
       for(let item of payload[key]){
-        console.log('value', item);
         formData.append(key, item)
       }
     }
     formData.append(key, payload[key]);
   });
-  const result = await fetcher(`${address}/${id}`, {
-    headers: {
-      'Accept': '*/*',
-      Authorization: `Bearer ${token}`,
-    },
-    method: 'PATCH',
-    body: formData,
-  })
-  return result
+  try{
+    const result = await fetcher(`${address}/${id}`, {
+      headers: {
+        'Accept': '*/*',
+        Authorization: `Bearer ${token}`,
+      },
+      method: 'PATCH',
+      body: formData,
+    })
+    return result;
+  }catch(error){
+    return error;
+  }
 }
 
 export const deleteActivity = async (id, token: string) => {

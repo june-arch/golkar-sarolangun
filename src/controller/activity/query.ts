@@ -36,8 +36,8 @@ export const remove = async (id: number) => {
 	return result;
 }
 
-export const findAllPagination = async (page: number, limit: number) => {
-	let query = `select * from ${table} order by ? desc limit ? offset ?`;
+export const findAllPagination = async (page: number, limit: number, search?: string) => {
+	let query = `select * from ${table} ${search && 'where title like "%'+ search+'%"'} order by ? desc limit ? offset ?`;
 	const result = await execute(query,['created_date', limit, (page-1)*limit]);
 	return result;
 }
@@ -48,8 +48,8 @@ export const findAllPaginationHome = async (page: number, limit: number) => {
 	return result;
 }
 
-export const countAll = async () => {
-	let query = `select count(*) as count from ${table}`;
+export const countAll = async (search?: string) => {
+	let query = `select count(*) as count from ${table} ${search && 'where title like "%'+ search+'%"'}`;
 	const result = await execute(query,[]);
 	return result;
 }

@@ -2,7 +2,7 @@ import { XIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 
 import { navData } from '@/helpers/resource/side-nav-data-admin'
-import { selectOpen, setOpen } from '@/helpers/redux/slice/navigation-slice-admin'
+import { selectOpen, setOpen } from '@/helpers/redux/slice/navigation-admin.slice'
 import { useAppDispatch, useAppSelector } from '@/helpers/redux/hook'
 
 export const Sidenav = () => {

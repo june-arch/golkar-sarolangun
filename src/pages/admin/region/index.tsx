@@ -10,7 +10,7 @@ import {
 import { deleteRegion, useGetRegions } from '@/service/admin/region.admin'
 import { useRouter } from 'next/router'
 import { useAppSelector } from '@/helpers/redux/hook'
-import { selectToken } from '@/helpers/redux/slice/auth-slice-admin'
+import { selectToken } from '@/helpers/redux/slice/auth-admin.slice'
 import { paginate } from '@/helpers/utils/paginate'
 
 function GetRegionSwr() {

@@ -4,10 +4,10 @@ import { NextApiResponse } from 'next'
 import { NextApiRequestModify } from '@/controller/admin/interface'
 import * as wrapper from '@/helpers/wrapper'
 import { uploadMultipleMiddleware } from '@/helpers/middleware/uploads'
-import { activity } from '@/controller/activity/dto'
 import validate from '@/helpers/middleware/validation'
 import { configNext } from '@/helpers/middleware/configNext'
 import { editActivity, getById, removeActivity } from '@/controller/activity/domain'
+import { activityOptional } from '@/controller/activity/dto'
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
 
@@ -43,7 +43,7 @@ handler
     return sendResponse(await domain(id));
   })
   .use(uploadMultipleMiddleware('images/activity'))
-  .patch(validate({ body: activity }), async (req, res) => {
+  .patch(validate({ body: activityOptional }), async (req, res) => {
     const payload = req.body
     const { files, user } = req
     const { id: i } = req.query

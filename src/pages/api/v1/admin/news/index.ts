@@ -15,20 +15,22 @@ const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext)
 handler
   .use(jwt)
   .get(async (req, res) => {
-    const { page: p, limit: l } = req.query
+    const { page: p, limit: l, search: s } = req.query
     const dataPage = Array.isArray(p) ? p[0] : p
     const dataLimit = Array.isArray(l) ? l[0] : l
+    const dataSearch = Array.isArray(s) ? s[0] : s
     const page = Number(dataPage) || 1
     const limit = Number(dataLimit) || 10
-    const domain = async (page, limit) => {
-      return getAllPagination(page, limit);
+    const search = dataSearch || ''
+    const domain = async (page, limit, search) => {
+      return getAllPagination(page, limit, search);
     };
 
     const sendResponse = async (result) => {
       return (result.err) ? wrapper.response(res, 'failed', result, 'get all news')
         : wrapper.responsePage(res, 'success', result, 'get all news', 200);
     };
-    return sendResponse(await domain(page, limit));
+    return sendResponse(await domain(page, limit, search));
   })
   .use(uploadMiddleware('images/news'))
   .post(

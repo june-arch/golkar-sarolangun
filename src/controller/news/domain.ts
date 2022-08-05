@@ -5,9 +5,9 @@ import BadRequestError from '@/helpers/error/bad_request_error'
 import { unlinkByFileName } from '@/helpers/filter-uploads'
 import { News } from './interface'
 
-export const getAllPagination = async (page: number, limit: number) => {
-    const result = await findAllPagination(page, limit)
-    const count = await countAll()
+export const getAllPagination = async (page: number, limit: number,search: string) => {
+    const result = await findAllPagination(page, limit, search)
+    const count = await countAll(search)
     if (result['err']) {
         return wrapper.error(new NotFoundError(result['err']))
     }
@@ -107,6 +107,7 @@ export const editNews = async (payload, id, file, user) => {
     if(category_news_id){
         dataNews['category_news_id'] = Number(category_news_id);
     }
+    delete dataNews['image'];
     if(file){
         dataNews['image'] = file.filename;
         unlinkByFileName('images/news', find['data'][0].image)
@@ -120,6 +121,5 @@ export const editNews = async (payload, id, file, user) => {
     if (result['err']) {
         return wrapper.error(result['err'])
     }
-    console.log(result);
     return wrapper.data(result['data']);
 }

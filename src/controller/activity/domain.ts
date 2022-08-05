@@ -6,9 +6,9 @@ import { Activity } from './interface'
 import { unlinkByFileName } from '@/helpers/filter-uploads'
 import { findAllPaginationHome } from './query'
 
-export const getAllPagination = async (page: number, limit: number) => {
-    const result = await findAllPagination(page, limit)
-    const count = await countAll()
+export const getAllPagination = async (page: number, limit: number, search: string) => {
+    const result = await findAllPagination(page, limit, search)
+    const count = await countAll(search)
     if (result['err']) {
         return wrapper.error(new NotFoundError(result['err']))
     }
@@ -114,6 +114,7 @@ export const editActivity = async (payload, id, files, user) => {
     if(category_activity_id){
         dataActivity['category_activity_id'] = Number(category_activity_id);
     }
+    delete dataActivity['image'];
     if(imagesFilename.length > 0){
         dataActivity['image'] = imagesFilename.join(',');
     }

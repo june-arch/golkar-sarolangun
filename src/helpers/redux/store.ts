@@ -3,12 +3,24 @@ import storage from 'redux-persist/lib/storage'
 import { combineReducers } from 'redux'
 import { persistReducer } from 'redux-persist'
 import thunk from 'redux-thunk'
-import authReducer from './slice/auth-slice-admin'
-import navigationReducer from './slice/navigation-slice-admin'
+import auth from './slice/auth-admin.slice'
+import navigationAdmin from './slice/navigation-admin.slice'
+import activity from './slice/activity.slice'
+import news from './slice/news.slice'
+import categoryActivity from './slice/category-activity.slice'
+import categoryNews from './slice/category-news.slice'
+import region from './slice/region.slice'
+import member from './slice/member.slice'
 
 const reducers = combineReducers({
-  auth: authReducer,
-  navigationAdmin: navigationReducer,
+  auth,
+  navigationAdmin,
+  activity,
+  news,
+  categoryActivity,
+  categoryNews,
+  region,
+  member
 })
 
 const persistConfig = {

@@ -1,7 +1,7 @@
 import { Form } from '@/components/admin/Form'
 import { Layout } from '@/components/admin/layout/Main'
 import { useAppSelector } from '@/helpers/redux/hook'
-import { selectToken } from '@/helpers/redux/slice/auth-slice-admin'
+import { selectToken } from '@/helpers/redux/slice/auth-admin.slice'
 import { headerItemRegions } from '@/helpers/resource/table-admin'
 import { postRegion } from '@/service/admin/region.admin'
 import { useFormik } from 'formik'

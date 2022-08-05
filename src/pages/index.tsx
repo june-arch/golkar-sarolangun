@@ -108,7 +108,7 @@ export default function HomePage({
         <section className="flex flex-col p-8 space-y-8">
           <h1 className=" text-center uppercase text-secondary font-[600]"><p className="inline text-black underline-offset-4 underline decoration-[7px] decoration-secondary font-[900]">Berita</p> terbaru</h1>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
-            {news && news.data?.map((value, i) => (
+            {news.data && news.data.length > 0 && news.data?.map((value, i) => (
               <News key={i} payload={value} />
             ))}
           </div>
