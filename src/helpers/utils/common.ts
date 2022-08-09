@@ -70,6 +70,7 @@ export function checkIfFilesAreTooBig(file?: File): boolean {
 
 export function checkIfFilesAreCorrectType(file?: File): boolean {
   let valid = true
+  console.log(file)
   if (file) {
     if (!['image/jpg', 'image/jpeg', 'image/png'].includes(file.type)) {
       valid = false
@@ -90,4 +91,16 @@ export const getChangedValues = (values, initialValues) => {
   
       return acc
       }, {})
+}
+
+export const fetcher = async (...args: [string, object]) => {
+  const res = await fetch(...args);
+  if(!res.ok){
+    const error = new Error('An error occurred while fetching');
+    error['info'] = await res.json();
+    error['status'] = res.status;
+    throw error;
+  }
+  
+  return await res.json();
 }

@@ -9,42 +9,57 @@ import { selectToken } from '@/helpers/redux/slice/auth-admin.slice'
 import { patchRegion, useGetRegion } from '@/service/admin/region.admin'
 import { headerItemRegions } from '@/helpers/resource/table-admin'
 import { useEffect } from 'react'
+import { getChangedValues } from '@/helpers/utils/common'
 
-function EditRegion() {
-  const token = useAppSelector(selectToken)
-  const router = useRouter()
+function EditRegion({ props }) {
+  const { region, id, token, router } = props;
+  const initialValues = {
+    name: region.data.name,
+    kemendagri_code: region.data.kemendagri_code
+  }
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .max(15, 'Must be 15 characters or less')
+      .required('Required'),
+    kemendagri_code: Yup.string()
+      .max(20, 'Must be 20 characters or less')
+      .required('Required'),
+  });
   const formik = useFormik({
-    initialValues: {
-      name: '',
-      kemendagri_code: '',
-    },
+    initialValues,
     enableReinitialize: true,
-    validationSchema: Yup.object({
-      name: Yup.string()
-        .max(15, 'Must be 15 characters or less')
-        .required('Required'),
-      kemendagri_code: Yup.string()
-        .max(20, 'Must be 20 characters or less')
-        .required('Required'),
-    }),
+    validationSchema,
     onSubmit: async (values) => {
-      const result = await patchRegion(values, id, token)
+      const editedValues = getChangedValues(values, initialValues);
+      const result = await patchRegion(editedValues, id, token)
       if (result.code !== 200) {
-        formik.errors.name = 'name tidak valid'
-        formik.errors.kemendagri_code = 'kemendagri_code tidak valid'
+        if (result.status == 400) {
+          result.info.data.map(value => Object.keys(value).map(key => formik.setFieldError(key, value[key])))
+        }
       }
-      if (result.data) {
+      if (result.success == true) {
         return router.push('/admin/region')
       }
     },
   })
+
+  return (
+    <div className="p-5 max-w-7xl mx-auto ">
+      <Form formik={formik} header={headerItemRegions}>
+        <div className="py-6 flex flex-col md:flex-row  md:space-y-0 items-center space-y-5 justify-between">
+          <div className="text-3xl">Edit Region : {id}</div>
+        </div>
+      </Form>
+    </div>
+  )
+}
+
+const Edit = () => {
+  const token = useAppSelector(selectToken)
+  const router = useRouter()
   const { id } = router.query
   const value = Array.isArray(id) ? id[0] : id
-  const { region, isError, isLoading } = useGetRegion({id:value}, token)
-  useEffect(() => {
-    if(region) formik.setValues({ name: region.data ? region.data.name : '', kemendagri_code: region.data ? region.data.kemendagri_code : ''})
-  }, [region])
-  
+  const { region, isError, isLoading } = useGetRegion({ id: value }, token)
   if (isError)
     return (
       <div>
@@ -53,21 +68,15 @@ function EditRegion() {
       </div>
     )
   if (isLoading) return <div>Loading ...</div>
-  return (
-    <div className="p-5 max-w-7xl mx-auto ">
-      <Form formik={formik} header={headerItemRegions}>
-        <div className="py-6 flex flex-col md:flex-row  md:space-y-0 items-center space-y-5 justify-between">
-          <div className="text-3xl">Region : {id}</div>
-        </div>
-      </Form>
-    </div>
-  )
-}
-
-const Edit = () => {
+  const props = {
+    region,
+    id,
+    token,
+    router
+  }
   return (
     <Layout>
-      <EditRegion />
+      <EditRegion props={props} />
     </Layout>
   )
 }

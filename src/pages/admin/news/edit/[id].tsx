@@ -11,7 +11,7 @@ import { FormikProvider, useFormik } from 'formik'
 import { useRouter } from 'next/router'
 import * as Yup from 'yup'
 
-function EditNews({props}) {
+function EditNews({ props }) {
     const { news, newsCategory, id, token, router } = props;
     const initialValues = {
         title: news.data.title,
@@ -57,7 +57,7 @@ function EditNews({props}) {
             <FormikProvider value={formik}>
                 <Form formik={formik} header={formNews} data={listCategory} content={news.data} bucket='images/news' >
                     <div className="py-6 flex flex-col md:flex-row  md:space-y-0 items-center space-y-5 justify-between">
-                        <div className="text-3xl">Edit News</div>
+                        <div className="text-3xl">Edit News : {id}</div>
                     </div>
                 </Form>
             </FormikProvider>
@@ -73,13 +73,13 @@ const Edit = () => {
     const { news, isError: isErrorNews, isLoading: isLoadingNews } = useGetNews({ id: value }, token)
     const { newsCategory, isError, isLoading } = useGetNewsCategoryList(token)
     if (isError || isErrorNews)
-    return (
-        <div>
-            error fetch data with error code: {isError['status']},{' '}
-            {JSON.stringify(isError['info'])}
-        </div>
-    )
-if (isLoading || isLoadingNews) return <div>Loading ...</div>
+        return (
+            <div>
+                error fetch data with error code: {isError['status']},{' '}
+                {JSON.stringify(isError['info'])}
+            </div>
+        )
+    if (isLoading || isLoadingNews) return <div>Loading ...</div>
     const props = {
         news,
         newsCategory,

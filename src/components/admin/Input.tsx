@@ -38,6 +38,70 @@ export const Input = ({ value, formik, data, content, bucket, isMultiple }: { va
                     
                 </div>)
         }
+        if(value == 'photo'){
+            return (
+                <div>
+                    {isMultiple ? (
+                    <>
+                        <input
+                            type={'file'}
+                            className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            id={value}
+                            name={`${value}[]`}
+                            onChange={(e) => formik.setFieldValue(value, e.currentTarget.files)}
+                            accept={'image/*'}
+                            multiple={true}
+                        />
+                        {(content && content.photo) && content.photo.split(',').map((item, index) => <Image key={index} id={value} src={process.env.DOMAIN_API+'/api/v1?file='+item+'&bucket='+bucket} alt="your image" width={200} height={200} />)}
+                    </>
+                    ):(
+                    <>
+                         <input
+                            type={'file'}
+                            className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            id={value}
+                            name={value}
+                            onChange={(e) => formik.setFieldValue(value, e.currentTarget.files[0])}
+                            accept={'image/*'}
+                        />
+                        {(content && content.photo) && <Image id={value} src={process.env.DOMAIN_API+'/api/v1?file='+content.photo+'&bucket='+bucket} alt="your image" width={200} height={200} />}   
+                    </>
+                    )}
+                    
+                </div>)
+        }
+        if(value == 'photo_ktp'){
+            return (
+                <div>
+                    {isMultiple ? (
+                    <>
+                        <input
+                            type={'file'}
+                            className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            id={value}
+                            name={`${value}[]`}
+                            onChange={(e) => formik.setFieldValue(value, e.currentTarget.files)}
+                            accept={'image/*'}
+                            multiple={true}
+                        />
+                        {(content && content.photo_ktp) && content.photo_ktp.split(',').map((item, index) => <Image key={index} id={value} src={process.env.DOMAIN_API+'/api/v1?file='+item+'&bucket='+bucket} alt="your image" width={200} height={200} />)}
+                    </>
+                    ):(
+                    <>
+                         <input
+                            type={'file'}
+                            className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            id={value}
+                            name={value}
+                            onChange={(e) => formik.setFieldValue(value, e.currentTarget.files[0])}
+                            accept={'image/*'}
+                        />
+                        {(content && content.photo_ktp) && <Image id={value} src={process.env.DOMAIN_API+'/api/v1?file='+content.photo_ktp+'&bucket='+bucket} alt="your image" width={200} height={200} />}   
+                    </>
+                    )}
+                    
+                </div>)
+        }
         if(value == 'content'){
             return (
                 <TextEditor
@@ -56,6 +120,42 @@ export const Input = ({ value, formik, data, content, bucket, isMultiple }: { va
                 placeholder="Select a id..."
                 isMulti={false}
             />
+            )
+        }
+        if(value == 'gender'){
+            return (
+                <Field
+                    className="custom-select"
+                    name={value}
+                    options={[{label: 'Laki-laki', value: 'L'},{label:'Perempuan', value:'P'}]}
+                    component={CustomSelect}
+                    placeholder="Select a gender..."
+                    isMulti={false}
+                />
+            )
+        }
+        if(value == 'status'){
+            return (
+                <Field
+                    className="custom-select"
+                    name={value}
+                    options={[{label: 'Pending', value: 0},{label:'Active', value:1},{label:'Blocked', value:2}]}
+                    component={CustomSelect}
+                    placeholder="Select a status..."
+                    isMulti={false}
+                />
+            )
+        }
+        if(value.split('_').map((value) => value.toLowerCase()).find((item) => item == 'date')){
+            return (
+                <input
+                    type={'date'}
+                    className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id={value}
+                    name={value}
+                    onChange={formik.handleChange}
+                    value={formik.values[value]}
+                />
             )
         }
         return (

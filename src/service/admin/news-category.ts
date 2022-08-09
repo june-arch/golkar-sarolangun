@@ -1,47 +1,46 @@
+import { responsePage } from '@/helpers/interface/pagination.interface'
+import { fetcher } from '@/helpers/utils/common'
 import useSWR, { SWRResponse } from 'swr'
 
 const domain = process.env.DOMAIN_API
 const address = `${domain}/api/v1/admin/news/category`
-const fetcher = (...args: [string, object]) =>
-  fetch(...args).then((res) => res.json())
-
-type responsePage = {
-  success: boolean
-  data: any[]
-  meta: {
-    page: number
-    totalData: number
-    totalDataOnPage: number
-    totalPage: number
-  }
-  message: string
-  code: number
-}
 
 export const useGetNewsCategories = (
-  queries: { page: string; limit: string },
+  queries: { page: string; limit: string, debouncedSearch?: string },
   token: string
 ) => {
-  const { page, limit } = queries
+  const { page, limit, debouncedSearch } = queries
   const { data, error }: SWRResponse<responsePage, any> = useSWR(
     [
-      `${address}?page=${page}&limit=${limit}`,
+      `${address}?page=${page}&limit=${limit}${debouncedSearch && '&search=' + debouncedSearch}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       },
     ],
-    fetcher
+    fetcher,
+    {
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        // Never retry on 404.
+        if (error.status === 404) return
+
+        // Only retry up to 10 times.
+        if (retryCount >= 10) return
+
+        // Retry after 5 seconds.
+        setTimeout(() => revalidate({ retryCount }), 5000)
+      }
+    }
   )
   return {
-    newsCategory: data,
+    data,
     isLoading: !error && !data,
     isError: error,
   }
 }
 export const useGetNewsCategoryList = (token: string) => {
-    const { data, error }: SWRResponse<any, any> = useSWR(
+  const { data, error }: SWRResponse<any, any> = useSWR(
     [
       `${address}/list`,
       {
@@ -50,7 +49,19 @@ export const useGetNewsCategoryList = (token: string) => {
         },
       },
     ],
-    fetcher
+    fetcher,
+    {
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        // Never retry on 404.
+        if (error.status === 404) return
+
+        // Only retry up to 10 times.
+        if (retryCount >= 10) return
+
+        // Retry after 5 seconds.
+        setTimeout(() => revalidate({ retryCount }), 5000)
+      }
+    }
   )
   return {
     newsCategory: data,
@@ -65,7 +76,20 @@ export const useGetNewsCategory = (params: { id: string }, token: string) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }], fetcher, {shouldRetryOnError: false})
+  }],
+    fetcher,
+    {
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        // Never retry on 404.
+        if (error.status === 404) return
+
+        // Only retry up to 10 times.
+        if (retryCount >= 10) return
+
+        // Retry after 5 seconds.
+        setTimeout(() => revalidate({ retryCount }), 5000)
+      }
+    })
   return {
     newsCategory: data,
     isLoading: !error && !data,
@@ -77,43 +101,55 @@ export const postNewsCategory = async (
   payload: { name: string; description: string },
   token: string
 ) => {
-  const result = await fetcher(address, {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    method: 'POST',
-    body: JSON.stringify(payload),
-  })
-  return result
+  try {
+    const result = await fetcher(address, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      method: 'POST',
+      body: JSON.stringify(payload),
+    })
+    return result
+  } catch (error) {
+    return error;
+  }
 }
 
 export const putNewsCategory = async (
-  payload: { name: string; description: string },
+  payload,
   id,
   token: string
 ) => {
-  const result = await fetcher(`${address}/${id}`, {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    method: 'PATCH',
-    body: JSON.stringify(payload),
-  })
-  return result
+  try {
+    const result = await fetcher(`${address}/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+    })
+    return result
+  } catch (error) {
+    return error;
+  }
 }
 
 export const deleteNewsCategory = async (id, token: string) => {
-  const result = await fetcher(`${address}/${id}`, {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    method: 'DELETE',
-  })
-  return result
+  try {
+    const result = await fetcher(`${address}/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      method: 'DELETE',
+    })
+    return result
+  } catch (error) {
+    return error;
+  }
 }

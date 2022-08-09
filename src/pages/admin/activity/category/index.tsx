@@ -2,19 +2,22 @@ import React, { useState } from 'react'
 
 import { Table } from '@/components/admin/Table'
 import { Layout } from '@/components/admin/layout/Main'
-import { headerItemActivityCateogries, styleActive, styleNotActive } from '@/helpers/resource/table-admin'
+import { headerItemActivityCateogries } from '@/helpers/resource/table-admin'
 import { useAppSelector } from '@/helpers/redux/hook'
 import { selectToken } from '@/helpers/redux/slice/auth-admin.slice'
 import { useRouter } from 'next/router'
-import { paginate } from '@/helpers/utils/paginate'
 import { deleteActivityCategory, useGetActivityCategories } from '@/service/admin/activity-category'
+import { pagination } from '@/helpers/interface/pagination.interface'
+import useDebounce from '@/helpers/hooks/use-debounce'
+import Swal from 'sweetalert2'
 
-function GetActivityCategorySwr() {
+const Index = () => {
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(10)
+    const [searchKeyword, setSearchKeyword] = useState('')
     const router = useRouter()
-    const token = useAppSelector(selectToken)
 
+    const token = useAppSelector(selectToken)
     async function handleAdd() {
         return router.push('/admin/activity/category/tambah')
     }
@@ -22,117 +25,75 @@ function GetActivityCategorySwr() {
         return router.push(`/admin/activity/category/edit/${id}`)
     }
     async function handleDelete(id: string) {
-        const result = await deleteActivityCategory(id, token)
-        if (result.code !== 200) {
-            alert('failed delete data')
-        }
-        return router.reload()
+        
+        Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				const result = await deleteActivityCategory(id, token)
+				if (result.code !== 200) {
+					Swal.fire(
+						'Delete',
+						'Failed to delete data',
+						'error'
+					)
+					return;
+				}
+				Swal.fire(
+					'Deleted!',
+					'Your file has been deleted.',
+					'success'
+				)
+				return router.reload()
+			}
+		})
     }
-    const { activityCategory, isError, isLoading } = useGetActivityCategories(
-        { page: page.toString(), limit: limit.toString() },
+    async function handleView(data: any) {
+        Swal.fire({
+            showCloseButton: true,
+			showConfirmButton:false,
+            color: 'grey',
+			width: '80%',
+			html: `<div class="px-2 py-6 flex flex-col items-start space-y-2"><div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 text-left w-full"><p class="w-full font-[900] sm:w-4/12">Name</p> <p class="w-full sm:w-8/12">${data['name']}</p></div>`+
+			`<div class="flex flex-col sm:flex-row sm:space-y-0 space-y-2 text-left w-full"><p class="w-full font-[900] sm:w-4/12">Description</p><p class="w-full sm:w-8/12">${data['description']}</p></div>`,
+        })
+	}
+    const debouncedSearch = useDebounce(searchKeyword, 1000);
+    const result = useGetActivityCategories(
+        { page: page.toString(), limit: limit.toString(), debouncedSearch },
         token
     )
-    if (isError)
-        return (
-            <div>
-                error fetch data with error code: {isError['status']},{' '}
-                {JSON.stringify(isError['info'])}
-            </div>
-        )
-    if (isLoading) return <div>Loading ...</div>
-    const { data, meta } = activityCategory;
-    const pages = paginate(page, meta.totalPage);
-    return (
-        <Table
-            title="Activity Category"
-            header={headerItemActivityCateogries}
-            data={data}
-            page={page}
-            limit={limit}
-            setLimit={setLimit}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            handleAdd={handleAdd}
-            id="id_category_activity"
-        >
-            <nav
-                aria-label="Page navigation"
-                className="py-6 flex flex-col md:flex-row  md:space-y-0 items-center space-y-5 justify-between"
-            >
-                <div className="p-2">
-                    showing {limit * (page - 1) + 1} to{' '}
-                    {limit * (page - 1) + meta.totalDataOnPage} of {meta.totalData}{' '}
-                    entries
-                </div>
-                <ul className="inline-flex items-center -space-x-px">
-                    <li className={`${page == 1 ? 'pointer-events-none' : ''}`}>
-                        <a
-                            onClick={() => setPage(page - 1)}
-                            className="cursor-pointer block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >
-                            <span className="sr-only">Previous</span>
-                            <svg
-                                className="w-5 h-5"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clipRule="evenodd"
-                                ></path>
-                            </svg>
-                        </a>
-                    </li>
-                    {pages.map((value, index) => {
-                        return (
-                            <li key={index}>
-                                <a
-                                    onClick={() => setPage(value)}
-                                    className={page == value ? styleActive : styleNotActive}
-                                >
-                                    {value}
-                                </a>
-                            </li>
-                        )
-                    })}
-                    <li
-                        className={`${page == meta.totalPage ? 'pointer-events-none' : ''}`}
-                    >
-                        <a
-                            onClick={() => setPage(page + 1)}
-                            className="cursor-pointer block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >
-                            <span className="sr-only">Next</span>
-                            <svg
-                                className="w-5 h-5"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clipRule="evenodd"
-                                ></path>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </Table>
-    )
-}
-
-const index = () => {
+    const props: pagination = {
+		page,
+		limit,
+		searchKeyword,
+		setLimit,
+		setPage,
+		debouncedSearch,
+		setSearchKeyword,
+		handleAdd,
+		handleDelete,
+		handleEdit,
+		handleView,
+	}
     return (
         <Layout>
             <div className="p-5 max-w-7xl mx-auto ">
-                <GetActivityCategorySwr />
+            <Table 
+                 title="Activity Category"
+                 header={headerItemActivityCateogries}
+                 result={result}
+                 id="id_category_activity"
+                 props={props}/>
             </div>
         </Layout>
     )
 }
 
-export default index
+export default Index

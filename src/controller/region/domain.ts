@@ -16,9 +16,9 @@ export const getAll = async () => {
     return wrapper.data(result['data']);
 }
 
-export const getAllPagination = async (page, limit) => {
-    const result = await findAllPagination(page, limit)
-    const count = await countAll()
+export const getAllPagination = async (page, limit, search) => {
+    const result = await findAllPagination(page, limit, search)
+    const count = await countAll(search)
     if (result['err']) {
         return wrapper.error(new NotFoundError(result['err']))
     }

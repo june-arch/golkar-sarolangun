@@ -16,17 +16,13 @@ export enum methodAdmin {
 }
 
 export const headerItemRegions = ['name', 'kemendagri_code']
-export const headerItemMembers = [
-  'fullname',
-  'gender',
-  'status',
-  'created_date',
-]
+export const headerItemMembers = ['fullname', 'status',]
 export const headerItemActivityCateogries = ['name','description']
 export const headerItemNewsCateogries = ['name','description']
 export const headerItemNews = ['title'];
 export const headerItemActivity = ['title'];
 export const formNews = ['category_news_id','title','content','image','author'];
+export const formMember = ['region_id','nik','fullname','photo','photo_ktp','address', 'phone_number', 'email', 'place_of_birth', 'date_of_birth', 'gender', 'status'];
 export const formActivity = ['category_activity_id','title','image','video'];
 
 

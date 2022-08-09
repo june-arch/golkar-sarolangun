@@ -1,19 +1,9 @@
 import { responsePage } from '@/helpers/interface/pagination.interface';
+import { fetcher } from '@/helpers/utils/common';
 import useSWR, { SWRResponse } from 'swr'
 
 const domain = process.env.DOMAIN_API
 const address = `${domain}/api/v1/admin/activity`
-const fetcher = async (...args: [string, object]) => {
-  const res = await fetch(...args);
-  if(!res.ok){
-    const error = new Error('An error occurred while fetching');
-    error['info'] = await res.json();
-    error['status'] = res.status;
-    throw error;
-  }
-  
-  return await res.json();
-}
 
 export const useGetActivities = (
   queries: { page: string; limit: string, debouncedSearch?: string },
@@ -22,7 +12,7 @@ export const useGetActivities = (
   const { page, limit, debouncedSearch } = queries
   const { data, error }: SWRResponse<responsePage, any> = useSWR(
     [
-      `${address}?page=${page}&limit=${limit}${debouncedSearch && '&search='+debouncedSearch}`,
+      `${address}?page=${page}&limit=${limit}${debouncedSearch && '&search=' + debouncedSearch}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -34,10 +24,10 @@ export const useGetActivities = (
       onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
         // Never retry on 404.
         if (error.status === 404) return
-    
+
         // Only retry up to 10 times.
         if (retryCount >= 10) return
-    
+
         // Retry after 5 seconds.
         setTimeout(() => revalidate({ retryCount }), 5000)
       }
@@ -56,7 +46,18 @@ export const useGetActivity = (params: { id: string }, token: string) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }], fetcher, {shouldRetryOnError: false})
+  }], fetcher, {
+    onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+      // Never retry on 404.
+      if (error.status === 404) return
+
+      // Only retry up to 10 times.
+      if (retryCount >= 10) return
+
+      // Retry after 5 seconds.
+      setTimeout(() => revalidate({ retryCount }), 5000)
+    }
+  })
   return {
     activity: data,
     isLoading: !error && !data,
@@ -72,18 +73,22 @@ export const postActivity = async (
   Object.keys(payload).forEach(key => {
     formData.append(key, payload[key]);
   });
-  const result = await fetcher(address, {
-    headers: {
-      'Accept': '*/*',
-      Authorization: `Bearer ${token}`,
-    },
-    onUploadProgress: (event) => {
-      console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
-    },
-    method: 'POST',
-    body: formData,
-  })
-  return result
+  try {
+    const result = await fetcher(address, {
+      headers: {
+        'Accept': '*/*',
+        Authorization: `Bearer ${token}`,
+      },
+      onUploadProgress: (event) => {
+        console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
+      },
+      method: 'POST',
+      body: formData,
+    })
+    return result
+  } catch (error) {
+    return error;
+  }
 }
 
 export const putActivity = async (
@@ -93,14 +98,14 @@ export const putActivity = async (
 ) => {
   const formData = new FormData();
   Object.keys(payload).forEach(key => {
-    if(typeof payload[key] == 'object'){
-      for(let item of payload[key]){
+    if (typeof payload[key] == 'object') {
+      for (let item of payload[key]) {
         formData.append(key, item)
       }
     }
     formData.append(key, payload[key]);
   });
-  try{
+  try {
     const result = await fetcher(`${address}/${id}`, {
       headers: {
         'Accept': '*/*',
@@ -110,19 +115,23 @@ export const putActivity = async (
       body: formData,
     })
     return result;
-  }catch(error){
+  } catch (error) {
     return error;
   }
 }
 
 export const deleteActivity = async (id, token: string) => {
-  const result = await fetcher(`${address}/${id}`, {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    method: 'DELETE',
-  })
-  return result
+  try {
+    const result = await fetcher(`${address}/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      method: 'DELETE',
+    })
+    return result
+  } catch (error) {
+    return error;
+  }
 }

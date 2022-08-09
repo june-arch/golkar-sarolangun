@@ -55,8 +55,8 @@ handler
       };
     
       const sendResponse = async (result) => {
-        return (result.err) ? wrapper.response(res, 'failed', result, 'remove member')
-          : wrapper.response(res, 'success', result, 'remove member', 200);
+        return (result.err) ? wrapper.response(res, 'failed', result, 'edit member')
+          : wrapper.response(res, 'success', result, 'edit member', 200);
       };
       return sendResponse(await domain(payload, id, files, user));
     }

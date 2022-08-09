@@ -7,52 +7,41 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { selectToken } from '@/helpers/redux/slice/auth-admin.slice'
 import { headerItemNewsCateogries } from '@/helpers/resource/table-admin'
-import { useEffect } from 'react'
 import { putNewsCategory, useGetNewsCategory } from '@/service/admin/news-category'
+import { getChangedValues } from '@/helpers/utils/common'
 
-function EditNewsCategory() {
-  const token = useAppSelector(selectToken)
-  const router = useRouter()
+function EditNewsCategory({ props }) {
+  const { newsCategory, id, token, router } = props;
+  const initialValues = {
+    name: newsCategory.data.name,
+    description: newsCategory.data.description,
+}
+const validationSchema = Yup.object({
+  name: Yup.string()
+    .max(15, 'Must be 15 characters or less')
+    .required('Required'),
+  description: Yup.string()
+    .max(20, 'Must be 20 characters or less')
+    .required('Required'),
+})
   const formik = useFormik({
-    initialValues: {
-      name: '',
-      description: '',
-    },
+    initialValues,
     enableReinitialize: true,
-    validationSchema: Yup.object({
-      name: Yup.string()
-        .max(15, 'Must be 15 characters or less')
-        .required('Required'),
-      description: Yup.string()
-        .max(20, 'Must be 20 characters or less')
-        .required('Required'),
-    }),
+    validationSchema,
     onSubmit: async (values) => {
-      const result = await putNewsCategory(values, id, token)
+      const editedValues = getChangedValues(values, initialValues);
+      const result = await putNewsCategory(editedValues, id, token)
       if (result.code !== 200) {
-        formik.errors.name = 'name tidak valid'
-        formik.errors.description = 'description tidak valid'
+          if (result.status == 400) {
+              result.info.data.map(value => Object.keys(value).map(key => formik.setFieldError(key, value[key])))
+          }
       }
-      if (result.data) {
-        return router.push('/admin/news/category')
+      if (result.success == true) {
+          return router.push('/admin/news/category')
       }
     },
   })
-  const { id } = router.query
-  const value = Array.isArray(id) ? id[0] : id
-  const { newsCategory, isError, isLoading } = useGetNewsCategory({ id: value }, token)
-  useEffect(() => {
-    if (newsCategory) formik.setValues({ name: newsCategory.data ? newsCategory.data.name : '', description: newsCategory.data ? newsCategory.data.description : '' })
-  }, [newsCategory])
-
-  if (isError)
-    return (
-      <div>
-        error fetch data with error code: {isError['status']},{' '}
-        {JSON.stringify(isError['info'])}
-      </div>
-    )
-  if (isLoading) return <div>Loading ...</div>
+  
   return (
     <div className="p-5 max-w-7xl mx-auto ">
       <Form formik={formik} header={headerItemNewsCateogries}>
@@ -65,9 +54,28 @@ function EditNewsCategory() {
 }
 
 const Edit = () => {
+  const token = useAppSelector(selectToken)
+  const router = useRouter()
+  const { id } = router.query
+  const value = Array.isArray(id) ? id[0] : id
+  const { newsCategory, isError, isLoading } = useGetNewsCategory({ id: value }, token)
+  if (isError)
+      return (
+          <div>
+              error fetch data with error code: {isError['status']},{' '}
+              {JSON.stringify(isError['info'])}
+          </div>
+      )
+  if (isLoading) return <div>Loading ...</div>
+  const props = {
+      newsCategory,
+      id,
+      token,
+      router
+  }
   return (
     <Layout>
-      <EditNewsCategory />
+      <EditNewsCategory props={props} />
     </Layout>
   )
 }
