@@ -1,35 +1,42 @@
-import nextConnect from 'next-connect'
-import jwt from '@/helpers/middleware/jwt'
-import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/controller/admin/interface'
-import * as wrapper from '@/helpers/wrapper'
-import { findOneById, updateStatusById } from '@/controller/member/query'
-import validate from '@/helpers/middleware/validation'
-import { updateStatusMember } from '@/controller/member/dto'
-import { editMemberStatus } from '@/controller/member/domain'
+import { NextApiResponse } from 'next';
+import nextConnect from 'next-connect';
 
-const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
+import { NextApiRequestModify } from '@/controller/admin/interface';
+import { editMemberStatus } from '@/controller/member/domain';
+import { updateStatusMember } from '@/controller/member/dto';
+import jwt from '@/helpers/middleware/jwt';
+import validate from '@/helpers/middleware/validation';
+import * as wrapper from '@/helpers/wrapper';
+
+const handler = nextConnect<NextApiRequestModify, NextApiResponse>();
 
 handler
   .use(jwt)
   .patch(
     validate({ body: updateStatusMember }),
     async (req: NextApiRequestModify, res) => {
-      const { status } = req.body
+      const { status } = req.body;
       const { id: i } = req.query;
       const value = Array.isArray(i) ? i[0] : i;
-      const id = Number(value) || null
-      
+      const id = Number(value) || null;
+
       const domain = async (status, id) => {
         return editMemberStatus(status, id);
       };
-    
+
       const sendResponse = async (result) => {
-        return (result.err) ? wrapper.response(res, 'failed', result, 'edit status member')
-          : wrapper.response(res, 'success', result, 'edit edit status member', 200);
+        return result.err
+          ? wrapper.response(res, 'failed', result, 'edit status member')
+          : wrapper.response(
+              res,
+              'success',
+              result,
+              'edit edit status member',
+              200
+            );
       };
       return sendResponse(await domain(status, id));
     }
-  )
+  );
 
-export default handler
+export default handler;

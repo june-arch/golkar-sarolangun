@@ -1,18 +1,21 @@
+import useSWR, { SWRResponse } from 'swr';
+
 import { responsePage } from '@/helpers/interface/pagination.interface';
 import { fetcher } from '@/helpers/utils/common';
-import useSWR, { SWRResponse } from 'swr'
 
-const domain = process.env.DOMAIN_API
-const address = `${domain}/api/v1/admin/activity/category`
+const domain = process.env.DOMAIN_API;
+const address = `${domain}/api/v1/admin/activity/category`;
 
 export const useGetActivityCategories = (
-  queries: { page: string; limit: string, debouncedSearch?: string },
+  queries: { page: string; limit: string; debouncedSearch?: string },
   token: string
 ) => {
-  const { page, limit, debouncedSearch } = queries
+  const { page, limit, debouncedSearch } = queries;
   const { data, error }: SWRResponse<responsePage, any> = useSWR(
     [
-      `${address}?page=${page}&limit=${limit}${debouncedSearch && '&search=' + debouncedSearch}`,
+      `${address}?page=${page}&limit=${limit}${
+        debouncedSearch && '&search=' + debouncedSearch
+      }`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -23,22 +26,22 @@ export const useGetActivityCategories = (
     {
       onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
         // Never retry on 404.
-        if (error.status === 404) return
+        if (error.status === 404) return;
 
         // Only retry up to 10 times.
-        if (retryCount >= 10) return
+        if (retryCount >= 10) return;
 
         // Retry after 5 seconds.
-        setTimeout(() => revalidate({ retryCount }), 5000)
-      }
+        setTimeout(() => revalidate({ retryCount }), 5000);
+      },
     }
-  )
+  );
   return {
     data,
     isLoading: !error && !data,
     isError: error,
-  }
-}
+  };
+};
 
 export const useGetActivityCategoryList = (token: string) => {
   const { data, error }: SWRResponse<any, any> = useSWR(
@@ -54,47 +57,57 @@ export const useGetActivityCategoryList = (token: string) => {
     {
       onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
         // Never retry on 404.
-        if (error.status === 404) return
+        if (error.status === 404) return;
 
         // Only retry up to 10 times.
-        if (retryCount >= 10) return
+        if (retryCount >= 10) return;
 
         // Retry after 5 seconds.
-        setTimeout(() => revalidate({ retryCount }), 5000)
-      }
+        setTimeout(() => revalidate({ retryCount }), 5000);
+      },
     }
-  )
+  );
   return {
     activityCategory: data,
     isLoading: !error && !data,
     isError: error,
-  }
-}
+  };
+};
 
-export const useGetActivityCategory = (params: { id: string }, token: string) => {
-  const { id } = params
-  const { data, error } = useSWR([`${address}/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }], fetcher, {
-    onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
-      // Never retry on 404.
-      if (error.status === 404) return
+export const useGetActivityCategory = (
+  params: { id: string },
+  token: string
+) => {
+  const { id } = params;
+  const { data, error } = useSWR(
+    [
+      `${address}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    ],
+    fetcher,
+    {
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        // Never retry on 404.
+        if (error.status === 404) return;
 
-      // Only retry up to 10 times.
-      if (retryCount >= 10) return
+        // Only retry up to 10 times.
+        if (retryCount >= 10) return;
 
-      // Retry after 5 seconds.
-      setTimeout(() => revalidate({ retryCount }), 5000)
+        // Retry after 5 seconds.
+        setTimeout(() => revalidate({ retryCount }), 5000);
+      },
     }
-  })
+  );
   return {
     activityCategory: data,
     isLoading: !error && !data,
     isError: error,
-  }
-}
+  };
+};
 
 export const postActivityCategory = async (
   payload: { name: string; description: string },
@@ -109,12 +122,12 @@ export const postActivityCategory = async (
       },
       method: 'POST',
       body: JSON.stringify(payload),
-    })
-    return result
+    });
+    return result;
   } catch (error) {
     return error;
   }
-}
+};
 
 export const putActivityCategory = async (
   payload: { name?: string; description?: string },
@@ -130,12 +143,12 @@ export const putActivityCategory = async (
       },
       method: 'PATCH',
       body: JSON.stringify(payload),
-    })
-    return result
+    });
+    return result;
   } catch (error) {
     return error;
   }
-}
+};
 
 export const deleteActivityCategory = async (id, token: string) => {
   try {
@@ -146,9 +159,9 @@ export const deleteActivityCategory = async (id, token: string) => {
         Authorization: `Bearer ${token}`,
       },
       method: 'DELETE',
-    })
-    return result
+    });
+    return result;
   } catch (error) {
     return error;
   }
-}
+};

@@ -1,7 +1,8 @@
-import "dotenv"
-import * as wrapper from '../wrapper';
 import { createConnection } from 'mysql2/promise';
-import InternalServerError from "../error/internal_server_error";
+import 'dotenv';
+
+import InternalServerError from '../error/internal_server_error';
+import * as wrapper from '../wrapper';
 
 // export const execute = async (statement: string, params: string[] | object) => {
 //     const config = {
@@ -18,7 +19,7 @@ import InternalServerError from "../error/internal_server_error";
 //     }
 //     try {
 //         db.getConnection((err, connection) => {
-//             if(err)   
+//             if(err)
 //               connection.release();
 //         })
 
@@ -62,13 +63,13 @@ import InternalServerError from "../error/internal_server_error";
 
 export const execute = async (statement: string, params: string[] | object) => {
   const config = {
-      connectionLimit: 4,
-      host: process.env.DATABASE_HOST,
-      user: process.env.DATABASE_USERNAME,
-      port: Number(process.env.DATABASE_PORT),
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
-  }
+    connectionLimit: 4,
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USERNAME,
+    port: Number(process.env.DATABASE_PORT),
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
+  };
   let db = await createConnection(config);
   try {
     console.log(statement, params);
@@ -78,4 +79,4 @@ export const execute = async (statement: string, params: string[] | object) => {
   } catch (err) {
     return wrapper.error(new InternalServerError(err));
   }
-}
+};

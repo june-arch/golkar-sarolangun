@@ -4,7 +4,10 @@ const plugin = require('tailwindcss/plugin');
 
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
-  content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       backgroundImage: {
@@ -45,12 +48,18 @@ module.exports = {
         dark: '#222222',
       },
       fontSize: {
-        header: ['18px', {
-          lineHeight: '21px',
-        }],
-        'header-sub': ['11px', {
-          lineHeight: '13px',
-        }],
+        header: [
+          '18px',
+          {
+            lineHeight: '21px',
+          },
+        ],
+        'header-sub': [
+          '11px',
+          {
+            lineHeight: '13px',
+          },
+        ],
       },
       keyframes: {
         flicker: {
@@ -79,19 +88,19 @@ module.exports = {
       },
     },
   },
-  mode: "jit",
+  mode: 'jit',
   plugins: [
     require('tailwind-scrollbar-hide'),
     require('@tailwindcss/line-clamp'),
-    require("tailwindcss-scoped-groups")({
-      groups: ["one", "two"],
+    require('tailwindcss-scoped-groups')({
+      groups: ['one', 'two'],
     }),
-    plugin(function({ addBase, theme }) {
+    plugin(function ({ addBase, theme }) {
       addBase({
-        'h1': { fontSize: theme('fontSize.2xl') },
-        'h2': { fontSize: theme('fontSize.xl') },
-        'h3': { fontSize: theme('fontSize.lg') },
-      })
+        h1: { fontSize: theme('fontSize.2xl') },
+        h2: { fontSize: theme('fontSize.xl') },
+        h3: { fontSize: theme('fontSize.lg') },
+      });
     }),
   ],
-}
+};

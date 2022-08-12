@@ -1,5 +1,5 @@
 export interface Region {
-  id_regional?: number
-  name?: string
-  kemendagri_code?: string
+  id_regional?: number;
+  name?: string;
+  kemendagri_code?: string;
 }

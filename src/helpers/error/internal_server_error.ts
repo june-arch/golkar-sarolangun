@@ -1,4 +1,3 @@
-
 export default class InternalServerError {
   message: any;
   data: any;

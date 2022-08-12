@@ -1,4 +1,3 @@
-
 export default class ExpectationFailedError {
   message: any;
   data: any;

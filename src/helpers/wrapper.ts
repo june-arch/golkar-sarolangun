@@ -1,23 +1,23 @@
+import { NextApiResponse } from 'next';
 
+import BadRequestError from './error/bad_request_error';
 import ConflictError from './error/conflict_error';
 import ExpectationFailedError from './error/expectation_failed_error';
 import ForbiddenError from './error/forbidden_error';
+import GatewayTimeoutError from './error/gateway_timeout_error';
 import InternalServerError from './error/internal_server_error';
 import NotFoundError from './error/not_found_error';
-import UnauthorizedError from './error/unauthorized_error';
 import ServiceUnavailableError from './error/service_unavailable_error';
-import GatewayTimeoutError from './error/gateway_timeout_error';
-import BadRequestError from './error/bad_request_error';
-import { ERROR as httpError  } from './http-status/status_code';
-import { NextApiResponse } from 'next'
+import UnauthorizedError from './error/unauthorized_error';
+import { ERROR as httpError } from './http-status/status_code';
 
-export const data = (data) => ({ err: null, data});
+export const data = (data) => ({ err: null, data });
 
-export const dataPagination = (data, meta) => ({ err: null, data, meta});
+export const dataPagination = (data, meta) => ({ err: null, data, meta });
 
 export const error = (err) => ({ err, data: null });
 
-export const errorData = (data, err) => ({ data:data, err });
+export const errorData = (data, err) => ({ data: data, err });
 
 export const response = (
   res: NextApiResponse,
@@ -26,14 +26,14 @@ export const response = (
   message = '',
   code?: number
 ) => {
-  let status = true
-  let data = result.data
+  let status = true;
+  let data = result.data;
   if (type === 'failed') {
     const errCode = checkErrorCode(result.err);
     status = false;
     data = result.data || '';
     message = result.err.message || message;
-    code = result.err.code || errCode ;
+    code = result.err.code || errCode;
     code = errCode;
   }
   return res.status(code).send({
@@ -41,8 +41,8 @@ export const response = (
     data,
     message,
     code,
-  })
-}
+  });
+};
 
 export const responsePage = (
   res: NextApiResponse,
@@ -51,8 +51,8 @@ export const responsePage = (
   message = '',
   code = 200
 ) => {
-  let status = true
-  let data = result.data
+  let status = true;
+  let data = result.data;
   if (type === 'failed') {
     status = false;
     data = '';
@@ -64,8 +64,8 @@ export const responsePage = (
     meta: result.meta,
     message,
     code,
-  })
-}
+  });
+};
 
 const checkErrorCode = (error) => {
   switch (error.constructor) {
@@ -90,5 +90,4 @@ const checkErrorCode = (error) => {
     default:
       return httpError.CONFLICT;
   }
-
 };

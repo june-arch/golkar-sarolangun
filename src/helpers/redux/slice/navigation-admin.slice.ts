@@ -1,14 +1,15 @@
-import { RootState } from '@/helpers/redux/store'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { RootState } from '@/helpers/redux/store';
 
 // declaring the types for our state
 export type state = {
-  open: boolean
-}
+  open: boolean;
+};
 
 const initialState: state = {
   open: false,
-}
+};
 
 export const slice = createSlice({
   name: 'navigationAdmin',
@@ -20,15 +21,15 @@ export const slice = createSlice({
     setOpen: (state, action: PayloadAction<boolean>) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers.
       // It doesn't actually mutate the state because it uses the Immer library, which detects changes to a "draft state" and produces a brand new immutable state based off those changes
-      state.open = action.payload
+      state.open = action.payload;
     },
   },
-})
+});
 // Here we are just exporting the actions from this slice, so that we can call them anywhere in our app.
-export const { setOpen } = slice.actions
+export const { setOpen } = slice.actions;
 
 // calling the above actions would be useless if we could not access the data in the state. So, we use something called a selector which allows us to select a value from the state.
-export const selectOpen = (state: RootState) => state.navigationAdmin.open
+export const selectOpen = (state: RootState) => state.navigationAdmin.open;
 
 // exporting the reducer here, as we need to add this to the store
-export default slice.reducer
+export default slice.reducer;

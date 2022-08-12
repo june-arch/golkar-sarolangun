@@ -1,5 +1,6 @@
-import styles from '@/styles/Youtube.module.css'
-import Image from 'next/image'
+import Image from 'next/image';
+
+import styles from '@/styles/Youtube.module.css';
 
 export default function Youtube({ data }) {
   return (
@@ -7,8 +8,8 @@ export default function Youtube({ data }) {
       <main className={styles.main}>
         <ul className={styles.grid}>
           {data.items.map(({ id, snippet }) => {
-            const { title, thumbnails, resourceId } = snippet
-            const { medium } = thumbnails
+            const { title, thumbnails, resourceId } = snippet;
+            const { medium } = thumbnails;
             return (
               <li key={id} className={styles.card}>
                 <a
@@ -19,16 +20,16 @@ export default function Youtube({ data }) {
                       width={medium.width}
                       height={medium.height}
                       src={medium.url}
-                      alt=""
+                      alt=''
                     />
                   </p>
                   <h3>{title}</h3>
                 </a>
               </li>
-            )
+            );
           })}
         </ul>
       </main>
     </div>
-  )
+  );
 }

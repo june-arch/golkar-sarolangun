@@ -3,7 +3,7 @@ import {
   NewspaperIcon,
   UserIcon,
   ViewListIcon,
-} from '@heroicons/react/outline'
+} from '@heroicons/react/outline';
 
 export const navData = {
   menuItems: [
@@ -12,35 +12,35 @@ export const navData = {
         { seconTitle: 'Dashboard' },
         {
           title: 'Member',
-          icon: <UserIcon className="h-7 w-7 text-2xl " />,
+          icon: <UserIcon className='h-7 w-7 text-2xl ' />,
           link: '/admin/member',
         },
         {
           title: 'News',
-          icon: <NewspaperIcon className="h-7 w-7 text-2xl" />,
+          icon: <NewspaperIcon className='h-7 w-7 text-2xl' />,
           link: '/admin/news',
         },
         {
           title: 'Category News',
-          icon: <FolderIcon className="h-7 w-7 text-2xl" />,
+          icon: <FolderIcon className='h-7 w-7 text-2xl' />,
           link: '/admin/news/category',
         },
         {
           title: 'Activity',
-          icon: <ViewListIcon className="h-7 w-7 text-2xl" />,
+          icon: <ViewListIcon className='h-7 w-7 text-2xl' />,
           link: '/admin/activity',
         },
         {
           title: 'Category Activity',
-          icon: <FolderIcon className="h-7 w-7 text-2xl" />,
+          icon: <FolderIcon className='h-7 w-7 text-2xl' />,
           link: '/admin/activity/category',
         },
         {
           title: 'Region',
-          icon: <FolderIcon className="h-7 w-7 text-2xl" />,
+          icon: <FolderIcon className='h-7 w-7 text-2xl' />,
           link: '/admin/region',
         },
       ],
     },
   ],
-}
+};

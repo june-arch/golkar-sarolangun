@@ -1,11 +1,12 @@
-import nextConnect from 'next-connect'
-import jwt from '@/helpers/middleware/jwt'
-import { NextApiResponse } from 'next'
-import { NextApiRequestModify } from '@/controller/admin/interface'
-import * as wrapper from '@/helpers/wrapper'
-import { getAll } from '@/controller/news-category/domain'
+import { NextApiResponse } from 'next';
+import nextConnect from 'next-connect';
 
-const handler = nextConnect<NextApiRequestModify, NextApiResponse>()
+import { NextApiRequestModify } from '@/controller/admin/interface';
+import { getAll } from '@/controller/news-category/domain';
+import jwt from '@/helpers/middleware/jwt';
+import * as wrapper from '@/helpers/wrapper';
+
+const handler = nextConnect<NextApiRequestModify, NextApiResponse>();
 
 handler.use(jwt).get(async (req, res) => {
   const domain = async () => {
@@ -13,10 +14,11 @@ handler.use(jwt).get(async (req, res) => {
   };
 
   const sendResponse = async (result) => {
-    return (result.err) ? wrapper.response(res, 'failed', result, 'get all category news')
+    return result.err
+      ? wrapper.response(res, 'failed', result, 'get all category news')
       : wrapper.response(res, 'success', result, 'get all category news', 200);
   };
   return sendResponse(await domain());
-})
+});
 
-export default handler
+export default handler;

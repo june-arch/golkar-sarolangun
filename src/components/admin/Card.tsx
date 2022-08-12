@@ -1,15 +1,15 @@
-import { Data } from '@/helpers/resource/weekly-data-admin'
+import { Data } from '@/helpers/resource/weekly-data-admin';
 type Props = {
-  items: Data
-}
+  items: Data;
+};
 export const Cards = ({ items }: Props) => {
-  const { title, description, smallIcon, bigIcon, amount } = items || {}
+  const { title, description, smallIcon, bigIcon, amount } = items || {};
   return (
-    <div className="flex p-5 bg-gray-100 rounded items-center justify-around">
-      <div className="flex flex-col items-center space-y-3">
-        <h1 className="text-xl">{title}</h1>
-        <h3 className="text-xl md:text-2xl">{amount}</h3>
-        <div className="flex items-center space-x-2 text-green-600 ">
+    <div className='flex items-center justify-around rounded bg-gray-100 p-5'>
+      <div className='flex flex-col items-center space-y-3'>
+        <h1 className='text-xl'>{title}</h1>
+        <h3 className='text-xl md:text-2xl'>{amount}</h3>
+        <div className='flex items-center space-x-2 text-green-600 '>
           <span></span>
           {smallIcon}
           <p>{description}</p>
@@ -17,8 +17,8 @@ export const Cards = ({ items }: Props) => {
       </div>
       <div>
         {' '}
-        <span className="text-9xl">{bigIcon}</span>
+        <span className='text-9xl'>{bigIcon}</span>
       </div>
     </div>
-  )
-}
+  );
+};

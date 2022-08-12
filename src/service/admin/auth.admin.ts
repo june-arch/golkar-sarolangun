@@ -1,11 +1,11 @@
-import { fetcher } from "@/helpers/utils/common"
+import { fetcher } from '@/helpers/utils/common';
 
-const domain = process.env.DOMAIN_API
-const address = `${domain}/api/v1/auth/admin`
+const domain = process.env.DOMAIN_API;
+const address = `${domain}/api/v1/auth/admin`;
 
 export const postLogin = async (payload: {
-  username: string
-  password: string
+  username: string;
+  password: string;
 }) => {
   try {
     const result = await fetcher(address, {
@@ -15,9 +15,9 @@ export const postLogin = async (payload: {
       },
       method: 'POST',
       body: JSON.stringify(payload),
-    })
-    return result
+    });
+    return result;
   } catch (error) {
     return error;
   }
-}
+};

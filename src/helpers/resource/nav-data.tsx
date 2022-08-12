@@ -497,7 +497,7 @@ export const contentOne = {
   description:
     '“Partai Golongan Karya (Partai Golkar), sebelumnya bernama Golongan Karya (Golkar) dan Sekretariat Bersama Golongan Karya (Sekber Golkar), Partai Golkar merupakan salah satu partai politik tertua di Indonesia. Partai Golkar didirikan pada tanggal 20 Oktober 1964 oleh Soeharto dan Suhardiman.”',
   'image-kita-satu': '/images/kita-satu.png',
-}
+};
 export const contentTwo = [
   {
     title: 'Tugas & Fungsi',
@@ -527,7 +527,7 @@ export const contentTwo = [
     href: 'profil',
     image: '/images/profil.png',
   },
-]
+];
 
 export const contentBerita = [
   {
@@ -570,7 +570,7 @@ export const contentBerita = [
     tags: ['politik', 'negara', 'pajak'],
     href: '#',
   },
-]
+];
 
 export const contentVideo = [
   {
@@ -581,4 +581,4 @@ export const contentVideo = [
     path: 'https://www.youtube.com/embed/k3U2fnTuPWs',
     tag: 'mars',
   },
-]
+];

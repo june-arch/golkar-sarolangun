@@ -1,5 +1,5 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import * as React from 'react'
+import { AnimatePresence, motion } from 'framer-motion';
+import * as React from 'react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   // Put Header or Footer Here
@@ -12,5 +12,5 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </motion.div>
     </AnimatePresence>
-  )
+  );
 }

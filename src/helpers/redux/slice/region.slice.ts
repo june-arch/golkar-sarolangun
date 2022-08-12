@@ -1,5 +1,6 @@
-import { RootState } from '@/helpers/redux/store'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { RootState } from '@/helpers/redux/store';
 
 // declaring the types for our state
 export type state = {
@@ -28,13 +29,13 @@ export const slice = createSlice({
       state.page = action.payload;
     },
   },
-})
+});
 // Here we are just exporting the actions from this slice, so that we can call them anywhere in our app.
-export const { setPage, setLimit } = slice.actions
+export const { setPage, setLimit } = slice.actions;
 
 // calling the above actions would be useless if we could not access the data in the state. So, we use something called a selector which allows us to select a value from the state.
-export const selectPage = (state: RootState) => state.region.page
-export const selectLimit = (state: RootState) => state.region.limit
+export const selectPage = (state: RootState) => state.region.page;
+export const selectLimit = (state: RootState) => state.region.limit;
 
 // exporting the reducer here, as we need to add this to the store
-export default slice.reducer
+export default slice.reducer;

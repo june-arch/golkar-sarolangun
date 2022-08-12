@@ -1,4 +1,3 @@
-
 export default class ForbiddenError {
   message: any;
   data: any;

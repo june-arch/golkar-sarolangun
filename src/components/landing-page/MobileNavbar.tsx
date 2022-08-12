@@ -1,34 +1,35 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react'
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 
-import { Menus } from '@/helpers/interface/types'
-import Link from 'next/link'
-import Image from 'next/image'
+import { Menus } from '@/helpers/interface/types';
 
 type Props = {
-  open: boolean
-  navItems: Data
-  openSub1: OpenSub
-  openSub2: OpenSub2
-  setOpenSub1: Dispatch<SetStateAction<OpenSub>>
-  setOpenSub2: Dispatch<SetStateAction<OpenSub2>>
-}
+  open: boolean;
+  navItems: Data;
+  openSub1: OpenSub;
+  openSub2: OpenSub2;
+  setOpenSub1: Dispatch<SetStateAction<OpenSub>>;
+  setOpenSub2: Dispatch<SetStateAction<OpenSub2>>;
+};
 
 type Data = {
-  'nav-items': Menus[]
-}
+  'nav-items': Menus[];
+};
 
 type OpenSub = {
-  state: boolean
-  posisi: number
-}
+  state: boolean;
+  posisi: number;
+};
 type OpenSub2 = {
-  state: boolean
-  posisiParent: number
-  posisi: number
-}
+  state: boolean;
+  posisiParent: number;
+  posisi: number;
+};
 
 const MobileNavbar = (props: Props) => {
-  const { open, navItems, openSub1, openSub2, setOpenSub1, setOpenSub2 } = props
+  const { open, navItems, openSub1, openSub2, setOpenSub1, setOpenSub2 } =
+    props;
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
 
@@ -36,148 +37,156 @@ const MobileNavbar = (props: Props) => {
     // only execute all the code below in client side
     const handleResize = () => {
       // Set window width/height to state
-      const vh = window.innerHeight * 0.01
-      document.documentElement.style.setProperty('--vh', `${vh}px`)
-    }
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
 
     // Add event listener
-    window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize);
 
     // Call handler right away so state gets updated with initial window size
-    handleResize()
+    handleResize();
 
     // Remove event listener on cleanup
-    return () => window.removeEventListener('resize', handleResize)
-  }, []) // Empty array ensures that effect is only run on mount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
 
   useEffect(() => {
     //manipulate element every update openSub1
     const elementButtonMenu1 = document.getElementById(
       'buttonMenu1-' + openSub1.posisi
-    )
+    );
     const elementButtonTrans = document.getElementById(
       'subMenu1-' + openSub1.posisi
-    )
+    );
     if (!elementButtonTrans?.classList.contains('!translate-y-0')) {
-      elementButtonTrans?.classList.add('!translate-y-0')
-      elementButtonMenu1?.classList.add('rotate-180')
+      elementButtonTrans?.classList.add('!translate-y-0');
+      elementButtonMenu1?.classList.add('rotate-180');
       if (elementButtonTrans) {
         for (let i = 0; i < elementButtonTrans.children.length; i++) {
-          elementButtonTrans.children.item(i)?.classList.add('!block')
+          elementButtonTrans.children.item(i)?.classList.add('!block');
         }
       }
     } else {
-      elementButtonTrans?.classList.remove('!translate-y-0')
-      elementButtonMenu1?.classList.remove('rotate-180')
+      elementButtonTrans?.classList.remove('!translate-y-0');
+      elementButtonMenu1?.classList.remove('rotate-180');
       if (elementButtonTrans) {
         for (let i = 0; i < elementButtonTrans.children.length; i++) {
-          elementButtonTrans.children.item(i)?.classList.remove('!block')
+          elementButtonTrans.children.item(i)?.classList.remove('!block');
         }
       }
     }
-  }, [openSub1])
+  }, [openSub1]);
 
   useEffect(() => {
     //manipulate element every update openSub2
     const elementButtonMenu1 = document.getElementById(
       'buttonMenu2-' + openSub2.posisiParent + '-' + openSub2.posisi
-    )
+    );
     const elementButtonTrans2 = document.getElementById(
       'subMenu2-' + openSub2.posisiParent + '-' + openSub2.posisi
-    )
+    );
     if (!elementButtonTrans2?.classList.contains('!translate-y-0')) {
-      elementButtonTrans2?.classList.add('!translate-y-0')
-      elementButtonMenu1?.classList.add('rotate-180')
+      elementButtonTrans2?.classList.add('!translate-y-0');
+      elementButtonMenu1?.classList.add('rotate-180');
       if (elementButtonTrans2) {
         for (let i = 0; i < elementButtonTrans2.children.length; i++) {
-          elementButtonTrans2.children.item(i)?.classList.add('!block')
+          elementButtonTrans2.children.item(i)?.classList.add('!block');
         }
       }
     } else {
-      elementButtonTrans2?.classList.remove('!translate-y-0')
-      elementButtonMenu1?.classList.remove('rotate-180')
+      elementButtonTrans2?.classList.remove('!translate-y-0');
+      elementButtonMenu1?.classList.remove('rotate-180');
       if (elementButtonTrans2) {
         for (let i = 0; i < elementButtonTrans2.children.length; i++) {
-          elementButtonTrans2.children.item(i)?.classList.remove('!block')
+          elementButtonTrans2.children.item(i)?.classList.remove('!block');
         }
       }
     }
-  }, [openSub2])
+  }, [openSub2]);
   return (
     <div
       className={`absolute top-0 left-0 z-50 h-screen  w-full transform bg-white ${
         open ? '-translate-x-0' : '-translate-x-full'
       } drop-shadow-md filter transition-transform duration-300 ease-in-out `}
     >
-      <div className="flex h-16 items-center justify-center bg-white drop-shadow-md filter">
-        <div className="cursor-pointer text-xl font-semibold">
-        <Link href="/">
-            <a className="">
-              <div className="h-[51px] w-[48px]">
+      <div className='flex h-16 items-center justify-center bg-white drop-shadow-md filter'>
+        <div className='cursor-pointer text-xl font-semibold'>
+          <Link href='/'>
+            <a className=''>
+              <div className='h-[51px] w-[48px]'>
                 <Image
-                  src="/images/logo.png"
-                  alt="logo-golkar"
+                  src='/images/logo.png'
+                  alt='logo-golkar'
                   height={1200}
                   width={1149}
-                  layout="responsive"
-                  objectFit="contain"
+                  layout='responsive'
+                  objectFit='contain'
                 />
               </div>
             </a>
           </Link>
         </div>
       </div>
-      <div className="mx-6 flex h-full flex-col overflow-auto py-4 pb-24 scrollbar-hide">
+      <div className='mx-6 flex h-full flex-col overflow-auto py-4 pb-24 scrollbar-hide'>
         {navItems['nav-items'].map((value, i) => {
           return (
-            <div key={i} className="py-2 text-sm font-medium">
-              <div className="flex">
+            <div key={i} className='py-2 text-sm font-medium'>
+              <div className='flex'>
                 <Link href={'/' + value.slug}>
-                  <button className={`grow-0 uppercase ${
+                  <button
+                    className={`grow-0 uppercase ${
                       value.slug == '#disable' && 'pointer-events-none'
-                    }`}>{value.name}</button>
+                    }`}
+                  >
+                    {value.name}
+                  </button>
                 </Link>
                 <div
-                  className="grow"
+                  className='grow'
                   onClick={() =>
                     setOpenSub1({ state: !openSub1.state, posisi: i })
                   }
                 >
-                  <div className="flex justify-end pr-4">
+                  <div className='flex justify-end pr-4'>
                     <svg
                       id={`buttonMenu1-${i}`}
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
+                      fill='currentColor'
+                      viewBox='0 0 20 20'
                       className={`${
                         value.subMenu.length > 0 ? '' : 'hidden'
                       } mt-1 ml-1 inline h-4 w-4`}
                     >
                       <path
-                        fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clipRule="evenodd"
+                        fillRule='evenodd'
+                        d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
+                        clipRule='evenodd'
                       ></path>
                     </svg>
                   </div>
                 </div>
               </div>
-              <hr className="border-1 mt-2 mr-4 border-slate-200" />
-              <div className="overflow-auto scrollbar-hide">
+              <hr className='border-1 mt-2 mr-4 border-slate-200' />
+              <div className='overflow-auto scrollbar-hide'>
                 <div
                   id={`subMenu1-${i}`}
                   className={` delay-0 -translate-y-96 transform transition-all duration-300 ease-in-out`}
                 >
                   {value?.subMenu.map((item, j) => {
                     return (
-                      <div key={j} className="hidden py-2 pl-2">
-                        <div className="flex">
+                      <div key={j} className='hidden py-2 pl-2'>
+                        <div className='flex'>
                           <Link href={'/' + item.slug}>
-                            <button className={`grow-0 text-left uppercase ${
+                            <button
+                              className={`grow-0 text-left uppercase ${
                                 item.slug == '#disable' && 'pointer-events-none'
-                              }`}>{item.name}</button>
+                              }`}
+                            >
+                              {item.name}
+                            </button>
                           </Link>
                           <div
-                            className="grow"
+                            className='grow'
                             onClick={() =>
                               setOpenSub2({
                                 state: !openSub2.state,
@@ -186,41 +195,46 @@ const MobileNavbar = (props: Props) => {
                               })
                             }
                           >
-                            <div className="flex justify-end">
+                            <div className='flex justify-end'>
                               <svg
                                 id={`buttonMenu2-${i}-${j}`}
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
+                                fill='currentColor'
+                                viewBox='0 0 20 20'
                                 className={`${
                                   item.subMenu.length > 0 ? '' : 'hidden'
                                 } mt-1 ml-1 inline h-4 w-4`}
                               >
                                 <path
-                                  fillRule="evenodd"
-                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                  clipRule="evenodd"
+                                  fillRule='evenodd'
+                                  d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
+                                  clipRule='evenodd'
                                 ></path>
                               </svg>
                             </div>
                           </div>
                         </div>
-                        <hr className="border-1 mt-2 border-slate-200" />
-                        <div className="overflow-auto scrollbar-hide">
+                        <hr className='border-1 mt-2 border-slate-200' />
+                        <div className='overflow-auto scrollbar-hide'>
                           <div
                             id={`subMenu2-${i}-${j}`}
-                            className=" delay-0 -translate-y-96 transform transition-all duration-300 ease-in-out"
+                            className=' delay-0 -translate-y-96 transform transition-all duration-300 ease-in-out'
                           >
                             {item?.subMenu.map((isi, k) => {
                               return (
-                                <div key={k} className="hidden py-2 pl-4">
-                                  <div className="flex">
+                                <div key={k} className='hidden py-2 pl-4'>
+                                  <div className='flex'>
                                     <Link href={'/' + isi.slug}>
-                                      <button className={`grow-0 text-left uppercase ${
-                                          isi.slug == '#disable' && 'pointer-events-none'
-                                        }`}>{isi.name}</button>
+                                      <button
+                                        className={`grow-0 text-left uppercase ${
+                                          isi.slug == '#disable' &&
+                                          'pointer-events-none'
+                                        }`}
+                                      >
+                                        {isi.name}
+                                      </button>
                                     </Link>
                                     <div
-                                      className="grow"
+                                      className='grow'
                                       onClick={() =>
                                         setOpenSub2({
                                           state: !openSub2.state,
@@ -230,23 +244,23 @@ const MobileNavbar = (props: Props) => {
                                       }
                                     ></div>
                                   </div>
-                                  <hr className="border-1 mt-2 border-slate-200" />
+                                  <hr className='border-1 mt-2 border-slate-200' />
                                 </div>
-                              )
+                              );
                             })}
                           </div>
                         </div>
                       </div>
-                    )
+                    );
                   })}
                 </div>
               </div>
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MobileNavbar
+export default MobileNavbar;

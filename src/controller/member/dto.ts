@@ -1,4 +1,4 @@
-import Joi from 'joi'
+import Joi from 'joi';
 
 export const createMember = Joi.object({
   region_id: Joi.number().required(),
@@ -21,7 +21,7 @@ export const createMember = Joi.object({
   date_of_birth: Joi.string().required(),
   gender: Joi.string().valid('L', 'P').required(),
   status: Joi.number().valid(0, 1, 2).required(),
-})
+});
 
 export const updateMember = Joi.object({
   region_id: Joi.number().optional(),
@@ -46,8 +46,8 @@ export const updateMember = Joi.object({
   date_of_birth: Joi.string().optional(),
   gender: Joi.string().valid('L', 'P').optional(),
   status: Joi.number().valid(0, 1, 2).optional(),
-})
+});
 
 export const updateStatusMember = Joi.object({
   status: Joi.number().valid(1, 2),
-})
+});

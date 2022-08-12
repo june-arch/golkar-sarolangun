@@ -1,4 +1,3 @@
-
 export default class ConflictError {
   message: any;
   data: any;

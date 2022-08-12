@@ -1,6 +1,6 @@
-import { FieldProps } from "formik";
-import React from "react";
-import Select from "react-select";
+import { FieldProps } from 'formik';
+import React from 'react';
+import Select from 'react-select';
 
 interface Option {
   label: string;
@@ -20,7 +20,7 @@ export const CustomSelect = ({
   field,
   form,
   options,
-  isMulti = false
+  isMulti = false,
 }: CustomSelectProps) => {
   const onChange = (option: any) => {
     form.setFieldValue(
@@ -34,10 +34,10 @@ export const CustomSelect = ({
   const getValue = () => {
     if (options) {
       return isMulti
-        ? options.filter(option => field.value.indexOf(option.value) >= 0)
-        : options.find(option => option.value === field.value);
+        ? options.filter((option) => field.value.indexOf(option.value) >= 0)
+        : options.find((option) => option.value === field.value);
     } else {
-      return isMulti ? [] : ("" as any);
+      return isMulti ? [] : ('' as any);
     }
   };
 

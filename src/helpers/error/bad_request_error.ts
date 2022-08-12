@@ -1,4 +1,3 @@
-
 export default class BadRequestError {
   message: any;
   data: any;

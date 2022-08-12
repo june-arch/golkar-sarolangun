@@ -1,9 +1,10 @@
+import multer from 'multer';
+
 import {
   editFileName,
   imageFileFilter,
   imageKtpFilter,
-} from '@/helpers/filter-uploads'
-import multer from 'multer'
+} from '@/helpers/filter-uploads';
 
 export const uploadMiddleware = (path: string) => {
   const upload = multer({
@@ -13,9 +14,9 @@ export const uploadMiddleware = (path: string) => {
       filename: editFileName,
     }),
     fileFilter: imageFileFilter,
-  })
-  return upload.single('image')
-}
+  });
+  return upload.single('image');
+};
 
 export const uploadMultipleMiddleware = (path: string) => {
   const upload = multer({
@@ -25,9 +26,9 @@ export const uploadMultipleMiddleware = (path: string) => {
       filename: editFileName,
     }),
     fileFilter: imageFileFilter,
-  })
+  });
   return upload.array('image');
-}
+};
 
 export const uploadDiffMiddleware = (path: string) => {
   const upload = multer({
@@ -37,7 +38,7 @@ export const uploadDiffMiddleware = (path: string) => {
       filename: editFileName,
     }),
     fileFilter: imageKtpFilter,
-  })
+  });
   return upload.fields([
     {
       name: 'photo',
@@ -47,5 +48,5 @@ export const uploadDiffMiddleware = (path: string) => {
       name: 'photo_ktp',
       maxCount: 1,
     },
-  ])
-}
+  ]);
+};

@@ -1,10 +1,12 @@
-import React from 'react'
-import { WhatsappSVG } from './Icons'
-import css from '@/styles/styles.module.css'
+import React from 'react';
+
+import css from '@/styles/styles.module.css';
+
+import { WhatsappSVG } from './Icons';
 
 interface FloatingWhatsAppProps {
-  phoneNumber?: string
-  styles?: React.CSSProperties
+  phoneNumber?: string;
+  styles?: React.CSSProperties;
 }
 
 export default function FloatingWhatsApp({
@@ -12,20 +14,20 @@ export default function FloatingWhatsApp({
   styles = {},
 }: FloatingWhatsAppProps) {
   const handleOpen = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.preventDefault()
+    event.preventDefault();
 
     window.open(
       `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=Hello, Mohon Izin Untuk Bertanya`
-    )
-  }
+    );
+  };
   return (
     <div
       className={css.whatsappButton}
       onClick={(event) => handleOpen(event)}
       style={styles}
-      aria-hidden="true"
+      aria-hidden='true'
     >
       <WhatsappSVG />
     </div>
-  )
+  );
 }

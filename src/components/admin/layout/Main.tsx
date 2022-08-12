@@ -1,11 +1,13 @@
-import { useCheckLogin } from '@/helpers/utils/checkLogin'
-import { useRouter } from 'next/router'
-import React from 'react'
-import { Header } from '../Header'
-import { Sidenav } from '../Sidenav'
+import { useRouter } from 'next/router';
+import React from 'react';
+
+import { useCheckLogin } from '@/helpers/utils/checkLogin';
+
+import { Header } from '../Header';
+import { Sidenav } from '../Sidenav';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter()
+  const router = useRouter();
   if (useCheckLogin()) {
     return (
       <>
@@ -13,8 +15,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <Header />
         {children}
       </>
-    )
+    );
   }
-  router.push('/admin/auth/login')
-  return null
-}
+  router.push('/admin/auth/login');
+  return null;
+};

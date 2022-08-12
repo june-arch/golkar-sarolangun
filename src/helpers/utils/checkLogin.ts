@@ -1,30 +1,30 @@
-import { useAppDispatch, useAppSelector } from '@/helpers/redux/hook'
+import { useAppDispatch, useAppSelector } from '@/helpers/redux/hook';
 import {
   selectExpirated,
   selectIsLogin,
   selectToken,
   setIsLogin,
   setToken,
-} from '@/helpers/redux/slice/auth-admin.slice'
+} from '@/helpers/redux/slice/auth-admin.slice';
 
 export const useCheckLogin = () => {
-  const dispatch = useAppDispatch()
-  const isLogin = useAppSelector(selectIsLogin)
-  const token = useAppSelector(selectToken)
-  const expirated = useAppSelector(selectExpirated)
+  const dispatch = useAppDispatch();
+  const isLogin = useAppSelector(selectIsLogin);
+  const token = useAppSelector(selectToken);
+  const expirated = useAppSelector(selectExpirated);
   if (!isLogin) {
-    return false
+    return false;
   }
   if (!(token && expirated && expirated != 0)) {
-    return false
+    return false;
   }
 
-  const now = new Date().getTime()
-  const diff = Math.floor((now - expirated) / 1000 / 60)
+  const now = new Date().getTime();
+  const diff = Math.floor((now - expirated) / 1000 / 60);
   if (diff > 60 * 12) {
-    dispatch(setIsLogin(false))
-    dispatch(setToken(null))
-    return false
+    dispatch(setIsLogin(false));
+    dispatch(setToken(null));
+    return false;
   }
-  return true
-}
+  return true;
+};

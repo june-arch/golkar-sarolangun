@@ -1,14 +1,13 @@
-import { Layout } from '@/components/admin/layout/Main'
-import React from 'react'
+import React from 'react';
+
+import { Layout } from '@/components/admin/layout/Main';
 
 const index = () => {
   return (
     <Layout>
-      <div className="p-5 max-w-7xl mx-auto ">
-        Hello Welcome, 
-      </div>
+      <div className='mx-auto max-w-7xl p-5 '>Hello Welcome,</div>
     </Layout>
-  )
-}
+  );
+};
 
-export default index
+export default index;

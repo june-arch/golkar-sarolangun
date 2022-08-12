@@ -1,4 +1,4 @@
-import Joi from 'joi'
+import Joi from 'joi';
 
 export const news = Joi.object({
   title: Joi.string().required(),
@@ -10,7 +10,7 @@ export const news = Joi.object({
   })
     .unknown()
     .allow(''),
-})
+});
 
 export const newsOptional = Joi.object({
   title: Joi.string().optional(),
@@ -21,5 +21,6 @@ export const newsOptional = Joi.object({
     type: Joi.string().valid('image/jpeg', 'image/png', 'image/jpg').allow(''),
   })
     .unknown()
-    .allow('').optional(),
-})
+    .allow('')
+    .optional(),
+});
