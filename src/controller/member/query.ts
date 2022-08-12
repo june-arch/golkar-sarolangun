@@ -17,6 +17,12 @@ export const findOneById = async (id: number) => {
 	return result;
 }
 
+export const findOneByKTP = async (nik: string) => {
+    let query = `select * from ${table} where nik = ? and is_deleted=0`;
+	const result = await execute(query,[nik]);
+	return result;
+}
+
 export const updateById = async (id: number, doc: any) => {
     let set = [];
 	let param: any[] = [];

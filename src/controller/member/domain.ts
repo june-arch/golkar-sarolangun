@@ -1,5 +1,5 @@
 import NotFoundError from '@/helpers/error/not_found_error'
-import { create, countAll, findAllPagination, findOneById, remove, updateById, updateStatusById } from './query'
+import { create, countAll, findAllPagination, findOneById, remove, updateById, updateStatusById, findOneByKTP } from './query'
 import * as wrapper from '@/helpers/wrapper'
 import BadRequestError from '@/helpers/error/bad_request_error'
 import { Member } from './interface'
@@ -133,4 +133,22 @@ export const removeMember = async (id) => {
         return wrapper.error(new InternalServerError(result['err']));
     }
     return wrapper.data(result['data']);
+}
+
+export const findMemberByKTP = async (nik) => {
+    if (!nik) {
+        return wrapper.error(new BadRequestError('invalid nik'));
+    }
+    const result = await findOneByKTP(nik);
+    if (result['err']) {
+        return wrapper.error(new InternalServerError(result['err']));
+    }
+    if (result['data'].length == 0) {
+        return wrapper.error(new NotFoundError('data not found'));
+    }
+    let status = 'Pending';
+    if(result['data'][0].status == 0) status = 'Pending';
+    if(result['data'][0].status == 1) status = 'Approved';
+    if(result['data'][0].status == 2) status = 'Rejected';
+    return wrapper.data({status});
 }

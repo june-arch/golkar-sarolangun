@@ -139,7 +139,7 @@ export const Input = ({ value, formik, data, content, bucket, isMultiple }: { va
                 <Field
                     className="custom-select"
                     name={value}
-                    options={[{label: 'Pending', value: 0},{label:'Active', value:1},{label:'Blocked', value:2}]}
+                    options={[{label: 'Pending', value: 0},{label:'Approved', value:1},{label:'Blocked', value:2}]}
                     component={CustomSelect}
                     placeholder="Select a status..."
                     isMulti={false}
