@@ -44,8 +44,8 @@ export const findAllPagination = async (
   limit: number,
   search: string
 ) => {
-  let query = `select * from ${table} ${
-    search && 'where title like "%' + search + '%"'
+  let query = `select * from ${table} ${search && 'where'} ${
+    search && 'title like "%' + search + '%"'
   } order by ? desc limit ? offset ?`;
   const result = await execute(query, [
     'created_date',
@@ -55,11 +55,21 @@ export const findAllPagination = async (
   return result;
 };
 
-export const findAllPaginationHome = async (page: number, limit: number) => {
+export const findAllPaginationHome = async (
+  page: number,
+  limit: number,
+  search?: string,
+  category?: string
+) => {
   let query = `SELECT a.id_news, b.name AS category, a.title, a.content, a.created_date,  a.image, a.author
 	FROM news a
 	LEFT JOIN category_news b
 	ON a.category_news_id = b.id_category_news
+  ${(search || category) && 'where'} ${
+    search && 'title like "%' + search + '%"'
+  } ${search && category && 'and'} ${
+    category && 'category_news_id = "' + category + '"'
+  }
 	ORDER BY a.created_date DESC 
 	LIMIT ?
 	OFFSET ?`;
@@ -67,10 +77,12 @@ export const findAllPaginationHome = async (page: number, limit: number) => {
   return result;
 };
 
-export const countAll = async (search?: string) => {
+export const countAll = async (search?: string, category?: string) => {
   let query = `select count(*) as count from ${table} ${
-    search && 'where title like "%' + search + '%"'
-  }`;
+    (search || category) && 'where'
+  } ${search && 'title like "%' + search + '%"'} ${
+    search && category && 'and'
+  } ${category && 'category_news_id = "' + category + '"'}`;
   const result = await execute(query, []);
   return result;
 };

@@ -9,13 +9,15 @@ import * as wrapper from '@/helpers/wrapper';
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext);
 
 handler.get(async (req, res) => {
-  const { page: p, limit: l } = req.query;
+  const { page: p, limit: l, search: s } = req.query;
   const dataPage = Array.isArray(p) ? p[0] : p;
   const dataLimit = Array.isArray(l) ? l[0] : l;
+  const dataSearch = Array.isArray(s) ? s[0] : s;
   const page = Number(dataPage) || 1;
   const limit = Number(dataLimit) || 10;
-  const domain = async (page: number, limit: number) => {
-    return getAllPaginationHome(page, limit);
+  const search = dataSearch || '';
+  const domain = async (page, limit, search) => {
+    return getAllPaginationHome(page, limit, search);
   };
 
   const sendResponse = async (result) => {
@@ -23,7 +25,7 @@ handler.get(async (req, res) => {
       ? wrapper.response(res, 'failed', result, 'get all activity')
       : wrapper.responsePage(res, 'success', result, 'get all activity', 200);
   };
-  return sendResponse(await domain(page, limit));
+  return sendResponse(await domain(page, limit, search));
 });
 
 export default handler;

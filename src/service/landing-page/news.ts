@@ -1,33 +1,40 @@
 import useSWR, { SWRResponse } from 'swr';
 
+import { responsePage } from '@/helpers/interface/pagination.interface';
+import { fetcher } from '@/helpers/utils/common';
+
 const domain = process.env.DOMAIN_API;
 const address = `${domain}/api/v1/news`;
-const fetcher = async (...args: [string, object]) => {
-  const res = await fetch(...args);
-  return res.json();
-};
 
-type responsePage = {
-  success: boolean;
-  data: any[];
-  meta: {
-    page: number;
-    totalData: number;
-    totalDataOnPage: number;
-    totalPage: number;
-  };
-  message: string;
-  code: number;
-};
-
-export const useGetNewss = (queries: { page: string; limit: string }) => {
-  const { page, limit } = queries;
+export const useGetNewss = (queries: {
+  page: string;
+  limit: string;
+  debouncedSearch?: string;
+  category?: string;
+}) => {
+  const { page, limit, debouncedSearch = '', category = '' } = queries;
   const { data, error }: SWRResponse<responsePage, any> = useSWR(
-    [`${address}?page=${page}&limit=${limit}`],
-    fetcher
+    [
+      `${address}?page=${page}&limit=${limit}${
+        debouncedSearch && '&search=' + debouncedSearch
+      }${category && '&category=' + category}`,
+    ],
+    fetcher,
+    {
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        // Never retry on 404.
+        if (error.status === 404) return;
+
+        // Only retry up to 10 times.
+        if (retryCount >= 10) return;
+
+        // Retry after 5 seconds.
+        setTimeout(() => revalidate({ retryCount }), 5000);
+      },
+    }
   );
   return {
-    news: data,
+    data,
     isLoading: !error && !data,
     isError: error,
   };
@@ -36,11 +43,26 @@ export const useGetNewss = (queries: { page: string; limit: string }) => {
 export const useGetNews = (params: { id: string }) => {
   const { id } = params;
   const { data, error } = useSWR([`${address}/${id}`], fetcher, {
-    shouldRetryOnError: false,
+    onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+      // Never retry on 404.
+      if (error.status === 404) return;
+
+      // Only retry up to 10 times.
+      if (retryCount >= 10) return;
+
+      // Retry after 5 seconds.
+      setTimeout(() => revalidate({ retryCount }), 5000);
+    },
   });
   return {
     news: data,
     isLoading: !error && !data,
     isError: error,
   };
+};
+
+export const getOneNews = async (params: { id: string }) => {
+  const { id } = params;
+  const res = await fetch(`${address}/${id}`);
+  return res.json();
 };

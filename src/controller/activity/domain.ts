@@ -8,11 +8,11 @@ import {
   countAll,
   create,
   findAllPagination,
+  findAllPaginationHome,
   findOneById,
   remove,
   updateById,
 } from './query';
-import { findAllPaginationHome } from './query';
 
 export const getAllPagination = async (
   page: number,
@@ -37,9 +37,13 @@ export const getAllPagination = async (
   return wrapper.dataPagination(result['data'], meta);
 };
 
-export const getAllPaginationHome = async (page: number, limit: number) => {
-  const result = await findAllPaginationHome(page, limit);
-  const count = await countAll();
+export const getAllPaginationHome = async (
+  page: number,
+  limit: number,
+  search?: string
+) => {
+  const result = await findAllPaginationHome(page, limit, search);
+  const count = await countAll(search);
   if (result['err']) {
     return wrapper.error(new NotFoundError(result['err']));
   }

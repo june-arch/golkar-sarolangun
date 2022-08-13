@@ -11,7 +11,6 @@ import 'swiper/css/thumbs';
 
 const Carousel = ({ activity }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
   return (
     <>
       <Swiper

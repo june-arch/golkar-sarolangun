@@ -20,7 +20,7 @@ export const getAllPagination = async (
   search: string
 ) => {
   const result = await findAllPagination(page, limit, search);
-  const count = await countAll(search);
+  const count = await countAll(search, '');
   if (result['err']) {
     return wrapper.error(new NotFoundError(result['err']));
   }
@@ -36,10 +36,14 @@ export const getAllPagination = async (
   };
   return wrapper.dataPagination(result['data'], meta);
 };
-
-export const getAllPaginationHome = async (page: number, limit: number) => {
-  const result = await findAllPaginationHome(page, limit);
-  const count = await countAll();
+export const getAllPaginationHome = async (
+  page: number,
+  limit: number,
+  search: string,
+  category?: string
+) => {
+  const result = await findAllPaginationHome(page, limit, search, category);
+  const count = await countAll(search, category);
   if (result['err']) {
     return wrapper.error(new NotFoundError(result['err']));
   }

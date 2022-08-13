@@ -102,3 +102,17 @@ export const fetcher = async (...args: [string, object]) => {
 
   return await res.json();
 };
+
+export const dayOfWeekAsString = (dayIndex) => {
+  return (
+    [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ][dayIndex] || ''
+  );
+};

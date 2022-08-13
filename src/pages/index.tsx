@@ -5,6 +5,7 @@ import {
 } from '@heroicons/react/outline';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 import { RiFacebookCircleLine } from 'react-icons/ri';
 
@@ -43,6 +44,13 @@ type Props = {
 
 export default function HomePage(payload: Props) {
   const { navItem, videoItem, news, activity } = payload;
+  const router = useRouter();
+  const handleNewsPage = () => {
+    return router.push('/news');
+  };
+  const handleActivityPage = () => {
+    return router.push('/activity');
+  };
   return (
     <Layout>
       <main className='flex flex-col'>
@@ -146,7 +154,10 @@ export default function HomePage(payload: Props) {
               news.data.length > 0 &&
               news.data?.map((value, i) => <News key={i} payload={value} />)}
           </div>
-          <button className=' w-[180px] self-center rounded-md bg-primary px-4 py-2 text-[14px] font-[500] text-white'>
+          <button
+            onClick={handleNewsPage}
+            className=' w-[180px] self-center rounded-md bg-primary px-4 py-2 text-[14px] font-[500] text-white'
+          >
             Lihat Lebih Banyak
           </button>
         </section>
@@ -158,7 +169,10 @@ export default function HomePage(payload: Props) {
             Kegiatan
           </h1>
           <Carousel activity={activity} />
-          <button className=' w-[180px] rounded-md bg-primary px-4 py-2 text-[14px] font-[500] text-white'>
+          <button
+            onClick={handleActivityPage}
+            className=' w-[180px] rounded-md bg-primary px-4 py-2 text-[14px] font-[500] text-white'
+          >
             Lihat Lebih Banyak
           </button>
         </section>
@@ -205,7 +219,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const address = `${domain}`;
   const getNews = await fetch(`${address}/api/v1/news?page=1&limit=3`);
   const news = await getNews.json();
-  const getActivity = await fetch(`${address}/api/v1/activity?page=1&limit=3`);
+  const getActivity = await fetch(`${address}/api/v1/activity?page=1&limit=5`);
   const activity = await getActivity.json();
   return {
     props: {
