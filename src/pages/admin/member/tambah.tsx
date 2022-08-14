@@ -54,7 +54,7 @@ const Tambah = () => {
       status: Yup.number().required(),
     }),
     enableReinitialize: true,
-    onSubmit: async (values) => {
+    onSubmit: async (values) => {      
       const result = await postMember(values, token);
       if (result.code !== 200) {
         if (result.status == 400) {

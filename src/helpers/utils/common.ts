@@ -70,7 +70,6 @@ export function checkIfFilesAreTooBig(file?: File): boolean {
 
 export function checkIfFilesAreCorrectType(file?: File): boolean {
   let valid = true;
-  console.log(file);
   if (file) {
     if (!['image/jpg', 'image/jpeg', 'image/png'].includes(file.type)) {
       valid = false;
