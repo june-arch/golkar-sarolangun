@@ -1,4 +1,5 @@
 import {
+  DehydratedState,
   Hydrate,
   QueryClient,
   QueryClientProvider,
@@ -6,6 +7,7 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
+import { NextPageContext } from 'next';
 import { AppProps } from 'next/app';
 import { useState } from 'react';
 import 'swiper/css/bundle';
@@ -19,7 +21,7 @@ import { OpenContext, StateHomePage, TableContext, TokenContext } from '@/helper
 TimeAgo.setDefaultLocale(en.locale);
 TimeAgo.addLocale(en);
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedState }>) {
   const [open, setOpen] = useState(false);
   const [token, setToken] = useState(null);
   const [page, setPage] = useState(1);
