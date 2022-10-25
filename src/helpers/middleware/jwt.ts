@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { NextApiRequestModify } from '@/controller/admin/interface';
-import { findOneById } from '@/controller/admin/query';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
+import { findOneById } from '@/controller/admin/admin.query';
 import { SignOptions } from '@/helpers/interface/jwt';
 import * as wrapper from '@/helpers/wrapper';
 
@@ -73,14 +73,14 @@ const auth = nextConnect<NextApiRequestModify, NextApiResponse>().use(
     }
     const sessId = decodedToken.sub;
     const user = await findOneById(sessId);
-    if (user['err'] || user['data'].lenth == 0) {
+    if (user.err) {
       return wrapper.response(
         res,
         'failed',
         wrapper.error(new UnauthorizedError('Unauthorized'))
       );
     }
-    req.user = user['data'][0];
+    req.user = user.data;
     next();
   }
 );

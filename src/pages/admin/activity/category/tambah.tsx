@@ -1,18 +1,24 @@
-import { useFormik } from 'formik';
+import { FormikProvider, useFormik } from 'formik';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import { Layout } from '@/components/admin/layout/Main';
+import { headerItemActivityCateogries } from '@/components/resource/table-admin';
 
-import { useAppSelector } from '@/helpers/redux/hook';
-import { selectToken } from '@/helpers/redux/slice/auth-admin.slice';
-import { headerItemActivityCateogries } from '@/helpers/resource/table-admin';
-import { postActivityCategory } from '@/service/admin/activity-category';
+import { useActivityCategoryPostAdminQuery } from '@/helpers/hooks/react-query/use-activity-category';
+import { TokenContext } from '@/helpers/hooks/use-context';
+const Layout = dynamic(
+  () => import('@/components/admin/Layout'),
+  { ssr: false }
+);
 
-function AddActivityCategory() {
-  const token = useAppSelector(selectToken);
+function Page() {
+  const {token} = useContext(TokenContext);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const mutation = useActivityCategoryPostAdminQuery(router, setLoading);
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -28,33 +34,28 @@ function AddActivityCategory() {
         .required('Required'),
     }),
     onSubmit: async (values) => {
-      const result = await postActivityCategory(values, token);
-      if (result.code !== 200) {
-        formik.errors.name = 'name tidak valid';
-        formik.errors.description = 'description tidak valid';
-      }
-      if (result.data) {
-        return router.push('/admin/activity/category');
-      }
+      mutation.mutate({payload: values, token});
     },
   });
   return (
     <div className='mx-auto max-w-7xl p-5 '>
-      <Form formik={formik} header={headerItemActivityCateogries}>
-        <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
-          <div className='text-3xl'>Tambah Region</div>
-        </div>
-      </Form>
+      <FormikProvider value={formik}>
+        <Form formik={formik} header={headerItemActivityCateogries}>
+          <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
+            <div className='text-3xl'>Tambah Activity Category</div>
+          </div>
+        </Form>
+      </FormikProvider>
     </div>
   );
 }
 
-const Tambah = () => {
+const Index = () => {
   return (
     <Layout>
-      <AddActivityCategory />
+      <Page />
     </Layout>
   );
 };
 
-export default Tambah;
+export default Index;

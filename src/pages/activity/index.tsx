@@ -9,7 +9,7 @@ import Navbar from '@/components/landing-page/Navbar';
 
 import useDebounce from '@/helpers/hooks/use-debounce';
 import { NavItem } from '@/helpers/interface/types';
-import { contentOne } from '@/helpers/resource/nav-data';
+import { contentOne } from '@/components/resource/navigation';
 import { useGetActivitys } from '@/service/landing-page/activity';
 
 type Props = {

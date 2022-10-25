@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "golkar-sarolangun",
+  "private_key_id": "90c13b6c24b270da1d72ac26c70b39011225577a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDALYOX8FHU3GH9\nDjb5CdG2M5e1DPZIVvSENhWRip4HeyuLxzvItaCOO2p4Tz/hoJLfgBwmEUASilB/\nKawiG5ZOJAaRNq2fRaZ6MeieyI8EpjJIuMh0166HlNQywuYh9qTn+DvuxW6MtdrW\nW/xx0qcHRArRJAprvrCitF3FM6n6YzlAdPKVdQ3aZdQR2wvuybVL6eZ46fgmsqUW\nUEs5ZfJVYU3r/QoeowXkP7i/b/Kj6LSGLDMUaaqVFMWjTvbVAqJwdNf8ay4VEOSH\n6Mbp1UcwQ0mMuWtJDxpj0BCWvAAcRekqmYQ33Qm9xvmhegBow5ibzzTlIqdSH25W\nORV5Lh7NAgMBAAECggEAPTyDiR+/w5cx9iPYaoSxeWB5P+zQcX6bzaE6QDUuY+3g\nk1q59xvA/HF8XLfMAEZdZrB4x7yJcR73xX1u5zNpMp8SJKWKr4zPHnLWz/nScMXQ\nkhGndmvfpj5LW511HW9tXqlf15a7wkSUZefLyi04of0RgVD9rRWHTWEx3Au5Zxo3\nPnXtBe2dAFjS1VPGGcIlPDDlc9Exp0DDrfSFs1uyX+autgcBdjsdy25hKBjnRUbN\nh5hUrrdnxLcOBHNWHIT4PJLXUE4kqqggz5noYrPyRV58E5P7Pdzo16rEZxafVwH/\nDU/S2Pk3/R35S9aGqrnDesBiqoOEyHdmaWO9R9x9lQKBgQDu3mEX8fg7SlhXmY3R\nzkTKmXIuAC/9RiqmmC3fWSE4lTtK5lyNJsguPAIw/STqjIYmoim2qR3klkZRoqW+\n+1VR4BTZQm4AqhIYQ3Zsu/R3g0EffHpUy5zgH5toO6ewZeaiJy+Y7gQlYQzK0Fra\n4q8JD1nGbTnt5ae18Iy1M0dz8wKBgQDN9eRL3MogkNbiJ5Ubdhg+KbtOvkAV0P6G\naMCvt7MFZGQO53+RPcWV242u6FsZLYkij2niqB95/U0A9cVYXMJUSLJspi95uzT8\n/K/wxVGqdE1nOMLPg3zomolp+P8feohxDqHODcQjbfOJX/BGbFgH0C2HV7o/Zmja\nFjwQsaiSPwKBgQC6VwZdPKjN7+hMpgApXITzm5Kj6geFyBf7kBmw84Hj9x6jBmPK\nxSdCUhPPjZsf0fHQ744k7XbhXI2Mn5o3Cy/6yBjbh2Py5rlo7i/TESjblqvV2TBB\nN/mwKVf9jxP4mvW5J2KNJZhcZIIrMTC/MjkjkzMQhSK8v/v+BaJutIsYGwKBgF9P\ngy54JjGb1VUi7CWhKObbeQqfkBiIdsDMiR7H69h69LLQ/n/ADkejKpXegQnNwMB1\njZKOKsLRLWlcUs7pXiSS377XyPCUaZkJdoH9TiWLXKZ/5ecR+iPKH/0idS2kDrAD\nDW3FgRbEMwdHlnGAgdxbwjX3qwDb63nBAFrZXCERAoGBAKX4FJ1qqt+IFxRrghby\n3MqPZMLLjRHQ7selkgikc8z87AAFIkpeLivehRKrhoaQjQGAzvw62sOQGLA5LVbd\ngRmEqPcegOGeBrn/E8XP8X8qnfLZT6xfnqUx7cgP3OMVBByfWbWrUZFyH6wG7Vu5\n1wtyc8eqsobXyh5F2Io3p6fa\n-----END PRIVATE KEY-----\n",
+  "client_email": "golkar-sarolangun-bucket@golkar-sarolangun.iam.gserviceaccount.com",
+  "client_id": "101861229199999789924",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/golkar-sarolangun-bucket%40golkar-sarolangun.iam.gserviceaccount.com"
+}

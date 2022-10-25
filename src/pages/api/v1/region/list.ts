@@ -1,8 +1,8 @@
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { NextApiRequestModify } from '@/controller/admin/interface';
-import { getAll } from '@/controller/region/domain';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
+import { getAll } from '@/controller/region/region.domain';
 import * as wrapper from '@/helpers/wrapper';
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>();

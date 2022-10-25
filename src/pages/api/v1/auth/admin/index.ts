@@ -1,8 +1,8 @@
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { authLogin } from '@/controller/admin/domain';
-import { NextApiRequestModify } from '@/controller/admin/interface';
+import { authLogin } from '@/controller/admin/admin.domain';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import * as wrapper from '@/helpers/wrapper';
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>();

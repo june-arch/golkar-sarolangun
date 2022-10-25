@@ -2,29 +2,18 @@ import { Menu } from '@headlessui/react';
 import { MenuIcon, UserIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useContext } from 'react';
 
-import { useAppDispatch, useAppSelector } from '@/helpers/redux/hook';
-import {
-  selectIsLogin,
-  setIsLogin,
-  setToken,
-} from '@/helpers/redux/slice/auth-admin.slice';
-import {
-  selectOpen,
-  setOpen,
-} from '@/helpers/redux/slice/navigation-admin.slice';
-import { headerRightItemsLogin } from '@/helpers/resource/header-nav-data-admin';
+import { HeaderRight } from '@/components/resource/header-right';
 
-export const Header = () => {
-  const dispatch = useAppDispatch();
-  const isLogin = useAppSelector(selectIsLogin);
-  const open = useAppSelector(selectOpen);
+import { OpenContext, TokenContext } from '@/helpers/hooks/use-context';
+
+const Header = () => {
   const router = useRouter();
+  const {token, setToken} = useContext(TokenContext);  
+  const {open, setOpen} = useContext(OpenContext);
   const handleLogout = (e, path: string) => {
-    setTimeout(() => {
-      dispatch(setIsLogin(false));
-      dispatch(setToken(null));
-    }, 1000);
+    localStorage.removeItem('token-auth');
     return router.push(path);
   };
   const menuIsLogin = () => {
@@ -38,7 +27,7 @@ export const Header = () => {
           as='div'
           className='absolute top-full flex w-full flex-col space-y-2 bg-gray-600 '
         >
-          {headerRightItemsLogin.map(({ title, icon, link }, index) => (
+          {HeaderRight.map(({ title, icon, link }, index) => (
             <Menu.Item key={index}>
               <a
                 onClick={(e) => handleLogout(e, link)}
@@ -70,7 +59,7 @@ export const Header = () => {
   return (
     <div className='flex flex-col items-center justify-around space-y-5  bg-gray-600 p-10 md:flex-row md:space-y-0'>
       <div className='flex items-center justify-center space-x-3'>
-        <button onClick={() => dispatch(setOpen(!open))}>
+        <button onClick={() => setOpen(!open)}>
           <MenuIcon className='h-8 w-8 text-gray-50' />
         </button>
         <Link href='/admin'>
@@ -79,7 +68,8 @@ export const Header = () => {
           </a>
         </Link>
       </div>
-      <div className='relative'>{isLogin ? menuIsLogin() : menuIsLogout()}</div>
+      <div className='relative'>{token ? menuIsLogin() : menuIsLogout()}</div>
     </div>
   );
 };
+export default Header;

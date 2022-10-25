@@ -1,23 +1,32 @@
 import { FormikProvider, useFormik } from 'formik';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import { Layout } from '@/components/admin/layout/Main';
+import LoadingScreen from '@/components/LoadingScreen';
+import PopupError from '@/components/PopupError';
+import { formMember } from '@/components/resource/table-admin';
 
-import { useAppSelector } from '@/helpers/redux/hook';
-import { selectToken } from '@/helpers/redux/slice/auth-admin.slice';
-import { formMember } from '@/helpers/resource/table-admin';
+import { useMemberPostAdminQuery } from '@/helpers/hooks/react-query/use-member';
+import { useRegionsListQuery } from '@/helpers/hooks/react-query/use-region';
+import { TokenContext } from '@/helpers/hooks/use-context';
 import {
   checkIfFilesAreCorrectType,
   checkIfFilesAreTooBig,
 } from '@/helpers/utils/common';
-import { postMember } from '@/service/admin/member.admin';
-import { useGetRegionsList } from '@/service/admin/region.admin';
 
-const Tambah = () => {
-  const token = useAppSelector(selectToken);
+const Layout = dynamic(
+  () => import('@/components/admin/Layout'),
+  { ssr: false }
+);
+
+const Page = () => {
+  const {token} = useContext(TokenContext);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const mutation = useMemberPostAdminQuery(router, setLoading);
   const formik = useFormik({
     initialValues: {
       region_id: '',
@@ -55,53 +64,34 @@ const Tambah = () => {
     }),
     enableReinitialize: true,
     onSubmit: async (values) => {      
-      const result = await postMember(values, token);
-      if (result.code !== 200) {
-        if (result.status == 400) {
-          result.info.data.map((value) =>
-            Object.keys(value).map((key) =>
-              formik.setFieldError(key, value[key])
-            )
-          );
-        }
-      }
-      if (result.success == true) {
-        return router.push('/admin/member');
-      }
+      mutation.mutate({payload:values, token})
     },
   });
-  const { regions, isError, isLoading } = useGetRegionsList(token);
-  if (isError)
-    return (
-      <Layout>
-        <div>
-          error fetch data with error code: {isError['status']},{' '}
-          {JSON.stringify(isError['info'])}
-        </div>
-      </Layout>
-    );
-  if (isLoading)
-    return (
-      <Layout>
-        <div>Loading ...</div>
-      </Layout>
-    );
+  const { data:regions, isError, isLoading } = useRegionsListQuery(token);
+  if (isError) return <PopupError isError={isError} />
+  if (isLoading || loading) return <LoadingScreen/>;
   const listCategory = regions.data.map((item) => {
     return { label: item.name, value: item.id_regional };
   });
   return (
-    <Layout>
-      <div className='mx-auto max-w-7xl p-5 '>
-        <FormikProvider value={formik}>
-          <Form formik={formik} header={formMember} data={listCategory}>
-            <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
-              <div className='text-3xl'>Tambah Member</div>
-            </div>
-          </Form>
-        </FormikProvider>
-      </div>
-    </Layout>
+    <div className='mx-auto max-w-7xl p-5 '>
+      <FormikProvider value={formik}>
+        <Form formik={formik} header={formMember} data={listCategory}>
+          <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
+            <div className='text-3xl'>Tambah Member</div>
+          </div>
+        </Form>
+      </FormikProvider>
+    </div>
   );
 };
 
-export default Tambah;
+const Index = () => {
+  return (
+    <Layout>
+      <Page />
+    </Layout>
+  );
+}
+
+export default Index;

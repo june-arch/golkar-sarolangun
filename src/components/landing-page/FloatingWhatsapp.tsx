@@ -2,6 +2,8 @@ import React from 'react';
 
 import css from '@/styles/styles.module.css';
 
+import { paddingDefault } from '@/pages';
+
 import { WhatsappSVG } from './Icons';
 
 interface FloatingWhatsAppProps {
@@ -21,13 +23,15 @@ export default function FloatingWhatsApp({
     );
   };
   return (
-    <div
-      className={css.whatsappButton}
-      onClick={(event) => handleOpen(event)}
-      style={styles}
-      aria-hidden='true'
-    >
-      <WhatsappSVG />
+    <div className={`${paddingDefault}`}>
+      <div
+        className={css.whatsappButton}
+        onClick={(event) => handleOpen(event)}
+        style={styles}
+        aria-hidden='true'
+      >
+        <WhatsappSVG />
+      </div>
     </div>
   );
 }

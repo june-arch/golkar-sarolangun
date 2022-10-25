@@ -1,9 +1,9 @@
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { NextApiRequestModify } from '@/controller/admin/interface';
-import { findMemberByKTP, registerMember } from '@/controller/member/domain';
-import { createMember } from '@/controller/member/dto';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
+import { findMemberByKTP, registerMember } from '@/controller/member/member.domain';
+import { createMember } from '@/controller/member/member.dto';
 import { configNext } from '@/helpers/middleware/configNext';
 import { uploadDiffMiddleware } from '@/helpers/middleware/uploads';
 import validate from '@/helpers/middleware/validation';

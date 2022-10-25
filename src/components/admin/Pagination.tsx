@@ -1,4 +1,5 @@
-import { styleActive, styleNotActive } from '@/helpers/resource/table-admin';
+import { styleActive, styleNotActive } from '@/components/resource/table-admin';
+
 import { paginate } from '@/helpers/utils/paginate';
 
 type PaginationProps = {
@@ -66,7 +67,7 @@ const Pagination = ({ page, limit, setPage, meta }: PaginationProps) => {
               })}
             <li
               className={`${
-                page
+                page && meta
                   ? page == meta.totalPage
                     ? 'pointer-events-none'
                     : ''

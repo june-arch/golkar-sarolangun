@@ -1,21 +1,16 @@
+import { useContext } from 'react';
 import MoonLoader from 'react-spinners/MoonLoader';
 import Swal from 'sweetalert2';
 
-import { formatDate, isDate } from '@/helpers/utils/common';
+import { TableContext } from '@/helpers/hooks/use-context';
+import { statusMember, statusMemberCss } from '@/helpers/utils/common';
 
 import Pagination from './Pagination';
 
-const ContentTable = ({
-  header,
-  id,
-  result,
-  limit,
-  page,
-  setPage,
-  handleDelete,
-  handleEdit,
-  handleView,
-}) => {
+const ContentTable = ({ header, id, result, handleDelete, handleEdit, handleView }) => {
+  const {pageState, limitState} = useContext(TableContext);
+  const {page, setPage} = pageState;
+  const {limit, setLimit} = limitState;
   const { data, isError, isLoading } = result;
   if (isLoading) {
     return (
@@ -39,7 +34,7 @@ const ContentTable = ({
 
     Toast.fire({
       icon: 'error',
-      title: `Error : ( ${isError['info']['message']} )`,
+      title: `Error : ( ${isError} )`,
       color: 'red',
     });
     return (
@@ -54,7 +49,7 @@ const ContentTable = ({
   return (
     <table className='flex-no-wrap my-5 flex w-full flex-row overflow-hidden rounded-lg sm:bg-white sm:shadow-lg'>
       <thead className=''>
-        {items &&
+        {items && items.length > 0 &&
           items.map((value, index) => {
             return (
               <tr
@@ -63,12 +58,12 @@ const ContentTable = ({
               >
                 <th className='p-3 text-left sm:w-1/12 sm:text-center'>no</th>
                 {header.map((title, index) => (
-                  <th key={index} className='p-3 text-left'>
+                  <th key={index} className={`p-3 text-left ${title == 'status' ? 'sm:w-1/12' : ''}`}>
                     {title.replace('_', ' ').trim()}
                   </th>
                 ))}
                 {handleEdit && handleDelete && (
-                  <th className='p-[14px] text-left sm:w-2/12 sm:p-3 sm:text-center'>
+                  <th className='p-[14px] text-left sm:w-3/12 sm:p-3 sm:text-center'>
                     Action
                   </th>
                 )}
@@ -77,21 +72,30 @@ const ContentTable = ({
           })}
       </thead>
       <tbody className='flex-1 sm:flex-none'>
-        {items.map((value, index) => (
+        {items && items.length > 0 && items.map((value, index) => (
           <tr
             key={index}
             className='flex-no wrap mb-2 flex flex-col sm:mb-0 sm:table-row'
           >
-            <td className='border-grey-light border p-3 sm:w-1/12 sm:text-center'>
+            <td className='border-grey-light border p-3 sm:text-center'>
               {limit * (page - 1) + (index + 1)}
             </td>
-            {header.map((title, i) => (
-              <td key={i} className='border-grey-light border p-3 text-left'>
-                {isDate(value[title]) ? formatDate(value[title]) : value[title]}
-              </td>
-            ))}
+            {header.map((title, i) => {
+              if(title == 'status') {
+                return (
+                  <td key={i} className={`border-grey-light border p-3 text-left ${statusMemberCss(value[title])}`}>
+                    {statusMember(value[title])}
+                  </td>
+                )
+              }
+              return (
+                <td key={i} className='border-grey-light border p-3 text-left'>
+                  {value[title]}
+                </td>
+              )
+            })}
             {handleEdit && handleDelete && (
-              <td className='border-grey-light border p-3 sm:w-2/12 sm:text-center'>
+              <td className='border-grey-light border p-3 sm:text-center'>
                 <a
                   onClick={() => handleView(value)}
                   className='cursor-pointer text-gray-500'

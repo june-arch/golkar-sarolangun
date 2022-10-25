@@ -1,9 +1,9 @@
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { NextApiRequestModify } from '@/controller/admin/interface';
-import { getAllPagination, registerMember } from '@/controller/member/domain';
-import { createMember } from '@/controller/member/dto';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
+import { getAllPagination, registerMember } from '@/controller/member/member.domain';
+import { createMember } from '@/controller/member/member.dto';
 import { configNext } from '@/helpers/middleware/configNext';
 import jwt from '@/helpers/middleware/jwt';
 import { uploadDiffMiddleware } from '@/helpers/middleware/uploads';

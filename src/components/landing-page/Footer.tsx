@@ -1,11 +1,13 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
+
+import { paddingDefault } from '@/pages';
 
 const Footer = () => {
   return (
-    <footer className='bg-primary py-6 px-8 text-sm sm:text-[26px] sm:h-[94px] flex justify-center items-center'>
-       © 2022 • Partai Golkar Sarolangun, All right reserved
+    <footer className='bg-primary'>
+       <div className={`px-8 text-md sm:h-[64px] flex justify-center items-center ${paddingDefault}`}>
+          © 2022 • Partai Golkar Sarolangun, All right reserved
+       </div>
     </footer>
   );
 };

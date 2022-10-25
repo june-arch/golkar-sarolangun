@@ -1,18 +1,24 @@
-import { useFormik } from 'formik';
+import { FormikProvider, useFormik } from 'formik';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import { Layout } from '@/components/admin/layout/Main';
+import { headerItemNewsCateogries } from '@/components/resource/table-admin';
 
-import { useAppSelector } from '@/helpers/redux/hook';
-import { selectToken } from '@/helpers/redux/slice/auth-admin.slice';
-import { headerItemNewsCateogries } from '@/helpers/resource/table-admin';
-import { postNewsCategory } from '@/service/admin/news-category';
+import { useNewsCategoryPostAdminQuery } from '@/helpers/hooks/react-query/use-news-category';
+import { TokenContext } from '@/helpers/hooks/use-context';
+const Layout = dynamic(
+  () => import('@/components/admin/Layout'),
+  { ssr: false }
+);
 
-function AddNewsCategory() {
-  const token = useAppSelector(selectToken);
+function Page() {
+  const {token} = useContext(TokenContext);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const mutation = useNewsCategoryPostAdminQuery(router, setLoading);
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -28,33 +34,28 @@ function AddNewsCategory() {
         .required('Required'),
     }),
     onSubmit: async (values) => {
-      const result = await postNewsCategory(values, token);
-      if (result.code !== 200) {
-        formik.errors.name = 'name tidak valid';
-        formik.errors.description = 'description tidak valid';
-      }
-      if (result.data) {
-        return router.push('/admin/news/category');
-      }
+      mutation.mutate({payload: values, token});
     },
   });
   return (
     <div className='mx-auto max-w-7xl p-5 '>
-      <Form formik={formik} header={headerItemNewsCateogries}>
-        <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
-          <div className='text-3xl'>Tambah Region</div>
-        </div>
-      </Form>
+      <FormikProvider value={formik}>
+        <Form formik={formik} header={headerItemNewsCateogries}>
+          <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
+            <div className='text-3xl'>Tambah News Category</div>
+          </div>
+        </Form>
+      </FormikProvider>
     </div>
   );
 }
 
-const Tambah = () => {
+const Index = () => {
   return (
     <Layout>
-      <AddNewsCategory />
+      <Page />
     </Layout>
   );
 };
 
-export default Tambah;
+export default Index;

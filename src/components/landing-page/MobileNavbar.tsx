@@ -1,35 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
-import { Menus } from '@/helpers/interface/types';
+import { StateHomePage } from '@/helpers/hooks/use-context';
 
-type Props = {
-  open: boolean;
-  navItems: Data;
-  openSub1: OpenSub;
-  openSub2: OpenSub2;
-  setOpenSub1: Dispatch<SetStateAction<OpenSub>>;
-  setOpenSub2: Dispatch<SetStateAction<OpenSub2>>;
-};
-
-type Data = {
-  'nav-items': Menus[];
-};
-
-type OpenSub = {
-  state: boolean;
-  posisi: number;
-};
-type OpenSub2 = {
-  state: boolean;
-  posisiParent: number;
-  posisi: number;
-};
-
-const MobileNavbar = (props: Props) => {
-  const { open, navItems, openSub1, openSub2, setOpenSub1, setOpenSub2 } =
-    props;
+const MobileNavbar = () => {
+  const { navigation } = useContext(StateHomePage);
+  const { open, openSub1, openSub2, setOpenSub1,setOpenSub2, data } = navigation;
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
 
@@ -129,7 +106,7 @@ const MobileNavbar = (props: Props) => {
         </div>
       </div>
       <div className='mx-6 flex h-full flex-col overflow-auto py-4 pb-24 scrollbar-hide'>
-        {navItems['nav-items'].map((value, i) => {
+        {data.map((value, i) => {
           return (
             <div key={i} className='py-2 text-sm font-medium'>
               <div className='flex'>

@@ -5,8 +5,8 @@ import {
   deleteCategory,
   editCategory,
   getOne,
-} from '@/controller/activity-category/domain';
-import { NextApiRequestModify } from '@/controller/admin/interface';
+} from '@/controller/activity-category/activity-category.domain';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import jwt from '@/helpers/middleware/jwt';
 import * as wrapper from '@/helpers/wrapper';
 

@@ -7,7 +7,6 @@ export const Form = ({
   header,
   data,
   content,
-  bucket,
   isMultiple,
   children,
 }: {
@@ -15,7 +14,6 @@ export const Form = ({
   header: any;
   data?: any;
   content?: any;
-  bucket?: string;
   isMultiple?: boolean;
   children?: any;
 }) => {
@@ -23,31 +21,32 @@ export const Form = ({
   return (
     <div className='w-full'>
       {children}
-      <form onSubmit={formik.handleSubmit} encType='multipart/form-data'>
-        {header.map((value, key) => (
-          <Input
-            value={value}
-            formik={formik}
-            data={data}
-            content={content}
-            bucket={bucket}
-            key={key}
-            isMultiple={isMultiple}
-          />
-        ))}
+      <form onSubmit={formik.handleSubmit} encType='multipart/form-data' className='space-y-12'>
+        <div className='flex flex-wrap items-center justify-center'>
+          {header.map((value, key) => (
+            <Input
+              value={value}
+              formik={formik}
+              data={data}
+              content={content}
+              key={key}
+              isMultiple={isMultiple}
+            />
+          ))}
+        </div>
 
-        <div className='space-x-2 text-center lg:text-left'>
+        <div className='space-x-2 text-center'>
           <button
             type='submit'
             disabled={formik.isSubmitting}
-            className='inline-block rounded bg-blue-600 px-7 py-3 text-sm font-medium uppercase leading-snug text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg'
+            className='inline-block rounded w-40 bg-blue-600 px-7 py-3 text-sm font-medium uppercase leading-snug text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg'
           >
             Submit
           </button>
           <button
             type='button'
             onClick={() => router.back()}
-            className='inline-block rounded bg-gray-600 px-7 py-3 text-sm font-medium uppercase leading-snug text-white shadow-md transition duration-150 ease-in-out hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg'
+            className='inline-block rounded w-40 bg-gray-600 px-7 py-3 text-sm font-medium uppercase leading-snug text-white shadow-md transition duration-150 ease-in-out hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg'
           >
             Cancel
           </button>

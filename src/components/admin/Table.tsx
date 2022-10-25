@@ -1,27 +1,25 @@
 import { Menu } from '@headlessui/react';
+import { useContext } from 'react';
 
+import { itemLimit } from '@/components/resource/table-admin';
+
+import { TableContext } from '@/helpers/hooks/use-context';
 import { tableProps } from '@/helpers/interface/pagination.interface';
-import { itemLimit } from '@/helpers/resource/table-admin';
 
 import ContentTable from './ContentTable';
 
 export const Table = ({ title, header, result, id, props }: tableProps) => {
+  const {limitState, searchState, pageState} = useContext(TableContext);
   const {
-    page,
-    limit,
-    setLimit,
-    setPage,
     handleAdd,
     handleDelete,
     handleEdit,
-    searchKeyword,
-    setSearchKeyword,
     handleView,
   } = props;
 
   return (
     <div className=''>
-      {title && setLimit && (
+      {title && limitState.setLimit && (
         <>
           <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
             <h1 className='text-2xl font-medium'>{title}</h1>
@@ -40,7 +38,7 @@ export const Table = ({ title, header, result, id, props }: tableProps) => {
               <div className='relative'>
                 <Menu>
                   <Menu.Button className='flex space-x-3 rounded-md border-2 border-gray-200 px-10 py-2  text-gray-600'>
-                    <span>{limit}</span>
+                    <span>{limitState.limit}</span>
                   </Menu.Button>
                   <Menu.Items
                     as='div'
@@ -49,7 +47,10 @@ export const Table = ({ title, header, result, id, props }: tableProps) => {
                     {itemLimit.map((value, index) => (
                       <Menu.Item key={index}>
                         <a
-                          onClick={() => setLimit(value)}
+                          onClick={() => {
+                            limitState.setLimit(value);
+                            pageState.setPage(1)
+                          }}
                           className='flex cursor-pointer space-x-2 px-9 py-1 text-white hover:bg-gray-500'
                         >
                           <span>{value}</span>
@@ -67,8 +68,8 @@ export const Table = ({ title, header, result, id, props }: tableProps) => {
                   type='search'
                   className='form-control m-0 block w-full min-w-0 flex-auto rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
                   placeholder='Search'
-                  value={searchKeyword}
-                  onChange={(e) => setSearchKeyword(e.target.value)}
+                  value={searchState.search}
+                  onChange={(e) => searchState.setSearch(e.target.value)}
                   aria-label='Search'
                   aria-describedby='button-addon2'
                 />
@@ -81,9 +82,6 @@ export const Table = ({ title, header, result, id, props }: tableProps) => {
         header={header}
         id={id}
         result={result}
-        limit={limit}
-        page={page}
-        setPage={setPage}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
         handleView={handleView}

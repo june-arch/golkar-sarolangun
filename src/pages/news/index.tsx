@@ -9,7 +9,7 @@ import NewsFilterComponent from '@/components/landing-page/NewsFilter';
 
 import useDebounce from '@/helpers/hooks/use-debounce';
 import { NavItem } from '@/helpers/interface/types';
-import { contentOne } from '@/helpers/resource/nav-data';
+import { contentOne } from '@/components/resource/navigation';
 import { useGetNewss } from '@/service/landing-page/news';
 import { requestCategoryAll } from '@/service/landing-page/news-category';
 

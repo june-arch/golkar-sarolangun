@@ -1,9 +1,9 @@
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { NextApiRequestModify } from '@/controller/admin/interface';
-import { createNews, getAllPagination } from '@/controller/news/domain';
-import { news } from '@/controller/news/dto';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
+import { createNews, getAllPagination } from '@/controller/news/news.domain';
+import { news } from '@/controller/news/news.dto';
 import { configNext } from '@/helpers/middleware/configNext';
 import jwt from '@/helpers/middleware/jwt';
 import { uploadMiddleware } from '@/helpers/middleware/uploads';

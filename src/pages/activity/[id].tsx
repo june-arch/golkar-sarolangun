@@ -9,7 +9,7 @@ import Layout from '@/components/landing-page/Layout';
 import Navbar from '@/components/landing-page/Navbar';
 
 import { NavItem } from '@/helpers/interface/types';
-import { contentOne } from '@/helpers/resource/nav-data';
+import { contentOne } from '@/components/resource/navigation';
 import { dayOfWeekAsString, formatDate } from '@/helpers/utils/common';
 import { getOneActivity } from '@/service/landing-page/activity';
 

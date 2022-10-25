@@ -1,8 +1,8 @@
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { NextApiRequestModify } from '@/controller/admin/interface';
-import { getAll } from '@/controller/news-category/domain';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
+import { getAll } from '@/controller/news-category/news-category.domain';
 import { configNext } from '@/helpers/middleware/configNext';
 import * as wrapper from '@/helpers/wrapper';
 

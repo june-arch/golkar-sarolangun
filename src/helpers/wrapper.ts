@@ -67,7 +67,7 @@ export const responsePage = (
   });
 };
 
-const checkErrorCode = (error) => {
+const checkErrorCode = (error: string) => {
   switch (error.constructor) {
     case BadRequestError:
       return httpError.BAD_REQUEST;

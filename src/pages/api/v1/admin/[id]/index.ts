@@ -1,8 +1,8 @@
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { editAdmin, getOne } from '@/controller/admin/domain';
-import { NextApiRequestModify } from '@/controller/admin/interface';
+import { editAdmin, getOne } from '@/controller/admin/admin.domain';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import jwt from '@/helpers/middleware/jwt';
 import * as wrapper from '@/helpers/wrapper';
 

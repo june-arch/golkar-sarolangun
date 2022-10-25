@@ -4,8 +4,8 @@ import nextConnect from 'next-connect';
 import {
   createCategory,
   getAllPagination,
-} from '@/controller/activity-category/domain';
-import { NextApiRequestModify } from '@/controller/admin/interface';
+} from '@/controller/activity-category/activity-category.domain';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import jwt from '@/helpers/middleware/jwt';
 import * as wrapper from '@/helpers/wrapper';
 
@@ -14,13 +14,15 @@ const handler = nextConnect<NextApiRequestModify, NextApiResponse>();
 handler
   .use(jwt)
   .get(async (req, res) => {
-    const { page: p, limit: l } = req.query;
+    const { page: p, limit: l, search: s } = req.query;
     const dataPage = Array.isArray(p) ? p[0] : p;
     const dataLimit = Array.isArray(l) ? l[0] : l;
+    const dataSearch = Array.isArray(s) ? s[0] : s;
     const page = Number(dataPage) || 1;
     const limit = Number(dataLimit) || 10;
-    const domain = async (page, limit) => {
-      return getAllPagination(page, limit);
+    const search = dataSearch || '';
+    const domain = async (page, limit, search) => {
+      return getAllPagination(page, limit, search);
     };
 
     const sendResponse = async (result) => {
@@ -34,7 +36,7 @@ handler
             200
           );
     };
-    return sendResponse(await domain(page, limit));
+    return sendResponse(await domain(page, limit, search));
   })
   .post(async (req, res) => {
     const payload = req.body;

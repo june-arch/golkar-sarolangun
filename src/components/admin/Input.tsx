@@ -11,14 +11,12 @@ export const Input = ({
   formik,
   data,
   content,
-  bucket,
   isMultiple,
 }: {
   value: string;
   formik: any;
   data?: any;
   content?: any;
-  bucket?: string;
   isMultiple?: boolean;
 }) => {
   const handleInput = () => {
@@ -38,21 +36,12 @@ export const Input = ({
                 accept={'image/*'}
                 multiple={true}
               />
-              {content &&
-                content.image &&
-                content.image
-                  .split(',')
+              {content && content.image && content.image.split(',')
                   .map((item, index) => (
                     <Image
                       key={index}
                       id={value}
-                      src={
-                        process.env.DOMAIN_API +
-                        '/api/v1?file=' +
-                        item +
-                        '&bucket=' +
-                        bucket
-                      }
+                      src={item}
                       alt='your image'
                       width={200}
                       height={200}
@@ -60,10 +49,10 @@ export const Input = ({
                   ))}
             </>
           ) : (
-            <>
+            <div className='flex relative w-500px h-48px group justify-center items-center z-1001'>
               <input
                 type='file'
-                className='form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
+                className='form-control m-0 block w-full h-[210px] rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
                 id={value}
                 name={value}
                 onChange={(e) =>
@@ -72,21 +61,17 @@ export const Input = ({
                 accept={'image/*'}
               />
               {content && content.image && (
-                <Image
-                  id={value}
-                  src={
-                    process.env.DOMAIN_API +
-                    '/api/v1?file=' +
-                    content.image +
-                    '&bucket=' +
-                    bucket
-                  }
-                  alt='your image'
-                  width={200}
-                  height={200}
-                />
+                <span className='flex absolute right-0 bg-transparent rounded text-base text-gray-600 p-2'>
+                  <Image
+                    id={value}
+                    src={content.image}
+                    alt='your image'
+                    width={200}
+                    height={200}
+                  />
+                </span>
               )}
-            </>
+            </div>
           )}
         </div>
       );
@@ -115,13 +100,7 @@ export const Input = ({
                     <Image
                       key={index}
                       id={value}
-                      src={
-                        process.env.DOMAIN_API +
-                        '/api/v1?file=' +
-                        item +
-                        '&bucket=' +
-                        bucket
-                      }
+                      src={item}
                       alt='your image'
                       width={200}
                       height={200}
@@ -129,10 +108,10 @@ export const Input = ({
                   ))}
             </>
           ) : (
-            <>
+            <div className='flex relative w-500px h-48px group justify-center items-center z-1001'>
               <input
                 type='file'
-                className='form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
+                className='form-control m-0 block w-full h-[210px] rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
                 id={value}
                 name={value}
                 onChange={(e) =>
@@ -141,21 +120,17 @@ export const Input = ({
                 accept={'image/*'}
               />
               {content && content.photo && (
-                <Image
-                  id={value}
-                  src={
-                    process.env.DOMAIN_API +
-                    '/api/v1?file=' +
-                    content.photo +
-                    '&bucket=' +
-                    bucket
-                  }
-                  alt='your image'
-                  width={200}
-                  height={200}
-                />
+                <span className='flex absolute right-0 bg-transparent rounded text-base text-gray-600 p-2'>
+                  <Image
+                    id={value}
+                    src={content.photo}
+                    alt='your image'
+                    width={200}
+                    height={200}
+                  />
+                </span>
               )}
-            </>
+            </div>
           )}
         </div>
       );
@@ -176,21 +151,12 @@ export const Input = ({
                 accept={'image/*'}
                 multiple={true}
               />
-              {content &&
-                content.photo_ktp &&
-                content.photo_ktp
-                  .split(',')
+              {content && content.photo_ktp && content.photo_ktp.split(',')
                   .map((item, index) => (
                     <Image
                       key={index}
                       id={value}
-                      src={
-                        process.env.DOMAIN_API +
-                        '/api/v1?file=' +
-                        item +
-                        '&bucket=' +
-                        bucket
-                      }
+                      src={item}
                       alt='your image'
                       width={200}
                       height={200}
@@ -198,10 +164,10 @@ export const Input = ({
                   ))}
             </>
           ) : (
-            <>
+            <div className='flex relative w-500px h-48px group justify-center items-center z-1001'>
               <input
                 type='file'
-                className='form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
+                className='form-control m-0 w-full h-[210px] block rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
                 id={value}
                 name={value}
                 onChange={(e) =>
@@ -210,21 +176,17 @@ export const Input = ({
                 accept={'image/*'}
               />
               {content && content.photo_ktp && (
-                <Image
+                <span className='flex absolute right-0 bg-transparent rounded text-base text-gray-600 p-2'>
+                  <Image
                   id={value}
-                  src={
-                    process.env.DOMAIN_API +
-                    '/api/v1?file=' +
-                    content.photo_ktp +
-                    '&bucket=' +
-                    bucket
-                  }
+                  src={content.photo_ktp}
                   alt='your image'
                   width={200}
                   height={200}
                 />
+                </span>
               )}
-            </>
+            </div>
           )}
         </div>
       );
@@ -326,7 +288,7 @@ export const Input = ({
       .trim();
   };
   return (
-    <div className='mb-6'>
+    <div className={`mb-6 w-full md:w-1/3 px-1 ${value == 'address' || value == 'content' ? 'md:!w-full' : ''} ${value == 'photo' || value == 'photo_ktp' || value == 'image' ? 'md:!w-1/2' : ''}`}>
       <label htmlFor={value} className='block pb-2 text-xl'>
         {handleValue(value)}
       </label>

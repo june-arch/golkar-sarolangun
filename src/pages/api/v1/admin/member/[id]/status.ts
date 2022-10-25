@@ -1,9 +1,9 @@
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { NextApiRequestModify } from '@/controller/admin/interface';
-import { editMemberStatus } from '@/controller/member/domain';
-import { updateStatusMember } from '@/controller/member/dto';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
+import { editMemberStatus } from '@/controller/member/member.domain';
+import { updateStatusMember } from '@/controller/member/member.dto';
 import jwt from '@/helpers/middleware/jwt';
 import validate from '@/helpers/middleware/validation';
 import * as wrapper from '@/helpers/wrapper';

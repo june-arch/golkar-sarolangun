@@ -93,11 +93,11 @@ export const unlinkByFileName = (path: string, fileName: string) => {
 
 export const unlinkAllFile = (path: string) => {
   try {
-    readdir('./tmp/' + path, (err, files) => {
+    readdir('./tmp/images/' + path, (err, files) => {
       if (err) throw err;
 
       for (const file of files) {
-        unlink(join('./tmp/' + path, file), (err) => {
+        unlink(join('./tmp/images/' + path, file), (err) => {
           if (err) throw err;
         });
       }

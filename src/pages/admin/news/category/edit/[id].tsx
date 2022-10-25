@@ -1,22 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useFormik } from 'formik';
+import { FormikProvider, useFormik } from 'formik';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import { Layout } from '@/components/admin/layout/Main';
+import LoadingScreen from '@/components/LoadingScreen';
+import PopupError from '@/components/PopupError';
+import { headerItemNewsCateogries } from '@/components/resource/table-admin';
 
-import { useAppSelector } from '@/helpers/redux/hook';
-import { selectToken } from '@/helpers/redux/slice/auth-admin.slice';
-import { headerItemNewsCateogries } from '@/helpers/resource/table-admin';
+import { useNewsCategoryAdminQuery, useNewsCategoryPatchAdminQuery } from '@/helpers/hooks/react-query/use-news-category';
+import { TokenContext } from '@/helpers/hooks/use-context';
 import { getChangedValues } from '@/helpers/utils/common';
-import {
-  putNewsCategory,
-  useGetNewsCategory,
-} from '@/service/admin/news-category';
+const Layout = dynamic(
+  () => import('@/components/admin/Layout'),
+  { ssr: false }
+);
 
 function EditNewsCategory({ props }) {
-  const { newsCategory, id, token, router } = props;
+  const { newsCategory, id, token, setLoading } = props;
+  const router = useRouter();
   const initialValues = {
     name: newsCategory.data.name,
     description: newsCategory.data.description,
@@ -29,67 +33,47 @@ function EditNewsCategory({ props }) {
       .max(20, 'Must be 20 characters or less')
       .required('Required'),
   });
+  const mutation = useNewsCategoryPatchAdminQuery(router, setLoading);
   const formik = useFormik({
     initialValues,
     enableReinitialize: true,
     validationSchema,
     onSubmit: async (values) => {
       const editedValues = getChangedValues(values, initialValues);
-      const result = await putNewsCategory(editedValues, id, token);
-      if (result.code !== 200) {
-        if (result.status == 400) {
-          result.info.data.map((value) =>
-            Object.keys(value).map((key) =>
-              formik.setFieldError(key, value[key])
-            )
-          );
-        }
-      }
-      if (result.success == true) {
-        return router.push('/admin/news/category');
-      }
+      mutation.mutate({payload: editedValues, id, token});
     },
   });
 
   return (
     <div className='mx-auto max-w-7xl p-5 '>
-      <Form formik={formik} header={headerItemNewsCateogries}>
-        <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
-          <div className='text-3xl'>News Category : {id}</div>
-        </div>
-      </Form>
+      <FormikProvider value={formik}>
+        <Form formik={formik} header={headerItemNewsCateogries}>
+          <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
+            <div className='text-3xl'>News Category : {id}</div>
+          </div>
+        </Form>
+      </FormikProvider>
     </div>
   );
 }
 
-const Edit = () => {
-  const token = useAppSelector(selectToken);
+const Page = () => {
+  const {token} = useContext(TokenContext);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { id } = router.query;
-  const value = Array.isArray(id) ? id[0] : id;
-  const { newsCategory, isError, isLoading } = useGetNewsCategory(
-    { id: value },
-    token
-  );
-  if (isError)
-    return (
-      <div>
-        error fetch data with error code: {isError['status']},{' '}
-        {JSON.stringify(isError['info'])}
-      </div>
-    );
-  if (isLoading) return <div>Loading ...</div>;
-  const props = {
-    newsCategory,
-    id,
-    token,
-    router,
-  };
-  return (
-    <Layout>
-      <EditNewsCategory props={props} />
-    </Layout>
-  );
+  const { id } = router.isReady && router.query;
+  const { data:newsCategory, isError, isLoading } = useNewsCategoryAdminQuery({id},token);
+  if (isError) return <PopupError isError={isError} />
+  if (isLoading || loading) return <LoadingScreen />
+  return <EditNewsCategory props={{newsCategory,id,token,setLoading}} />;
 };
 
-export default Edit;
+const Index = () => {
+  return (
+    <Layout>
+      <Page />
+    </Layout>
+  )
+}
+
+export default Index;

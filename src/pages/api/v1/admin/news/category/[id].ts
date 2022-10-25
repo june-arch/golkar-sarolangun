@@ -1,12 +1,12 @@
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { NextApiRequestModify } from '@/controller/admin/interface';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import {
   deleteCategory,
   editCategory,
   getOne,
-} from '@/controller/news-category/domain';
+} from '@/controller/news-category/news-category.domain';
 import jwt from '@/helpers/middleware/jwt';
 import * as wrapper from '@/helpers/wrapper';
 

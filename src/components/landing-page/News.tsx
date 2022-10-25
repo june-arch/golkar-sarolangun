@@ -2,8 +2,6 @@ import { ClockIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import { formatDate } from '@/helpers/utils/common';
-
 export default function News({ payload }) {
   const router = useRouter();
   const handleClick = (val) => {
@@ -11,36 +9,28 @@ export default function News({ payload }) {
     return;
   };
   return (
-    <figure className='overflow-hidden shadow-md'>
+    <figure className='overflow-hidden shadow-md lg:w-[322px] lg:h-[600px]'>
       <div className='w-full pb-4'>
         <Image
-          src={
-            process.env.DOMAIN_API +
-            '/api/v1?file=' +
-            payload.image +
-            '&bucket=images/news'
-          }
+          src={payload.image}
           alt='berita-1'
           height='60'
           width='100%'
           layout='responsive'
         />
       </div>
-      <div className='relative h-[200px] space-y-1 px-4 text-[12px]'>
-        <div className='text-[12px] font-[700]'>{payload.title}</div>
-        <div className='font-[200] capitalize text-secondary'>
-          {payload.author} | {payload.category}
+      <div className='relative h-[300px] lg:h-[400px] space-y-1 px-4 text-[12px]'>
+        <div className='text-[12px] sm:text-base font-[700]'>{payload.title}</div>
+        <div className='font-[200] sm:text-sm capitalize text-secondary'>
+          {payload.author} | {payload.category_news.name}
         </div>
-        <p
-          className='text-justify line-clamp-4'
-          dangerouslySetInnerHTML={{ __html: payload.content }}
-        ></p>
-        <div className='absolute left-0 bottom-2 flex w-full flex-row items-center justify-between px-4 py-2'>
-          <div className='flex flex-row items-center space-x-1'>
+        <div className='text-justify line-clamp-4 text-sm'>{payload.parseContent}</div>
+        <div className='absolute text-sm left-0 bottom-2 flex w-full flex-row items-center justify-between px-4 py-2'>
+          <div className='flex items-center space-x-1 '>
             <span>
-              <ClockIcon className='h-7 w-7 text-gray-600' />
+              <ClockIcon className='h-5 w-5 text-gray-600' />
             </span>
-            <p>{formatDate(payload.created_date).replace('at', '|')}</p>
+            <p>{payload.created_date}</p>
           </div>
           <p
             onClick={() => handleClick(payload)}

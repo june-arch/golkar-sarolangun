@@ -1,6 +1,6 @@
 import { NextApiResponse } from 'next';
 
-import { NextApiRequestModify } from '@/controller/admin/interface';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import { ApiResponse } from '@/helpers/interface/apiResponse';
 
 type ResponseData = ApiResponse<object, string>;

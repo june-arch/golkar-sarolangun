@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['i.ytimg.com', 'mdbcdn.b-cdn.net', 'localhost'],
+    domains: ['i.ytimg.com', 'mdbcdn.b-cdn.net', 'localhost', 'storage.googleapis.com'],
   },
   env: {
     DOMAIN_API: process.env.DOMAIN_API,

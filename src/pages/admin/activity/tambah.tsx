@@ -1,23 +1,31 @@
 import { FormikProvider, useFormik } from 'formik';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import { Layout } from '@/components/admin/layout/Main';
+import LoadingScreen from '@/components/LoadingScreen';
+import PopupError from '@/components/PopupError';
+import { formActivity } from '@/components/resource/table-admin';
 
-import { useAppSelector } from '@/helpers/redux/hook';
-import { selectToken } from '@/helpers/redux/slice/auth-admin.slice';
-import { formActivity } from '@/helpers/resource/table-admin';
+import { useActivityPostAdminQuery } from '@/helpers/hooks/react-query/use-activity';
+import { useActivityCategoryListQuery } from '@/helpers/hooks/react-query/use-activity-category';
+import { TokenContext } from '@/helpers/hooks/use-context';
 import {
   checkIfFilesAreCorrectType,
   checkIfFilesAreTooBig,
 } from '@/helpers/utils/common';
-import { postActivity } from '@/service/admin/activity';
-import { useGetActivityCategoryList } from '@/service/admin/activity-category';
+const Layout = dynamic(
+  () => import('@/components/admin/Layout'),
+  { ssr: false }
+);
 
-function AddActivity() {
-  const token = useAppSelector(selectToken);
+function Page() {
+  const {token} = useContext(TokenContext);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const mutation = useActivityPostAdminQuery(router, setLoading);
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -45,31 +53,12 @@ function AddActivity() {
     }),
     enableReinitialize: true,
     onSubmit: async (values) => {
-      const result = await postActivity(values, token);
-      if (result.code !== 200) {
-        if (result.status == 400) {
-          result.info.data.map((value) =>
-            Object.keys(value).map((key) =>
-              formik.setFieldError(key, value[key])
-            )
-          );
-        }
-      }
-      if (result.data && result.success == true) {
-        return router.push('/admin/activity');
-      }
+      return mutation.mutate({payload: values, token});
     },
   });
-  const { activityCategory, isError, isLoading } =
-    useGetActivityCategoryList(token);
-  if (isError)
-    return (
-      <div>
-        error fetch data with error code: {isError['status']},{' '}
-        {JSON.stringify(isError['info'])}
-      </div>
-    );
-  if (isLoading) return <div>Loading ...</div>;
+  const { data:activityCategory, isError, isLoading } = useActivityCategoryListQuery(token);
+  if (isError) return <PopupError isError={isError} />
+  if (isLoading || loading) return <LoadingScreen />;
   const listCategoryActivity = activityCategory.data.map((item) => {
     return { label: item.name, value: item.id_category_activity };
   });
@@ -86,12 +75,12 @@ function AddActivity() {
   );
 }
 
-const Tambah = () => {
+const Index = () => {
   return (
     <Layout>
-      <AddActivity />
+      <Page />
     </Layout>
   );
 };
 
-export default Tambah;
+export default Index;

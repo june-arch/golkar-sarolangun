@@ -1,22 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useFormik } from 'formik';
+import { FormikProvider, useFormik } from 'formik';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import { Layout } from '@/components/admin/layout/Main';
+import LoadingScreen from '@/components/LoadingScreen';
+import PopupError from '@/components/PopupError';
+import { headerItemActivityCateogries } from '@/components/resource/table-admin';
 
-import { useAppSelector } from '@/helpers/redux/hook';
-import { selectToken } from '@/helpers/redux/slice/auth-admin.slice';
-import { headerItemActivityCateogries } from '@/helpers/resource/table-admin';
+import { useActivityCategoryAdminQuery, useActivityCategoryPatchAdminQuery } from '@/helpers/hooks/react-query/use-activity-category';
+import { TokenContext } from '@/helpers/hooks/use-context';
 import { getChangedValues } from '@/helpers/utils/common';
-import {
-  putActivityCategory,
-  useGetActivityCategory,
-} from '@/service/admin/activity-category';
+const Layout = dynamic(
+  () => import('@/components/admin/Layout'),
+  { ssr: false }
+);
 
 function EditActivityCategory({ props }) {
-  const { activityCategory, id, token, router } = props;
+  const { activityCategory, id, token, setLoading } = props;
+  const router = useRouter();
   const initialValues = {
     name: activityCategory.data.name,
     description: activityCategory.data.description,
@@ -29,67 +33,47 @@ function EditActivityCategory({ props }) {
       .max(20, 'Must be 20 characters or less')
       .required('Required'),
   });
+  const mutation = useActivityCategoryPatchAdminQuery(router, setLoading);
   const formik = useFormik({
     initialValues,
     enableReinitialize: true,
     validationSchema,
     onSubmit: async (values) => {
       const editedValues = getChangedValues(values, initialValues);
-      const result = await putActivityCategory(editedValues, id, token);
-      if (result.code !== 200) {
-        if (result.status == 400) {
-          result.info.data.map((value) =>
-            Object.keys(value).map((key) =>
-              formik.setFieldError(key, value[key])
-            )
-          );
-        }
-      }
-      if (result.success == true) {
-        return router.push('/admin/activity/category');
-      }
+      mutation.mutate({payload: editedValues, id, token});
     },
   });
 
   return (
     <div className='mx-auto max-w-7xl p-5 '>
-      <Form formik={formik} header={headerItemActivityCateogries}>
-        <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
-          <div className='text-3xl'>Activity Category : {id}</div>
-        </div>
-      </Form>
+      <FormikProvider value={formik}>
+        <Form formik={formik} header={headerItemActivityCateogries}>
+          <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
+            <div className='text-3xl'>Activity Category : {id}</div>
+          </div>
+        </Form>
+      </FormikProvider>
     </div>
   );
 }
 
-const Edit = () => {
-  const token = useAppSelector(selectToken);
+const Page = () => {
+  const {token} = useContext(TokenContext);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { id } = router.query;
-  const value = Array.isArray(id) ? id[0] : id;
-  const { activityCategory, isError, isLoading } = useGetActivityCategory(
-    { id: value },
-    token
-  );
-  if (isError)
-    return (
-      <div>
-        error fetch data with error code: {isError['status']},{' '}
-        {JSON.stringify(isError['info'])}
-      </div>
-    );
-  if (isLoading) return <div>Loading ...</div>;
-  const props = {
-    activityCategory,
-    id,
-    token,
-    router,
-  };
-  return (
-    <Layout>
-      <EditActivityCategory props={props} />
-    </Layout>
-  );
+  const { id } = router.isReady && router.query;
+  const { data:activityCategory, isError, isLoading } = useActivityCategoryAdminQuery({ id }, token);
+  if (isError) return <PopupError isError={isError} />
+  if (isLoading || loading) return <LoadingScreen />
+  return <EditActivityCategory props={{activityCategory, id, token, setLoading}} />;
 };
 
-export default Edit;
+const Index = () => {
+  return (
+    <Layout>
+      <Page />
+    </Layout>
+  )
+}
+
+export default Index;

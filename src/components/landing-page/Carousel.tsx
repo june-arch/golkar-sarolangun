@@ -33,15 +33,10 @@ const Carousel = ({ activity }) => {
                 return (
                   <SwiperSlide key={j}>
                     <img
-                      src={
-                        process.env.DOMAIN_API +
-                        '/api/v1?file=' +
-                        item +
-                        '&bucket=images/activity'
-                      }
-                      className='border-2 border-white'
-                    />
-                    <p className='title w-full bg-black bg-opacity-50 p-2 text-center'>
+                      src={item}
+                      className='border-2 border-white w-1/2 mx-auto h-[400px] lg:h-[500px] object-cover'
+                    />  
+                    <p className='title w-1/2 mx-auto bg-white bg-opacity-50 p-2 text-center'>
                       {value.title}
                     </p>
                   </SwiperSlide>
@@ -69,13 +64,8 @@ const Carousel = ({ activity }) => {
                 return (
                   <SwiperSlide key={j}>
                     <img
-                      src={
-                        process.env.DOMAIN_API +
-                        '/api/v1?file=' +
-                        item +
-                        '&bucket=images/activity'
-                      }
-                      className='border-2 border-white'
+                      src={item}
+                      className='border-2 border-white  w-full h-[70px] sm:h-[120px] lg:h-[140px] object-cover'
                     />
                   </SwiperSlide>
                 );

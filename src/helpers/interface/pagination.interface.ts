@@ -1,12 +1,7 @@
+import { UseMutationResult } from "@tanstack/react-query";
+
 export type pagination = {
-  page: number;
-  limit: number;
-  searchKeyword: string;
-  setPage: (value: number) => void;
-  setLimit: (value: number) => void;
-  debouncedSearch: (value: string, time: number) => void;
-  setSearchKeyword: (value: string) => void;
-  handleDelete?: (value: string) => void;
+  handleDelete?: (a: string, b: UseMutationResult) => void;
   handleEdit?: (value: string) => void;
   handleAdd?: () => void;
   handleView?: (value: any) => void;
@@ -34,7 +29,7 @@ export type resultPage = {
 export type tableProps = {
   title: string;
   header: string[];
-  result: resultPage;
+  result: any;
   id?: string;
   props: pagination;
 };

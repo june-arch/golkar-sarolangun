@@ -1,23 +1,31 @@
 import { FormikProvider, useFormik } from 'formik';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import { Layout } from '@/components/admin/layout/Main';
+import LoadingScreen from '@/components/LoadingScreen';
+import { formNews } from '@/components/resource/table-admin';
 
-import { useAppSelector } from '@/helpers/redux/hook';
-import { selectToken } from '@/helpers/redux/slice/auth-admin.slice';
-import { formNews } from '@/helpers/resource/table-admin';
+import { useNewsPostAdminQuery } from '@/helpers/hooks/react-query/use-news';
+import { useNewsCategoryListQuery } from '@/helpers/hooks/react-query/use-news-category';
+import { TokenContext } from '@/helpers/hooks/use-context';
 import {
   checkIfFilesAreCorrectType,
   checkIfFilesAreTooBig,
 } from '@/helpers/utils/common';
-import { postNews } from '@/service/admin/news';
-import { useGetNewsCategoryList } from '@/service/admin/news-category';
 
-function AddNews() {
-  const token = useAppSelector(selectToken);
+const Layout = dynamic(
+  () => import('@/components/admin/Layout'),
+  { ssr: false }
+);
+
+function Page() {
+  const {token} = useContext(TokenContext);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const mutation = useNewsPostAdminQuery(router, setLoading);
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -44,30 +52,18 @@ function AddNews() {
     }),
     enableReinitialize: true,
     onSubmit: async (values) => {
-      const result = await postNews(values, token);
-      if (result.code !== 200) {
-        if (result.status == 400) {
-          result.info.data.map((value) =>
-            Object.keys(value).map((key) =>
-              formik.setFieldError(key, value[key])
-            )
-          );
-        }
-      }
-      if (result.data && result.success == true) {
-        return router.push('/admin/news');
-      }
+      mutation.mutate({payload:values, token})
     },
   });
-  const { newsCategory, isError, isLoading } = useGetNewsCategoryList(token);
+  const { data:newsCategory, isError, isLoading } = useNewsCategoryListQuery(token);
   if (isError)
     return (
       <div>
-        error fetch data with error code: {isError['status']},{' '}
-        {JSON.stringify(isError['info'])}
+        error fetch data with error code: {isError},{' '}
+        {JSON.stringify(isError)}
       </div>
     );
-  if (isLoading) return <div>Loading ...</div>;
+    if (isLoading || loading) return <LoadingScreen/>;
   const listCategory = newsCategory.data.map((item) => {
     return { label: item.name, value: item.id_category_news };
   });
@@ -84,12 +80,12 @@ function AddNews() {
   );
 }
 
-const Tambah = () => {
+const Index = () => {
   return (
     <Layout>
-      <AddNews />
+      <Page />
     </Layout>
   );
 };
 
-export default Tambah;
+export default Index;

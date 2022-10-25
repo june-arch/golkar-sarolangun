@@ -1,8 +1,8 @@
 import { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { NextApiRequestModify } from '@/controller/admin/interface';
-import { createRegion, getAllPagination } from '@/controller/region/domain';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
+import { createRegion, getAllPagination } from '@/controller/region/region.domain';
 import jwt from '@/helpers/middleware/jwt';
 import * as wrapper from '@/helpers/wrapper';
 

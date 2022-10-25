@@ -5,9 +5,9 @@ import {
   editActivity,
   getById,
   removeActivity,
-} from '@/controller/activity/domain';
-import { activityOptional } from '@/controller/activity/dto';
-import { NextApiRequestModify } from '@/controller/admin/interface';
+} from '@/controller/activity/activity.domain';
+import { activityOptional } from '@/controller/activity/activity.dto';
+import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import { configNext } from '@/helpers/middleware/configNext';
 import jwt from '@/helpers/middleware/jwt';
 import { uploadMultipleMiddleware } from '@/helpers/middleware/uploads';

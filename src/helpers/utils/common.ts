@@ -1,7 +1,7 @@
 export const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString(undefined, {
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
@@ -15,6 +15,24 @@ export const formatDateHome = (dateString: string) => {
     day: 'numeric',
   });
 };
+
+export const formatGender = (gender: string) => {
+  return gender == 'L' ? 'Laki-laki' : 'Perempuan';
+}
+
+export const formatDateInput = (date: string) => {
+  const result = new Date(date);
+  const yyyy = result.getFullYear();
+  let mm = result.getMonth() + 1; // Months start at 0!
+  let dd = result.getDate();
+  let d, m;
+
+  dd < 10 ? d = '0' + dd : d = dd;
+  mm < 10 ? m = '0' + mm : m = mm;
+
+  const formattedToday = yyyy + '-' + m + '-' + d;
+  return formattedToday;
+}
 
 export const isDate = function (value: string) {
   const checkDate = Date.parse(value);
@@ -115,3 +133,21 @@ export const dayOfWeekAsString = (dayIndex) => {
     ][dayIndex] || ''
   );
 };
+
+export const statusMember = (value) => {
+  const objectStatus = {
+    0: 'Pending',
+    1: 'Approved',
+    2: 'Rejected'
+  }
+  return objectStatus[value];
+}
+
+export const statusMemberCss = (value) => {
+  const objectStatus = {
+    0: 'text-grey-500',
+    1: 'text-green-500',
+    2: 'text-red-500'
+  }
+  return objectStatus[value];
+}
