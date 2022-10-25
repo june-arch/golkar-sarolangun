@@ -10,18 +10,10 @@ import Layout from '@/components/landing-page/Layout';
 import Navbar from '@/components/landing-page/Navbar';
 import News from '@/components/landing-page/News';
 
-import { NavItem } from '@/helpers/interface/types';
-import { contentOne } from '@/components/resource/navigation';
 import { dayOfWeekAsString, formatDate } from '@/helpers/utils/common';
 import { getOneNews, useGetNewss } from '@/service/landing-page/news';
 
-type Props = {
-  navItem: NavItem;
-  news: any;
-  days: any;
-};
-
-const NewsPage = ({ navItem, news, days }: Props) => {
+const NewsPage = ({ news, days }) => {
   const router = useRouter();
   const {
     data: items,
@@ -35,7 +27,7 @@ const NewsPage = ({ navItem, news, days }: Props) => {
     <Layout>
       <main>
         <div className='sticky top-0 z-50 bg-primary'>
-          <Navbar nav-items={navItem['nav-items']} />
+          <Navbar />
         </div>
         <div className='mx-auto space-y-2 p-6 text-justify'>
           <div className='line text-[18px] font-[700] uppercase leading-[1.2] text-black'>
@@ -94,10 +86,9 @@ const NewsPage = ({ navItem, news, days }: Props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async (
+export const getServerSideProps: GetServerSideProps = async (
   context
 ) => {
-  const navItem = contentOne;
   const i = context.params.id;
   const id = Array.isArray(i) ? i[0] : i;
   const news = await getOneNews({ id });
@@ -114,7 +105,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   const days = dayOfWeekAsString(new Date(news.data.created_date).getDay());
   return {
     props: {
-      navItem,
       news: news.data,
       days,
     },

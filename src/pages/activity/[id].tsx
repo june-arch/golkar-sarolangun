@@ -8,18 +8,10 @@ import Footer from '@/components/landing-page/Footer';
 import Layout from '@/components/landing-page/Layout';
 import Navbar from '@/components/landing-page/Navbar';
 
-import { NavItem } from '@/helpers/interface/types';
-import { contentOne } from '@/components/resource/navigation';
 import { dayOfWeekAsString, formatDate } from '@/helpers/utils/common';
 import { getOneActivity } from '@/service/landing-page/activity';
 
-type Props = {
-  navItem: NavItem;
-  activity: any;
-  days: any;
-};
-
-const ActivityPage = ({ navItem, activity, days }: Props) => {
+const ActivityPage = ({ activity, days }) => {
   const router = useRouter();
   const handleActivityPage = () => {
     return router.push('/activity');
@@ -28,7 +20,7 @@ const ActivityPage = ({ navItem, activity, days }: Props) => {
     <Layout>
       <main>
         <div className='sticky top-0 z-50 bg-primary'>
-          <Navbar nav-items={navItem['nav-items']} />
+          <Navbar />
         </div>
         <div className='mx-auto space-y-2 p-6 text-justify'>
           <div className='line text-[18px] font-[700] uppercase leading-[1.2] text-black'>
@@ -73,10 +65,9 @@ const ActivityPage = ({ navItem, activity, days }: Props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async (
+export const getServerSideProps: GetServerSideProps = async (
   context
 ) => {
-  const navItem = contentOne;
   const i = context.params.id;
   const id = Array.isArray(i) ? i[0] : i;
   const activity = await getOneActivity({ id });
@@ -92,7 +83,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   const days = dayOfWeekAsString(new Date(activity.data.created_date).getDay());
   return {
     props: {
-      navItem,
       activity: activity.data,
       days,
     },

@@ -8,17 +8,10 @@ import Navbar from '@/components/landing-page/Navbar';
 import NewsFilterComponent from '@/components/landing-page/NewsFilter';
 
 import useDebounce from '@/helpers/hooks/use-debounce';
-import { NavItem } from '@/helpers/interface/types';
-import { contentOne } from '@/components/resource/navigation';
 import { useGetNewss } from '@/service/landing-page/news';
 import { requestCategoryAll } from '@/service/landing-page/news-category';
 
-type Props = {
-  navItem: NavItem;
-  category: any;
-};
-
-const NewsPage = ({ navItem, category }: Props) => {
+const NewsPage = ({ category }) => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [navNews, setNavNews] = useState('semua berita');
   const [categoryNewsId, setCategoryNewsId] = useState('');
@@ -49,7 +42,7 @@ const NewsPage = ({ navItem, category }: Props) => {
     <Layout>
       <main>
         <div className='sticky top-0 z-50 bg-primary'>
-          <Navbar nav-items={navItem['nav-items']} />
+          <Navbar />
         </div>
         <div className='mx-auto p-6 text-center'>
           <div className='text-[32px] font-[900] uppercase text-primary'>
@@ -101,15 +94,13 @@ const NewsPage = ({ navItem, category }: Props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const navItem = contentOne;
+export const getServerSideProps: GetServerSideProps = async () => {
   const c = await requestCategoryAll();
   const category = c && c.data;
   category &&
     category.splice(0, 0, { name: 'semua berita', id_category_news: '' });
   return {
     props: {
-      navItem,
       category,
     },
   };

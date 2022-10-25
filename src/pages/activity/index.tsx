@@ -1,4 +1,3 @@
-import { GetServerSideProps } from 'next';
 import React, { useState } from 'react';
 
 import Search from '@/components/icon/search';
@@ -8,15 +7,9 @@ import Layout from '@/components/landing-page/Layout';
 import Navbar from '@/components/landing-page/Navbar';
 
 import useDebounce from '@/helpers/hooks/use-debounce';
-import { NavItem } from '@/helpers/interface/types';
-import { contentOne } from '@/components/resource/navigation';
 import { useGetActivitys } from '@/service/landing-page/activity';
 
-type Props = {
-  navItem: NavItem;
-};
-
-const ActivityPage = ({ navItem }: Props) => {
+const ActivityPage = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -36,7 +29,7 @@ const ActivityPage = ({ navItem }: Props) => {
     <Layout>
       <main>
         <div className='sticky top-0 z-50 bg-primary'>
-          <Navbar nav-items={navItem['nav-items']} />
+          <Navbar />
         </div>
         <div className='mx-auto p-6 text-center'>
           <div className='text-[32px] font-[900] uppercase text-primary'>
@@ -68,15 +61,6 @@ const ActivityPage = ({ navItem }: Props) => {
       </main>
     </Layout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const navItem = contentOne;
-  return {
-    props: {
-      navItem,
-    },
-  };
 };
 
 export default ActivityPage;

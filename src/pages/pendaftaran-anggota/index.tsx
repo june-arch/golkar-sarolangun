@@ -12,19 +12,12 @@ import Footer from '@/components/landing-page/Footer';
 import Layout from '@/components/landing-page/Layout';
 import Navbar from '@/components/landing-page/Navbar';
 
-import { NavItem } from '@/helpers/interface/types';
-import { contentOne } from '@/components/resource/navigation';
 import { checkIfFilesAreCorrectType, checkIfFilesAreTooBig } from '@/helpers/utils/common';
 import { postMember } from '@/service/landing-page/member';
 import { getAllRegions } from '@/service/landing-page/region';
+import { padding, paddingDefault } from '..';
 
-type Props = {
-  navItem: NavItem;
-  regions: any;
-  gender: any;
-};
-
-const PendaftaranAnggota = ({ navItem, regions, gender }: Props) => {
+const PendaftaranAnggota = ({ regions, gender }) => {
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -87,9 +80,9 @@ const PendaftaranAnggota = ({ navItem, regions, gender }: Props) => {
     <Layout>
       <main className='bg-[#F9F9F9]'>
         <div className='sticky top-0 z-50 bg-primary'>
-          <Navbar nav-items={navItem['nav-items']} />
+          <Navbar />
         </div>
-        <section className='mx-auto flex flex-col space-y-6 p-8'>
+        <section className={`flex flex-col space-y-6 ${paddingDefault} ${padding}`}>
           <div className='flex flex-col space-y-2 border-l-8 border-l-primary bg-[#EEEEEE] px-6 py-4'>
             <span className='h-16 w-16'>
               <Bookmark />
@@ -354,8 +347,7 @@ const PendaftaranAnggota = ({ navItem, regions, gender }: Props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const navItem = contentOne;
+export const getServerSideProps: GetServerSideProps = async () => {
   const resRegions = await getAllRegions();
   const regions = [];
   if (!resRegions.success) {
@@ -372,7 +364,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   
   return {
     props: {
-      navItem,
       regions,
       gender
     },
