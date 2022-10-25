@@ -4,11 +4,12 @@ import nextConnect from 'next-connect';
 import { getAllPaginationHome } from '@/controller/activity/activity.domain';
 import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import { configNext } from '@/helpers/middleware/configNext';
+import cors from '@/helpers/middleware/cors';
 import * as wrapper from '@/helpers/wrapper';
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext);
 
-handler.get(async (req, res) => {
+handler.use(cors).get(async (req, res) => {
   const { page: p, limit: l, search: s, category: c } = req.query;
   const dataPage = Array.isArray(p) ? p[0] : p;
   const dataLimit = Array.isArray(l) ? l[0] : l;

@@ -1,3 +1,4 @@
+import cors from '@/helpers/middleware/cors';
 import fs from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
@@ -17,27 +18,29 @@ let mime = {
 };
 
 const handler = nc<NextApiRequest, NextApiResponse>();
-handler.get((req, res) => {
-  let { bucket: b, file: f } = req.query;
-  const file = Array.isArray(f) ? f[0] : f;
-  const bucket = Array.isArray(b) ? b[0] : b;
-  if (req.method !== 'GET') {
-    res.statusCode = 501;
-    res.setHeader('Content-Type', 'text/plain');
-    return res.end('Method not implemented');
-  }
-  let type = mime[path.extname(file).replace('.', '')] || 'text/plain';
-  const uri = `${dir}${bucket}/${file}`;
-  console.log(uri);
-  let s = fs.createReadStream(uri);
-  s.on('open', function () {
-    res.setHeader('Content-Type', type);
-    s.pipe(res);
+handler
+  .use(cors)
+  .get((req, res) => {
+    let { bucket: b, file: f } = req.query;
+    const file = Array.isArray(f) ? f[0] : f;
+    const bucket = Array.isArray(b) ? b[0] : b;
+    if (req.method !== 'GET') {
+      res.statusCode = 501;
+      res.setHeader('Content-Type', 'text/plain');
+      return res.end('Method not implemented');
+    }
+    let type = mime[path.extname(file).replace('.', '')] || 'text/plain';
+    const uri = `${dir}${bucket}/${file}`;
+    console.log(uri);
+    let s = fs.createReadStream(uri);
+    s.on('open', function () {
+      res.setHeader('Content-Type', type);
+      s.pipe(res);
+    });
+    s.on('error', function () {
+      res.setHeader('Content-Type', 'text/plain');
+      res.statusCode = 404;
+      res.end('Not found');
+    });
   });
-  s.on('error', function () {
-    res.setHeader('Content-Type', 'text/plain');
-    res.statusCode = 404;
-    res.end('Not found');
-  });
-});
 export default handler;

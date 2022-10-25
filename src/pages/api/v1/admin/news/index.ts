@@ -5,6 +5,7 @@ import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import { createNews, getAllPagination } from '@/controller/news/news.domain';
 import { news } from '@/controller/news/news.dto';
 import { configNext } from '@/helpers/middleware/configNext';
+import cors from '@/helpers/middleware/cors';
 import jwt from '@/helpers/middleware/jwt';
 import { uploadMiddleware } from '@/helpers/middleware/uploads';
 import validate from '@/helpers/middleware/validation';
@@ -13,6 +14,7 @@ import * as wrapper from '@/helpers/wrapper';
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext);
 
 handler
+  .use(cors)
   .use(jwt)
   .get(async (req, res) => {
     const { page: p, limit: l, search: s } = req.query;

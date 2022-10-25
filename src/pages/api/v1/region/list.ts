@@ -3,11 +3,12 @@ import nextConnect from 'next-connect';
 
 import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import { getAll } from '@/controller/region/region.domain';
+import cors from '@/helpers/middleware/cors';
 import * as wrapper from '@/helpers/wrapper';
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>();
 
-handler.get(async (req, res) => {
+handler.use(cors).get(async (req, res) => {
   const domain = async () => {
     return getAll();
   };

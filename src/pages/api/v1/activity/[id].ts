@@ -4,11 +4,12 @@ import nextConnect from 'next-connect';
 import { getById } from '@/controller/activity/activity.domain';
 import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import { configNext } from '@/helpers/middleware/configNext';
+import cors from '@/helpers/middleware/cors';
 import * as wrapper from '@/helpers/wrapper';
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext);
 
-handler.get(async (req, res) => {
+handler.use(cors).get(async (req, res) => {
   const { id: i } = req.query;
   const value = Array.isArray(i) ? i[0] : i;
   const id = Number(value) || null;

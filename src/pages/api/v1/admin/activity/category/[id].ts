@@ -7,12 +7,14 @@ import {
   getOne,
 } from '@/controller/activity-category/activity-category.domain';
 import { NextApiRequestModify } from '@/controller/admin/admin.interface';
+import cors from '@/helpers/middleware/cors';
 import jwt from '@/helpers/middleware/jwt';
 import * as wrapper from '@/helpers/wrapper';
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>();
 
 handler
+  .use(cors)
   .use(jwt)
   .get(async (req, res) => {
     const { id: i } = req.query;

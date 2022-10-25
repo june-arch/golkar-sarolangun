@@ -5,6 +5,7 @@ import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import { findMemberByKTP, registerMember } from '@/controller/member/member.domain';
 import { createMember } from '@/controller/member/member.dto';
 import { configNext } from '@/helpers/middleware/configNext';
+import cors from '@/helpers/middleware/cors';
 import { uploadDiffMiddleware } from '@/helpers/middleware/uploads';
 import validate from '@/helpers/middleware/validation';
 import * as wrapper from '@/helpers/wrapper';
@@ -12,6 +13,7 @@ import * as wrapper from '@/helpers/wrapper';
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>(configNext);
 
 handler
+  .use(cors)
   .get(async (req: NextApiRequestModify, res: NextApiResponse) => {
     const { nik: n } = req.query;
     const dataNik = Array.isArray(n) ? n[0] : n;

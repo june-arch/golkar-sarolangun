@@ -3,11 +3,12 @@ import nextConnect from 'next-connect';
 
 import { authLogin } from '@/controller/admin/admin.domain';
 import { NextApiRequestModify } from '@/controller/admin/admin.interface';
+import cors from '@/helpers/middleware/cors';
 import * as wrapper from '@/helpers/wrapper';
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>();
 
-handler.post(async (req, res) => {
+handler.use(cors).post(async (req, res) => {
   const { username, password } = req.body;
   const domain = async (username: string, password: string) => {
     return authLogin(username, password);

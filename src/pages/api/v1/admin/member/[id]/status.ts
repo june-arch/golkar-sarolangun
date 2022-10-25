@@ -4,6 +4,7 @@ import nextConnect from 'next-connect';
 import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import { editMemberStatus } from '@/controller/member/member.domain';
 import { updateStatusMember } from '@/controller/member/member.dto';
+import cors from '@/helpers/middleware/cors';
 import jwt from '@/helpers/middleware/jwt';
 import validate from '@/helpers/middleware/validation';
 import * as wrapper from '@/helpers/wrapper';
@@ -11,6 +12,7 @@ import * as wrapper from '@/helpers/wrapper';
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>();
 
 handler
+  .use(cors)
   .use(jwt)
   .patch(
     validate({ body: updateStatusMember }),

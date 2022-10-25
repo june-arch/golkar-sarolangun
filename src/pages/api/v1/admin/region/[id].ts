@@ -3,12 +3,14 @@ import nextConnect from 'next-connect';
 
 import { NextApiRequestModify } from '@/controller/admin/admin.interface';
 import { deleteRegion, editRegion, getOne } from '@/controller/region/region.domain';
+import cors from '@/helpers/middleware/cors';
 import jwt from '@/helpers/middleware/jwt';
 import * as wrapper from '@/helpers/wrapper';
 
 const handler = nextConnect<NextApiRequestModify, NextApiResponse>();
 
 handler
+  .use(cors)
   .use(jwt)
   .get(async (req, res) => {
     const { id: i } = req.query;
