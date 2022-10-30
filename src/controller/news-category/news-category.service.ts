@@ -102,9 +102,9 @@ export const deleteOneNewsCategoryAdmin = async ({id, token}) => {
 };
 
 // User Service
-export const getAllNewsCategory = async () => {
+export const getListNewsCategory = async () => {
   try {
-    const response = await axios.get(`${address}`);
+    const response = await axios.get(`${address}/list`);
     return response.data;
   } catch (error) {
     return error.reponse.data;

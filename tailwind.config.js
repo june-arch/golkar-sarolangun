@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        golkar: "url('/images/golkar-with-foto.png')",
+        golkar: "url('/images/golkar-with-foto.webp')",
         'golkar-grey': "url('/images/golkar-grey.png')",
         'golkar-video': 'url(/images/golkar-video.png)',
         footer: 'url(/images/footer.png)',

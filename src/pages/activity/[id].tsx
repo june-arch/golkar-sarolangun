@@ -8,11 +8,14 @@ import Footer from '@/components/landing-page/Footer';
 import Layout from '@/components/landing-page/Layout';
 import Navbar from '@/components/landing-page/Navbar';
 
+import { getOneActivity } from '@/controller/activity/activity.service';
+import { useGetOneActivity } from '@/controller/activity/use-activity';
 import { dayOfWeekAsString, formatDate } from '@/helpers/utils/common';
-import { getOneActivity } from '@/service/landing-page/activity';
 
 const ActivityPage = ({ activity, days }) => {
   const router = useRouter();
+  const id = router.isReady && router.query.id;
+  const {data} = useGetOneActivity({id}, activity)
   const handleActivityPage = () => {
     return router.push('/activity');
   };
@@ -24,28 +27,22 @@ const ActivityPage = ({ activity, days }) => {
         </div>
         <div className='mx-auto space-y-2 p-6 text-justify'>
           <div className='line text-[18px] font-[700] uppercase leading-[1.2] text-black'>
-            {activity.title}
+            {data.title}
           </div>
           <div className='flex flex-row items-center space-x-3 text-[12px] font-[300] capitalize'>
             <span className='pr-1'>
               <ClockIcon className='h-4 w-4 text-primary' />
             </span>
-            {days}, {formatDate(activity.created_date).replace('at', '|')}
+            {days}, {formatDate(data.created_date).replace('at', '|')}
           </div>
           <div>
-            {activity.image.split(',').map((value, i) => (
+            {data.image.split(',').map((value, i) => (
               <Image
                 key={i}
-                src={
-                  process.env.DOMAIN_API +
-                  '/api/v1?file=' +
-                  value +
-                  '&bucket=images/activity'
-                }
+                src={value}
                 alt='detail-activity-1'
                 height='60'
-                width='100%'
-                layout='responsive'
+                width='400'
               />
             ))}
           </div>
@@ -70,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const i = context.params.id;
   const id = Array.isArray(i) ? i[0] : i;
-  const activity = await getOneActivity({ id });
+  const activity = await getOneActivity(id);
   if (!activity.success) {
     activity.data = {
       title: 'judul activity',
@@ -84,7 +81,7 @@ export const getServerSideProps: GetServerSideProps = async (
   return {
     props: {
       activity: activity.data,
-      days,
+      days
     },
   };
 };

@@ -25,7 +25,6 @@ const PengajianAlHidayah = () => {
                   alt='pengajian al hidayah'
                   height={1200}
                   width={1149}
-                  objectFit='contain'
                 />
               </div>
             </div>

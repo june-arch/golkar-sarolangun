@@ -5,12 +5,12 @@ import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import LoadingScreen from '@/components/LoadingScreen';
-import PopupError from '@/components/PopupError';
+import PopupError from '@/components/error/PopupError';
+import LoadingScreen from '@/components/loading/LoadingScreen';
 import { formMember } from '@/components/resource/table-admin';
 
-import { useMemberPostAdminQuery } from '@/helpers/hooks/react-query/use-member';
-import { useRegionsListQuery } from '@/helpers/hooks/react-query/use-region';
+import { usePostOneMemberAdmin } from '@/controller/member/use-member';
+import { useGetListRegionAdmin } from '@/controller/region/use-region';
 import { TokenContext } from '@/helpers/hooks/use-context';
 import {
   checkIfFilesAreCorrectType,
@@ -26,7 +26,7 @@ const Page = () => {
   const {token} = useContext(TokenContext);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const mutation = useMemberPostAdminQuery(router, setLoading);
+  const mutation = usePostOneMemberAdmin(router, setLoading);
   const formik = useFormik({
     initialValues: {
       region_id: '',
@@ -67,7 +67,7 @@ const Page = () => {
       mutation.mutate({payload:values, token})
     },
   });
-  const { data:regions, isError, isLoading } = useRegionsListQuery(token);
+  const { data:regions, isError, isLoading } = useGetListRegionAdmin(token);
   if (isError) return <PopupError isError={isError} />
   if (isLoading || loading) return <LoadingScreen/>;
   const listCategory = regions.data.map((item) => {

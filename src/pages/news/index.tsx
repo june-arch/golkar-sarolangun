@@ -7,9 +7,9 @@ import Layout from '@/components/landing-page/Layout';
 import Navbar from '@/components/landing-page/Navbar';
 import NewsFilterComponent from '@/components/landing-page/NewsFilter';
 
+import { useGetAllNews } from '@/controller/news/use-news';
+import { getListNewsCategory } from '@/controller/news-category/news-category.service';
 import useDebounce from '@/helpers/hooks/use-debounce';
-import { useGetNewss } from '@/service/landing-page/news';
-import { requestCategoryAll } from '@/service/landing-page/news-category';
 
 const NewsPage = ({ category }) => {
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -18,7 +18,7 @@ const NewsPage = ({ category }) => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const debouncedSearch = useDebounce(searchKeyword, 1000);
-  const result = useGetNewss({
+  const result = useGetAllNews({
     page: page.toString(),
     limit: limit.toString(),
     debouncedSearch,
@@ -95,7 +95,7 @@ const NewsPage = ({ category }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const c = await requestCategoryAll();
+  const c = await getListNewsCategory();
   const category = c && c.data;
   category &&
     category.splice(0, 0, { name: 'semua berita', id_category_news: '' });

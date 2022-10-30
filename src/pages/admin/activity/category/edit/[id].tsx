@@ -6,11 +6,11 @@ import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import LoadingScreen from '@/components/LoadingScreen';
-import PopupError from '@/components/PopupError';
+import PopupError from '@/components/error/PopupError';
+import LoadingScreen from '@/components/loading/LoadingScreen';
 import { headerItemActivityCateogries } from '@/components/resource/table-admin';
 
-import { useActivityCategoryAdminQuery, useActivityCategoryPatchAdminQuery } from '@/helpers/hooks/react-query/use-activity-category';
+import { useGetOneActivityCategoryAdmin, usePatchOneActivityCategoryAdmin } from '@/controller/activity-category/use-activity-category';
 import { TokenContext } from '@/helpers/hooks/use-context';
 import { getChangedValues } from '@/helpers/utils/common';
 const Layout = dynamic(
@@ -33,7 +33,7 @@ function EditActivityCategory({ props }) {
       .max(20, 'Must be 20 characters or less')
       .required('Required'),
   });
-  const mutation = useActivityCategoryPatchAdminQuery(router, setLoading);
+  const mutation = usePatchOneActivityCategoryAdmin(router, setLoading);
   const formik = useFormik({
     initialValues,
     enableReinitialize: true,
@@ -62,7 +62,7 @@ const Page = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { id } = router.isReady && router.query;
-  const { data:activityCategory, isError, isLoading } = useActivityCategoryAdminQuery({ id }, token);
+  const { data:activityCategory, isError, isLoading } = useGetOneActivityCategoryAdmin({ id }, token);
   if (isError) return <PopupError isError={isError} />
   if (isLoading || loading) return <LoadingScreen />
   return <EditActivityCategory props={{activityCategory, id, token, setLoading}} />;

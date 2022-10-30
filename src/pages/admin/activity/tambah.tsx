@@ -5,12 +5,12 @@ import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import LoadingScreen from '@/components/LoadingScreen';
-import PopupError from '@/components/PopupError';
+import PopupError from '@/components/error/PopupError';
+import LoadingScreen from '@/components/loading/LoadingScreen';
 import { formActivity } from '@/components/resource/table-admin';
 
-import { useActivityPostAdminQuery } from '@/helpers/hooks/react-query/use-activity';
-import { useActivityCategoryListQuery } from '@/helpers/hooks/react-query/use-activity-category';
+import { usePostOneActivityAdmin } from '@/controller/activity/use-activity';
+import { useGetListActivityCategoryAdmin } from '@/controller/activity-category/use-activity-category';
 import { TokenContext } from '@/helpers/hooks/use-context';
 import {
   checkIfFilesAreCorrectType,
@@ -25,7 +25,7 @@ function Page() {
   const {token} = useContext(TokenContext);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const mutation = useActivityPostAdminQuery(router, setLoading);
+  const mutation = usePostOneActivityAdmin(router, setLoading);
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -56,7 +56,7 @@ function Page() {
       return mutation.mutate({payload: values, token});
     },
   });
-  const { data:activityCategory, isError, isLoading } = useActivityCategoryListQuery(token);
+  const { data:activityCategory, isError, isLoading } = useGetListActivityCategoryAdmin(token);
   if (isError) return <PopupError isError={isError} />
   if (isLoading || loading) return <LoadingScreen />;
   const listCategoryActivity = activityCategory.data.map((item) => {

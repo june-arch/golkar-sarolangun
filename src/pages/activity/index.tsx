@@ -6,15 +6,15 @@ import Footer from '@/components/landing-page/Footer';
 import Layout from '@/components/landing-page/Layout';
 import Navbar from '@/components/landing-page/Navbar';
 
+import { useGetAllActivity } from '@/controller/activity/use-activity';
 import useDebounce from '@/helpers/hooks/use-debounce';
-import { useGetActivitys } from '@/service/landing-page/activity';
 
 const ActivityPage = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const debouncedSearch = useDebounce(searchKeyword, 1000);
-  const result = useGetActivitys({
+  const result = useGetAllActivity({
     page: page.toString(),
     limit: limit.toString(),
     debouncedSearch,

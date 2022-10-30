@@ -5,11 +5,11 @@ import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import LoadingScreen from '@/components/LoadingScreen';
+import LoadingScreen from '@/components/loading/LoadingScreen';
 import { formNews } from '@/components/resource/table-admin';
 
-import { useNewsPostAdminQuery } from '@/helpers/hooks/react-query/use-news';
-import { useNewsCategoryListQuery } from '@/helpers/hooks/react-query/use-news-category';
+import { usePostOneNewsAdmin } from '@/controller/news/use-news';
+import { useGetListNewsCategoryAdmin } from '@/controller/news-category/use-news-category';
 import { TokenContext } from '@/helpers/hooks/use-context';
 import {
   checkIfFilesAreCorrectType,
@@ -25,7 +25,7 @@ function Page() {
   const {token} = useContext(TokenContext);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const mutation = useNewsPostAdminQuery(router, setLoading);
+  const mutation = usePostOneNewsAdmin(router, setLoading);
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -55,7 +55,7 @@ function Page() {
       mutation.mutate({payload:values, token})
     },
   });
-  const { data:newsCategory, isError, isLoading } = useNewsCategoryListQuery(token);
+  const { data:newsCategory, isError, isLoading } = useGetListNewsCategoryAdmin(token);
   if (isError)
     return (
       <div>

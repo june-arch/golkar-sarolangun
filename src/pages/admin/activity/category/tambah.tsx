@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { Form } from '@/components/admin/Form';
 import { headerItemActivityCateogries } from '@/components/resource/table-admin';
 
-import { useActivityCategoryPostAdminQuery } from '@/helpers/hooks/react-query/use-activity-category';
+import { usePostOneActivityCategoryAdmin } from '@/controller/activity-category/use-activity-category';
 import { TokenContext } from '@/helpers/hooks/use-context';
 const Layout = dynamic(
   () => import('@/components/admin/Layout'),
@@ -18,7 +18,7 @@ function Page() {
   const {token} = useContext(TokenContext);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const mutation = useActivityCategoryPostAdminQuery(router, setLoading);
+  const mutation = usePostOneActivityCategoryAdmin(router, setLoading);
   const formik = useFormik({
     initialValues: {
       name: '',

@@ -46,11 +46,9 @@ const Header = () => {
 
   const menuIsLogout = () => {
     const layout = (
-      <Link href='/admin/auth/login'>
-        <a className='flex space-x-3 rounded-md border-2 border-gray-50 px-10 py-2  text-gray-50'>
-          <UserIcon className='h-5 w-5 ' />
-          <span>Login</span>
-        </a>
+      <Link href='/admin/auth/login' className='flex space-x-3 rounded-md border-2 border-gray-50 px-10 py-2  text-gray-50'>
+        <UserIcon className='h-5 w-5 ' />
+        <span>Login</span>
       </Link>
     );
     return layout;
@@ -63,9 +61,7 @@ const Header = () => {
           <MenuIcon className='h-8 w-8 text-gray-50' />
         </button>
         <Link href='/admin'>
-          <a>
-            <span className='text-3xl text-yellow-500'>GOLKAR SAROLANGUN</span>
-          </a>
+          <span className='text-3xl text-yellow-500'>GOLKAR SAROLANGUN</span>
         </Link>
       </div>
       <div className='relative'>{token ? menuIsLogin() : menuIsLogout()}</div>

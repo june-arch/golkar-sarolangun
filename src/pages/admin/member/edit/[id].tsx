@@ -6,12 +6,12 @@ import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import LoadingScreen from '@/components/LoadingScreen';
-import PopupError from '@/components/PopupError';
+import PopupError from '@/components/error/PopupError';
+import LoadingScreen from '@/components/loading/LoadingScreen';
 import { formMember } from '@/components/resource/table-admin';
 
-import { useMemberAdminQuery, useMemberPatchAdminQuery } from '@/helpers/hooks/react-query/use-member';
-import { useRegionsListQuery } from '@/helpers/hooks/react-query/use-region';
+import { useGetOneMemberAdmin, usePatchOneMemberAdmin } from '@/controller/member/use-member';
+import { useGetListRegionAdmin } from '@/controller/region/use-region';
 import { TokenContext } from '@/helpers/hooks/use-context';
 import {
   checkIfFilesAreCorrectType,
@@ -62,7 +62,7 @@ function EditMember({props}) {
     gender: Yup.string().required(),
     status: Yup.number().required(),
   });
-  const mutation = useMemberPatchAdminQuery(router, setLoading);
+  const mutation = usePatchOneMemberAdmin(router, setLoading);
   
   const formik = useFormik({
     initialValues,
@@ -100,8 +100,8 @@ function Page() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { id } = router.isReady && router.query;  
-  const { data:member, isError:isErrorMember, isLoading:isLoadingMember } = useMemberAdminQuery({ id }, token);
-  const { data:regions, isError, isLoading } = useRegionsListQuery(token);
+  const { data:member, isError:isErrorMember, isLoading:isLoadingMember } = useGetOneMemberAdmin({ id }, token);
+  const { data:regions, isError, isLoading } = useGetListRegionAdmin(token);
   if (isError || isErrorMember) return <PopupError isError={isError || isErrorMember} />
   if (isLoading || isLoadingMember || loading) return <LoadingScreen />
   return <EditMember props={{member, regions, id, token, setLoading}} />

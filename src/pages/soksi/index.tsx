@@ -25,7 +25,6 @@ const Soksi = () => {
                   alt='ormas soksi'
                   height={273}
                   width={270}
-                  objectFit='contain'
                 />
               </div>
             </div>

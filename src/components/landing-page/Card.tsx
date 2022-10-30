@@ -36,9 +36,7 @@ const Card = (props: Props) => {
         <p className='pt-1 text-center text-sm'>{payload.description}</p>
         <figcaption className={classPosistion}>
           <div className={'pt-6 text-sky-500 dark:text-sky-400 ' + classMore}>
-            <Link href={'/' + payload.href}>
-              <a>Selengkapnya</a>
-            </Link>
+            <Link href={'/' + payload.href}> Selengkapnya </Link>
           </div>
         </figcaption>
       </div>

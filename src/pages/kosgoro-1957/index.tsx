@@ -25,7 +25,6 @@ const Kosgoro1957 = () => {
                   alt='ormas kosgoro 1957'
                   height={392}
                   width={392}
-                  objectFit='contain'
                 />
               </div>
             </div>

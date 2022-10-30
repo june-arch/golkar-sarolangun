@@ -25,7 +25,6 @@ const AngkatanMudaPartaiGolkar = () => {
                   alt='angkatan muda partai golkar'
                   height={1200}
                   width={1149}
-                  objectFit='contain'
                 />
               </div>
             </div>

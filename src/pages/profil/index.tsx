@@ -22,8 +22,6 @@ const Profil = () => {
             className='mb-4 h-[380px] w-[380px] basis-4/12'
             height={1200}
             width={1149}
-            layout='responsive'
-            objectFit='contain'
           />
           <div className='basis-8/12 p-2'>
             <div className='flow-root text-justify'>

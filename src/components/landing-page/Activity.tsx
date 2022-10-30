@@ -15,16 +15,10 @@ export default function Activity({ payload }) {
     <figure className='overflow-hidden shadow-md'>
       <div className='w-full pb-4'>
         <Image
-          src={
-            process.env.DOMAIN_API +
-            '/api/v1?file=' +
-            payload.image +
-            '&bucket=images/activity'
-          }
+          src={payload.image}
           alt='activity-1'
           height='60'
-          width='100%'
-          layout='responsive'
+          width='100'
         />
       </div>
       <div className='relative h-[100px] space-y-1 px-4 text-[12px]'>
@@ -44,14 +38,12 @@ export default function Activity({ payload }) {
         <div className='absolute left-0 bottom-2 flex w-full flex-row items-center justify-between px-4 py-2'>
           {payload.video ? (
             <Link href={payload.video}>
-              <a>
-                <button className='flex flex-row items-center rounded-md bg-primary p-2'>
-                  <span className='mr-1'>
-                    <VideoCameraIcon className='h-4 w-4 text-gray-900' />
-                  </span>
-                  Video Kegiatan
-                </button>
-              </a>
+              <button className='flex flex-row items-center rounded-md bg-primary p-2'>
+                <span className='mr-1'>
+                  <VideoCameraIcon className='h-4 w-4 text-gray-900' />
+                </span>
+                Video Kegiatan
+              </button>
             </Link>
           ) : (
             <div></div>

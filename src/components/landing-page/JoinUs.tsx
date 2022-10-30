@@ -4,41 +4,30 @@ import React, { useState } from 'react';
 import { RiYoutubeFill } from 'react-icons/ri';
 import Swal from 'sweetalert2';
 
+import { useGetOneByNikMember } from '@/controller/member/use-member';
+import { Toast } from '@/helpers/utils/swal';
 import { padding, paddingDefault } from '@/pages';
-import { getMemberByNik } from '@/service/landing-page/member';
 
 const JoinUs = () => {
   const [message, setMessage] = useState('');
   const handleChange = (event) => {
     setMessage(event.target.value);
   };
-  const handleClick = async (e) => {
+  const HandleClick = (e) => {
     e.preventDefault();
-    const result = await getMemberByNik({ nik: message });
-    if (result.code != 200) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer);
-          toast.addEventListener('mouseleave', Swal.resumeTimer);
-        },
-      });
-
+    const {data, isError, isLoading} = useGetOneByNikMember({ nik: message });
+    if (isError) {
       Toast.fire({
         icon: 'error',
-        title: `Error : ( ${result.info.message} )`,
+        title: `Error : ( ${isError} )`,
         color: 'red',
       });
     }
-    if (result.data && result.code == 200) {
+    if (data) {
       let colorText = 'text-grey-500';
-      if (result.data.status == 'Pending') colorText = 'text-grey-500';
-      if (result.data.status == 'Approved') colorText = 'text-green-500';
-      if (result.data.status == 'Rejected') colorText = 'text-red-500';
+      if (data.status == 'Pending') colorText = 'text-grey-500';
+      if (data.status == 'Approved') colorText = 'text-green-500';
+      if (data.status == 'Rejected') colorText = 'text-red-500';
       Swal.fire({
         showCloseButton: true,
         showConfirmButton: false,
@@ -47,26 +36,24 @@ const JoinUs = () => {
         html: `<div class="px-2 py-6 flex flex-col items-start space-y-2">
           <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 text-left w-full">
             <p class="w-full text-black font-[900] sm:w-4/12">${message}</p> 
-            <p class="w-full sm:w-8/12 ${colorText}">${result.data.status}</p>
+            <p class="w-full sm:w-8/12 ${colorText}">${data.status}</p>
         </div>`,
       });
     }
   };
   return (
-    <section className='z-10 h-[86vh] w-full bg-golkar bg-contain bg-no-repeat sm:h-[72vh] md:h-[76vh] lg:h-[86vh] 2xl:h-[96vh] 2xl:bg-cover 2xl:bg-fixed 2xl:bg-center'>
+    <section className='z-10 w-full bg-golkar bg-contain bg-no-repeat 2xl:bg-cover 2xl:bg-fixed 2xl:bg-center'>
       <div className={`flex flex-col space-y-5 2xl:mt-[100px] ${paddingDefault} ${padding}`}>
         <div className='flex w-2/3 flex-col space-y-2 py-5 text-center'>
-          <div className='flex flex-col -space-y-2 uppercase mt-[45px] sm:mt-[68px] md:mt-[60px] lg:mt-[50px]'>
+          <div className='flex flex-col -space-y-2 uppercase sm:mt-[68px] md:mt-[60px] lg:mt-[50px]'>
             <span className='text-[55px] font-[900] sm:text-[70px] md:text-[86px] lg:text-[120px] text-white'>Golkar</span>
             <span className='text-[18px] font-[600] sm:text-[22px] md:text-[28px] lg:text-[42px] text-secondary'>Kabupaten Sarolangun</span>
           </div>
           <div className='md:flex md:flex-col items-center space-y-3 hidden'>
             <Link href='/pendaftaran-anggota'>
-              <a className=''>
-                <button className='rounded-md bg-secondary py-2 px-3 w-[320px] h-[40px] text-[9px] font-[600] uppercase text-white'>
-                  Bergabung Menjadi Anggota
-                </button>
-              </a>
+              <button className='rounded-md bg-secondary py-2 px-3 w-[320px] h-[40px] text-[9px] font-[600] uppercase text-white'>
+                Bergabung Menjadi Anggota
+              </button>
             </Link>
             <div className='flex w-[320px] flex-row justify-around'>
               <input
@@ -80,7 +67,7 @@ const JoinUs = () => {
               <button
                 className='input-group-text flex items-center whitespace-nowrap rounded-r-md bg-primary p-[10px] font-normal text-secondary'
                 id='basic-addon2'
-                onClick={handleClick}
+                onClick={HandleClick}
               >
                 <svg
                   aria-hidden='true'
@@ -103,11 +90,9 @@ const JoinUs = () => {
         </div>
         <div className='flex flex-col items-center space-y-4 md:hidden'>
           <Link href='/pendaftaran-anggota'>
-            <a className=''>
-              <button className='rounded-md bg-secondary w-[340px] h-[40px] py-2 px-3 text-[11px] font-[600] uppercase text-white'>
-                Bergabung Menjadi Anggota
-              </button>
-            </a>
+            <button className='rounded-md bg-secondary w-[340px] h-[40px] py-2 px-3 text-[11px] font-[600] uppercase text-white'>
+              Bergabung Menjadi Anggota
+            </button>
           </Link>
           <div className='flex w-[340px] flex-row justify-around'>
             <input
@@ -121,7 +106,7 @@ const JoinUs = () => {
             <button
               className='input-group-text flex items-center whitespace-nowrap rounded-r-md bg-primary p-[10px] font-normal text-secondary'
               id='basic-addon2'
-              onClick={handleClick}
+              onClick={HandleClick}
             >
               <svg
                 aria-hidden='true'
@@ -144,34 +129,23 @@ const JoinUs = () => {
         <div className='flex flex-col items-center space-y-4 bg-white lg:bg-opacity-0 py-2'>
           <div className='z-10 flex w-full justify-center'>
             <div className='h-[64px] w-[191px] md:h-[94px] md:w-[231px]'>
-              <Image
-                src='/images/kita-satu.png'
-                alt='kita-satu'
-                height='130px'
-                width='500px'
-                layout='responsive'
-                objectFit='contain'
-              />
+              <Image src='/images/kita-satu.png' width={500} height={130} alt='kita-satu' />
             </div>
           </div>
           <div className='flex flex-col sm:flex-row w-full items-center justify-center'>
-            <Link className='cursor-pointer' href='https://youtu.be/yNDwBNLTbjk'>
-              <a className='relative m-1 h-[174px] w-[295px]'>
-                <Image src='/images/hymne.png' alt='hymne' layout='fill' />
-                <RiYoutubeFill
-                  className='absolute bottom-1/2 left-[121px] top-[50px] h-[47px] w-[54px]'
-                  color='red'
-                />
-              </a>
+            <Link className='cursor-pointer relative m-1 h-[174px] w-[295px]' href='https://youtu.be/yNDwBNLTbjk'>
+              <Image src='/images/hymne.png' height={174} width={295} alt='hymne' />
+              <RiYoutubeFill
+                className='absolute bottom-1/2 left-[121px] top-[50px] h-[47px] w-[54px]'
+                color='red'
+              />
             </Link>
-            <Link className='cursor-pointer' href='https://youtu.be/k3U2fnTuPWs'>
-              <a className='relative m-1 h-[174px] w-[295px]'>
-                <Image src='/images/mars.png' alt='mars' layout='fill' />
-                <RiYoutubeFill
-                  className='absolute bottom-1/2 left-[121px] top-[50px] h-[47px] w-[54px]'
-                  color='red'
-                />
-              </a>
+            <Link className='cursor-pointer relative m-1 h-[174px] w-[295px]' href='https://youtu.be/k3U2fnTuPWs'>
+              <Image src='/images/mars.png' height={174} width={295} alt='mars' />
+              <RiYoutubeFill
+                className='absolute bottom-1/2 left-[121px] top-[50px] h-[47px] w-[54px]'
+                color='red'
+              />
             </Link>
           </div>
         </div>

@@ -25,7 +25,6 @@ const HimpunanWanitaKarya = () => {
                   alt='himpunan wanita karya'
                   height={1200}
                   width={1149}
-                  objectFit='contain'
                 />
               </div>
             </div>

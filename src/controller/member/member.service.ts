@@ -96,7 +96,7 @@ export const deleteOneMemberAdmin = async ({id, token}) => {
 };
 
 // User Service
-export const getAllMemberByNik = async (params: { nik: string }) => {
+export const getOneMemberByNik = async (params: { nik: string }) => {
     const { nik } = params;
     try {
       const response = await axios.get(`${address}?nik=${nik}`);
@@ -118,7 +118,7 @@ export const postOneMember = async (payload) => {
       formData.append(key, payload[key]);
     });
     formData.append('status', '0');
-    const response = await axios.post(address, formData, config);
+    const response = await axios.post(address, formData, config);    
     return response.data;
   } catch (error) {
     return error.response.data;

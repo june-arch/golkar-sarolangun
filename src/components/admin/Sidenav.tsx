@@ -29,11 +29,9 @@ export const Sidenav = () => {
             <XIcon className='h-8 w-8 text-gray-50' />
           </button>
           <Link href='/admin'>
-            <a>
-              <span className='text-2xl text-yellow-500'>
-                GOLKAR SAROLANGUN
-              </span>
-            </a>
+            <span className='text-2xl text-yellow-500'>
+              GOLKAR SAROLANGUN
+            </span>
           </Link>
         </div>
         {navData.menuItems.map((value, index) => (
@@ -44,14 +42,9 @@ export const Sidenav = () => {
                   <span className='pl-5 text-gray-400'>{seconTitle}</span>
                 )}
                 {title && (
-                  <Link href={link}>
-                    <a
-                      className='flex items-center space-x-4 p-4 text-gray-50 hover:bg-gray-500'
-                      onClick={() => setOpen(!open)}
-                    >
-                      <span>{icon}</span>
-                      <span className='text-lg capitalize '>{title}</span>
-                    </a>
+                  <Link href={link} className='flex items-center space-x-4 p-4 text-gray-50 hover:bg-gray-500' onClick={() => setOpen(!open)}>
+                    <span>{icon}</span>
+                    <span className='text-lg capitalize '>{title}</span>
                   </Link>
                 )}
               </div>

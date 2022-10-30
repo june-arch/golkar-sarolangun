@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { Form } from '@/components/admin/Form';
 import { headerItemNewsCateogries } from '@/components/resource/table-admin';
 
-import { useNewsCategoryPostAdminQuery } from '@/helpers/hooks/react-query/use-news-category';
+import { usePostOneNewsCategoryAdmin } from '@/controller/news-category/use-news-category';
 import { TokenContext } from '@/helpers/hooks/use-context';
 const Layout = dynamic(
   () => import('@/components/admin/Layout'),
@@ -18,7 +18,7 @@ function Page() {
   const {token} = useContext(TokenContext);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const mutation = useNewsCategoryPostAdminQuery(router, setLoading);
+  const mutation = usePostOneNewsCategoryAdmin(router, setLoading);
   const formik = useFormik({
     initialValues: {
       name: '',

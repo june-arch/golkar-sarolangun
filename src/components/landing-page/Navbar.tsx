@@ -20,18 +20,14 @@ export default function Navbar() {
       <MobileNavbar />
       <div className='flex basis-1/12 cursor-pointer items-center'>
         <Link href='/'>
-          <a className=''>
-            <div className='h-[51px] w-[48px]'>
+          <div className='h-[51px] w-[48px]'>
               <Image
                 src='/images/logo.png'
                 alt='logo-golkar'
                 height={1200}
                 width={1149}
-                layout='responsive'
-                objectFit='contain'
               />
             </div>
-          </a>
         </Link>
       </div>
       <ol className='text-md hidden flex-row justify-evenly self-center font-sans uppercase text-slate-700 md:flex md:basis-11/12 xl:basis-11/12'>
@@ -42,14 +38,10 @@ export default function Navbar() {
               key={i}
             >
               <div className='transform whitespace-nowrap transition-transform duration-300 md:text-xs lg:text-sm'>
-                <Link href={'/' + value.slug}>
-                  <a
-                    className={`${
+                <Link href={'/' + value.slug} className={`${
                       value.slug == '#disable' && 'pointer-events-none'
-                    }`}
-                  >
-                    <span>{value.name}</span>
-                  </a>
+                    }`}>
+                  <span>{value.name}</span>
                 </Link>
                 <svg
                   fill='currentColor'
@@ -79,15 +71,11 @@ export default function Navbar() {
                         key={j}
                       >
                         <div className='flex flex-row '>
-                          <Link href={'/' + item.slug}>
-                            <a
-                              className={`${
+                          <Link href={'/' + item.slug} className={`${
                                 value.slug == '#disable' &&
                                 'pointer-events-none'
-                              } basis-11/12`}
-                            >
-                              <span>{item.name}</span>
-                            </a>
+                              } basis-11/12`}>
+                            <span>{item.name}</span>
                           </Link>
                           <svg
                             fill='currentColor'
@@ -117,15 +105,11 @@ export default function Navbar() {
                                   className='border-b-[1px] border-slate-400 py-2 last:border-b-0'
                                   key={k}
                                 >
-                                  <Link href={'/' + isi.slug}>
-                                    <a
-                                      className={`${
+                                  <Link href={'/' + isi.slug} className={`${
                                         isi.slug == '#disable' &&
                                         'pointer-events-none'
-                                      }`}
-                                    >
-                                      {isi.name}
-                                    </a>
+                                      }`}>
+                                    {isi.name}
                                   </Link>
                                 </li>
                               );

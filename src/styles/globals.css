@@ -5,7 +5,6 @@
   html {
     @apply font-sans;
   }
-
   h1 {
     font-size: 1.5rem/* 24px */;
     line-height: 2rem/* 32px */;
@@ -19,6 +18,15 @@
   }
 }
 @layer components {
+  .emoji-404{
+    position: relative;
+    animation: mymove 2.5s infinite;
+  }
+  @keyframes mymove {
+      33%   {top: 0px;}
+      66%  {top: 20px;}
+      100%  {top: 0px}
+  }
   .font-stroke {
     -webkit-text-stroke: 1.5px black;
   }

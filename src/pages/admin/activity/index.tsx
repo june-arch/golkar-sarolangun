@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { Table } from '@/components/admin/Table';
 import { headerItemActivity } from '@/components/resource/table-admin';
 
-import { useActivityAllAdminQuery, useActivityDeleteAdminQuery } from '@/helpers/hooks/react-query/use-activity';
+import { useDeleteOneActivityAdmin,useGetAllActivityAdmin } from '@/controller/activity/use-activity';
 import { TableContext, TokenContext } from '@/helpers/hooks/use-context';
 import useDebounce from '@/helpers/hooks/use-debounce';
 import { pagination } from '@/helpers/interface/pagination.interface';
@@ -20,7 +20,7 @@ const Index = () => {
   const {pageState, limitState, searchState} = useContext(TableContext);
   const {token, setToken} = useContext(TokenContext);
   const router = useRouter();
-  const mutation = useActivityDeleteAdminQuery();
+  const mutation = useDeleteOneActivityAdmin();
   async function handleAdd() {
     return router.push('/admin/activity/tambah');
   }
@@ -52,7 +52,7 @@ const Index = () => {
     });
   }
   const debouncedSearch = useDebounce(searchState.search, 1000);
-  const result = useActivityAllAdminQuery(
+  const result = useGetAllActivityAdmin(
     { page: pageState.page.toString(), limit: limitState.limit.toString(), debouncedSearch },
     token
   );

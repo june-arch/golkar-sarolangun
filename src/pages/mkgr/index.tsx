@@ -25,7 +25,6 @@ const Mkgr = () => {
                   alt='ormas mkgr'
                   height={1200}
                   width={1149}
-                  objectFit='contain'
                 />
               </div>
             </div>

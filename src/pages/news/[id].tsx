@@ -10,16 +10,19 @@ import Layout from '@/components/landing-page/Layout';
 import Navbar from '@/components/landing-page/Navbar';
 import News from '@/components/landing-page/News';
 
+import { getOneNews } from '@/controller/news/news.service';
+import { useGetAllNews, useGetOneNews } from '@/controller/news/use-news';
 import { dayOfWeekAsString, formatDate } from '@/helpers/utils/common';
-import { getOneNews, useGetNewss } from '@/service/landing-page/news';
 
 const NewsPage = ({ news, days }) => {
   const router = useRouter();
+  const id = router.isReady && router.query.id;
   const {
     data: items,
     isError,
     isLoading,
-  } = useGetNewss({ page: '1', limit: '5' });
+  } = useGetAllNews({ page: '1', limit: '5' });
+  const {data} = useGetOneNews({id}, news);
   const handleNewsPage = () => {
     return router.push('/news');
   };
@@ -31,33 +34,27 @@ const NewsPage = ({ news, days }) => {
         </div>
         <div className='mx-auto space-y-2 p-6 text-justify'>
           <div className='line text-[18px] font-[700] uppercase leading-[1.2] text-black'>
-            {news.title}
+            {data.title}
           </div>
           <div className='flex flex-row items-center space-x-3 text-[12px] font-[300] capitalize'>
             <span className='mr-1 rounded-full bg-primary p-1'>
               <UserIcon className='h-3 w-3' />
             </span>
-            Oleh {news.author}
+            Oleh {data.author}
             <span className='pr-1'>
               <ClockIcon className='h-4 w-4 text-primary' />
             </span>
-            {days}, {formatDate(news.created_date).replace('at', '|')}
+            {days}, {formatDate(data.created_date).replace('at', '|')}
           </div>
           <div>
             <Image
-              src={
-                process.env.DOMAIN_API +
-                '/api/v1?file=' +
-                news.image +
-                '&bucket=images/news'
-              }
+              src={data.image}
               alt='detail-berita-1'
               height='60'
-              width='100%'
-              layout='responsive'
+              width='200'
             />
           </div>
-          <div dangerouslySetInnerHTML={{ __html: news.content }}></div>
+          <div dangerouslySetInnerHTML={{ __html: data.content }}></div>
         </div>
         <div className='p-6'>
           <div className='flex w-full flex-row items-center justify-center bg-primary p-4 text-[18px] font-[400] uppercase'>
@@ -66,12 +63,7 @@ const NewsPage = ({ news, days }) => {
         </div>
         <div className='flex flex-col items-center space-y-8 p-6'>
           <div className='grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4'>
-            {isLoading ? (
-              <MoonLoader />
-            ) : (
-              items &&
-              items.data.map((value, i) => <News key={i} payload={value} />)
-            )}
+            {isLoading ? ( <MoonLoader /> ) : ( items?.data.map((value, i) => <News key={i} payload={value} />))}
           </div>
           <button
             onClick={handleNewsPage}

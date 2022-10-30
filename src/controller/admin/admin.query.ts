@@ -2,10 +2,10 @@ import crypto from 'crypto';
 
 import prisma from '@/helpers/db/connections';
 import InternalServerError from '@/helpers/error/internal_server_error';
+import NotFoundError from '@/helpers/error/not_found_error';
 import * as wrapper from '@/helpers/wrapper';
 
 import { Admin, ResponseDataAdmin, ResponseDataCountAdmin, ResponseDataPageAdmin } from './admin.interface';
-import NotFoundError from '@/helpers/error/not_found_error';
 const salt = '34d1a573380d0508c306439b030c6e8f';
 const table = 'admin';
 

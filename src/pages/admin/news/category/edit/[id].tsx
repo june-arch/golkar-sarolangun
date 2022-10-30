@@ -6,11 +6,11 @@ import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import LoadingScreen from '@/components/LoadingScreen';
-import PopupError from '@/components/PopupError';
+import PopupError from '@/components/error/PopupError';
+import LoadingScreen from '@/components/loading/LoadingScreen';
 import { headerItemNewsCateogries } from '@/components/resource/table-admin';
 
-import { useNewsCategoryAdminQuery, useNewsCategoryPatchAdminQuery } from '@/helpers/hooks/react-query/use-news-category';
+import { useGetOneNewsCategoryAdmin, usePatchOneNewsCategoryAdmin } from '@/controller/news-category/use-news-category';
 import { TokenContext } from '@/helpers/hooks/use-context';
 import { getChangedValues } from '@/helpers/utils/common';
 const Layout = dynamic(
@@ -33,7 +33,7 @@ function EditNewsCategory({ props }) {
       .max(20, 'Must be 20 characters or less')
       .required('Required'),
   });
-  const mutation = useNewsCategoryPatchAdminQuery(router, setLoading);
+  const mutation = usePatchOneNewsCategoryAdmin(router, setLoading);
   const formik = useFormik({
     initialValues,
     enableReinitialize: true,
@@ -62,7 +62,7 @@ const Page = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { id } = router.isReady && router.query;
-  const { data:newsCategory, isError, isLoading } = useNewsCategoryAdminQuery({id},token);
+  const { data:newsCategory, isError, isLoading } = useGetOneNewsCategoryAdmin({id},token);
   if (isError) return <PopupError isError={isError} />
   if (isLoading || loading) return <LoadingScreen />
   return <EditNewsCategory props={{newsCategory,id,token,setLoading}} />;

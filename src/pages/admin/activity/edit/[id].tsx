@@ -6,12 +6,12 @@ import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import LoadingScreen from '@/components/LoadingScreen';
-import PopupError from '@/components/PopupError';
+import PopupError from '@/components/error/PopupError';
+import LoadingScreen from '@/components/loading/LoadingScreen';
 import { formActivity } from '@/components/resource/table-admin';
 
-import { useActivityOneAdminQuery, useActivityPatchAdminQuery } from '@/helpers/hooks/react-query/use-activity';
-import { useActivityCategoryListQuery } from '@/helpers/hooks/react-query/use-activity-category';
+import { useGetOneActivityAdmin, usePatchOneActivityAdmin } from '@/controller/activity/use-activity';
+import { useGetListActivityCategoryAdmin } from '@/controller/activity-category/use-activity-category';
 import { TokenContext } from '@/helpers/hooks/use-context';
 import {
   checkIfFilesAreCorrectType,
@@ -53,7 +53,7 @@ function EditActivity({ props }) {
       )
       .nullable(),
   });
-  const mutation = useActivityPatchAdminQuery(router, setLoading);
+  const mutation = usePatchOneActivityAdmin(router, setLoading);
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
@@ -90,8 +90,8 @@ const Page = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { id } = router.isReady && router.query;
-  const { data:activity, isError: isErrorActivity, isLoading: isLoadingActivity} = useActivityOneAdminQuery({ id }, token);
-  const { data:activityCategory, isError, isLoading } = useActivityCategoryListQuery(token);
+  const { data:activity, isError: isErrorActivity, isLoading: isLoadingActivity} = useGetOneActivityAdmin({ id }, token);
+  const { data:activityCategory, isError, isLoading } = useGetListActivityCategoryAdmin(token);
   if (isError || isErrorActivity) return <PopupError isError={isError || isErrorActivity} />
   if (isLoading || isLoadingActivity || loading)return <LoadingScreen />
   return <EditActivity props={{ activity, activityCategory, id, token, setLoading}} />;

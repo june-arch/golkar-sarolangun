@@ -1,8 +1,9 @@
-import cors from '@/helpers/middleware/cors';
 import fs from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
 import path from 'path';
+
+import cors from '@/helpers/middleware/cors';
 
 let dir = path.join(path.resolve('./') + '/tmp/');
 

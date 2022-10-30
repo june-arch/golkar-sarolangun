@@ -90,18 +90,14 @@ const MobileNavbar = () => {
       <div className='flex h-16 items-center justify-center bg-white drop-shadow-md filter'>
         <div className='cursor-pointer text-xl font-semibold'>
           <Link href='/'>
-            <a className=''>
-              <div className='h-[51px] w-[48px]'>
-                <Image
-                  src='/images/logo.png'
-                  alt='logo-golkar'
-                  height={1200}
-                  width={1149}
-                  layout='responsive'
-                  objectFit='contain'
-                />
-              </div>
-            </a>
+            <div className='h-[51px] w-[48px]'>
+              <Image
+                src='/images/logo.png'
+                alt='logo-golkar'
+                height={1200}
+                width={1149}
+              />
+            </div>
           </Link>
         </div>
       </div>

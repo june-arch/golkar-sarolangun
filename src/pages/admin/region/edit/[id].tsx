@@ -6,11 +6,11 @@ import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Form } from '@/components/admin/Form';
-import LoadingScreen from '@/components/LoadingScreen';
-import PopupError from '@/components/PopupError';
+import PopupError from '@/components/error/PopupError';
+import LoadingScreen from '@/components/loading/LoadingScreen';
 import { headerItemRegions } from '@/components/resource/table-admin';
 
-import { useRegionAdminQuery, useRegionPatchAdminQuery } from '@/helpers/hooks/react-query/use-region';
+import { useGetOneRegionAdmin, usePatchOneRegionAdmin } from '@/controller/region/use-region';
 import { TokenContext } from '@/helpers/hooks/use-context';
 import { getChangedValues } from '@/helpers/utils/common';
 const Layout = dynamic(
@@ -34,7 +34,7 @@ function EditRegion({ props }) {
       .max(10, 'Must be 10 characters or less')
       .required('Required'),
   });
-  const mutation = useRegionPatchAdminQuery(router, setLoading);
+  const mutation = usePatchOneRegionAdmin(router, setLoading);
   const formik = useFormik({
     initialValues,
     enableReinitialize: true,
@@ -63,7 +63,7 @@ const Page = () => {
   const [loading, setLoading] = useState(false);  
   const router = useRouter();
   const { id } = router.isReady && router.query;
-  const { data:region, isError, isLoading } = useRegionAdminQuery({ id }, token);
+  const { data:region, isError, isLoading } = useGetOneRegionAdmin({ id }, token);
   if (isError) return <PopupError isError={isError} />
   if (isLoading || loading) return <LoadingScreen />
   return <EditRegion props={{region, id, token, setLoading}} />;

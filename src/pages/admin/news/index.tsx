@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { Table } from '@/components/admin/Table';
 import { headerItemNews } from '@/components/resource/table-admin';
 
-import { useNewsAllAdminQuery, useNewsDeleteAdminQuery } from '@/helpers/hooks/react-query/use-news';
+import { useDeleteOneNewsAdmin,useGetAllNewsAllAdmin } from '@/controller/news/use-news';
 import { TableContext, TokenContext } from '@/helpers/hooks/use-context';
 import useDebounce from '@/helpers/hooks/use-debounce';
 import { pagination } from '@/helpers/interface/pagination.interface';
@@ -21,7 +21,7 @@ const Index = () => {
   const {pageState, limitState, searchState} = useContext(TableContext);
   const {token, setToken} = useContext(TokenContext);
   const router = useRouter();
-  const mutation = useNewsDeleteAdminQuery();
+  const mutation = useDeleteOneNewsAdmin();
   async function handleAdd() {
     return router.push('/admin/news/tambah');
   }
@@ -53,7 +53,7 @@ const Index = () => {
     });
   }
   const debouncedSearch = useDebounce(searchState.search, 1000);
-  const result = useNewsAllAdminQuery(
+  const result = useGetAllNewsAllAdmin(
     { page: pageState.page.toString(), limit: limitState.limit.toString(), debouncedSearch },
     token
   );

@@ -20,7 +20,7 @@ const BeritaTerbaru = () => {
             </p>{' '}
             terbaru
           </div>
-          <div className='w-[420px] flex flex-col space-y-3 lg:flex-row lg:w-full lg:space-y-0 lg:space-x-3'>
+          <div className='w-[310px] flex flex-col space-y-3 lg:flex-row lg:w-full lg:space-y-0 lg:space-x-3'>
             {news.data && news.data.length > 0 && news.data.map((value, i) => <News key={i} payload={value} />)}
           </div>
           <button

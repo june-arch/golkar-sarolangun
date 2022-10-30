@@ -8,15 +8,29 @@ export default function News({ payload }) {
     router.push('/news/' + val['id_news']);
     return;
   };
+  const keyStr =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
+  const triplet = (e1: number, e2: number, e3: number) =>
+  keyStr.charAt(e1 >> 2) +
+  keyStr.charAt(((e1 & 3) << 4) | (e2 >> 4)) +
+  keyStr.charAt(((e2 & 15) << 2) | (e3 >> 6)) +
+  keyStr.charAt(e3 & 63)
+
+  const rgbDataURL = (r: number, g: number, b: number) =>
+  `data:image/gif;base64,R0lGODlhAQABAPAA${
+    triplet(0, r, g) + triplet(b, 255, 255)
+  }/yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==`
   return (
     <figure className='overflow-hidden shadow-md lg:w-[322px] lg:h-[600px]'>
-      <div className='w-full pb-4'>
+      <div className='w-full pb-4 relative h-[200px]'>
         <Image
           src={payload.image}
           alt='berita-1'
-          height='60'
-          width='100%'
-          layout='responsive'
+          sizes='100vw'
+          fill
+          style={{objectFit: 'cover'}}
+          blurDataURL={rgbDataURL(237, 181, 6)}
+          placeholder='blur'
         />
       </div>
       <div className='relative h-[300px] lg:h-[400px] space-y-1 px-4 text-[12px]'>

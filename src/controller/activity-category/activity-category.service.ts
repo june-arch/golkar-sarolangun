@@ -104,3 +104,11 @@ export const deleteOneActivityCategoryAdmin = async ({id, token}) => {
 };
 
 // User Service
+export const getListActivityCategory = async () => {
+  try {
+    const response = await axios.get(`${addressAdmin}/list`);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  };
+};
