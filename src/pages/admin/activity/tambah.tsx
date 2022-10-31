@@ -31,7 +31,7 @@ function Page() {
       title: '',
       category_activity_id: '',
       video: '',
-      image: '',
+      image: [],
     },
     validationSchema: Yup.object({
       title: Yup.string()
@@ -40,10 +40,12 @@ function Page() {
       category_activity_id: Yup.number()
         .max(20, 'Must be number')
         .required('Required'),
-      image: Yup.mixed()
-        .test('fileSize', 'The file is too large', checkIfFilesAreTooBig)
-        .test('fileType', 'The file type invalid', checkIfFilesAreCorrectType)
-        .nullable(),
+      image: Yup.array(
+        Yup.mixed()
+          .test('fileSize', 'The file is too large', checkIfFilesAreTooBig)
+          .test('fileType', 'The file type invalid', checkIfFilesAreCorrectType)
+          .required()
+      ).nullable(),
       video: Yup.string()
         .matches(
           /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/,
@@ -65,7 +67,7 @@ function Page() {
   return (
     <div className='mx-auto max-w-7xl p-5 '>
       <FormikProvider value={formik}>
-        <Form formik={formik} header={formActivity} data={listCategoryActivity}>
+        <Form formik={formik} header={formActivity} data={listCategoryActivity} isMultiple={true}>
           <div className='flex flex-col items-center justify-between  space-y-5 py-6 md:flex-row md:space-y-0'>
             <div className='text-3xl'>Tambah Activity</div>
           </div>

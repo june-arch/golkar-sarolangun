@@ -41,6 +41,11 @@ export const getOneActivityAdmin = async (params: { id: string }, token: string)
 export const postOneActivityAdmin = async ({payload, token}) => {
   const formData = new FormData();
   Object.keys(payload).forEach((key) => {
+    if (typeof payload[key] == 'object') {
+      for (let item of payload[key]) {
+        formData.append(key, item);
+      }
+    }
     formData.append(key, payload[key]);
   });
   const config = {

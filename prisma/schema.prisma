@@ -13,7 +13,7 @@ model activity {
   category_activity_id Int
   title                String            @db.VarChar(255)
   created_date         DateTime          @default(now()) @db.DateTime(0)
-  image                String?           @db.VarChar(255)
+  image                String?           @db.Text
   video                String?           @db.VarChar(255)
   updated_by           Int?
   updated_date         DateTime?         @default(now()) @db.DateTime(0)

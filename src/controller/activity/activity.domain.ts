@@ -79,7 +79,9 @@ export const getById = async (id: number) => {
 export const createActivity = async (payload, files, user) => {
   let { category_activity_id, ...docActivity } = payload;
   let imagesFilename = [];
+  console.log(files)
   if (files && files.length > 0) {
+    console.log('masuk gannn')
     for (let file of files) {
       try {
         imagesFilename.push(file.filename)
@@ -96,6 +98,9 @@ export const createActivity = async (payload, files, user) => {
   }
   const result = await create(docActivity);
   if(result.err){
+    for (let item of imagesFilename) {
+      await deleteFile('activity', item);
+    }
     return wrapper.error(new InternalServerError())
   }
   return wrapper.data(result.data);
@@ -152,6 +157,9 @@ export const editActivity = async (payload, id, files, user) => {
   }
   const result = await updateById(id, docActivity);
   if (result.err) {
+    for (let item of imagesFilename) {
+      await deleteFile('activity', item);
+    }
     return wrapper.error(new InternalServerError());
   }
   for (let item of find.data.image.split(',')) {

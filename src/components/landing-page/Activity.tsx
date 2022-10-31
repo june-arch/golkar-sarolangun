@@ -12,18 +12,19 @@ export default function Activity({ payload }) {
     return;
   };
   return (
-    <figure className='overflow-hidden shadow-md'>
-      <div className='w-full pb-4'>
+    <figure className='overflow-hidden space-y-2 shadow-md hover:cursor-pointer' onClick={() => handleClick(payload)}>
+      <div className='relative h-[200px]'>
         <Image
-          src={payload.image}
+          src={payload.image.split(',')[0]}
           alt='activity-1'
-          height='60'
-          width='100'
+          sizes='100vw'
+          fill
+          style={{objectFit: 'cover'}}
         />
       </div>
       <div className='relative h-[100px] space-y-1 px-4 text-[12px]'>
         <div className='text-[14px] font-[500]'>{payload.title}</div>
-        <div className='flex items-center space-x-2 text-[12px] font-[200] capitalize text-secondary'>
+        <div className='flex items-center text-[12px] font-[200] capitalize text-secondary'>
           <p>{payload.category}</p>
           <div className='flex flex-row items-center space-x-1'>
             <span>

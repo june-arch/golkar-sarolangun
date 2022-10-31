@@ -23,7 +23,7 @@ export async function uploadFile(path: string, file: Express.Multer.File): Promi
     path = path.replace(/\s+/g, "-").toLowerCase();
     const myBucket = storage.bucket('bucket-golkar-sarolangun');
     try {
-        console.log('upload fiel : ', file);
+        console.log('upload file : ', file);
         const optionUpload = {
             destination: `${path}/${file.filename}`,
             generationMatchPrecondition: 0,
@@ -31,6 +31,7 @@ export async function uploadFile(path: string, file: Express.Multer.File): Promi
         await myBucket.upload(file.path, optionUpload);
         return path;
     } catch (errO) {
+        console.log(errO)
         return Promise.reject(errO);
     }
 }

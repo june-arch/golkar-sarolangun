@@ -13,7 +13,6 @@ export const create = async (payload: Activity): Promise<ResponseDataActivity> =
     });
     return wrapper.data(result);
   } catch (error) {
-    console.log(error);
     return wrapper.error(new InternalServerError());
   }
 };
@@ -44,6 +43,7 @@ export const updateById = async (id: number, doc: Activity): Promise<ResponseDat
     });
     return wrapper.data(result);
   } catch (error) {
+    console.log(error)
     return wrapper.error(new InternalServerError());
   }
 };

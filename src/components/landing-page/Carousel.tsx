@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react';
 // import required modules
-import { FreeMode, Navigation, Thumbs } from 'swiper';
+import SwiperCore, { Autoplay,FreeMode, Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -11,6 +11,7 @@ import 'swiper/css/thumbs';
 
 const Carousel = ({ activity }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  SwiperCore.use([Autoplay]);
   return (
     <>
       <Swiper
@@ -18,6 +19,7 @@ const Carousel = ({ activity }) => {
         spaceBetween={10}
         navigation={true}
         pagination={true}
+        autoplay= {true}
         thumbs={{
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
         }}
@@ -52,6 +54,7 @@ const Carousel = ({ activity }) => {
         slidesPerView={4}
         freeMode={true}
         watchSlidesProgress={true}
+        autoplay={true}
         modules={[FreeMode, Navigation, Thumbs]}
         className='mySwiper'
       >
