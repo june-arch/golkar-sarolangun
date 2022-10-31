@@ -123,41 +123,6 @@
     --swiper-pagination-color: #fff;
   }
 
-  @media screen and (max-width: 1024px) {
-    .swiper-slide .title {
-      position: absolute;
-      bottom: 0px;
-      color: white;
-      font-size: 12px;
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    .swiper-slide .title {
-      position: absolute;
-      bottom: 0px;
-      color: white;
-      font-size: 12px;
-    }
-  }
-
-  @media screen and (max-width: 640px) {
-    .swiper-slide .title {
-      position: absolute;
-      bottom: 0px;
-      color: white;
-      font-size: 12px;
-    }
-  }
-
-  @media screen and (max-width: 320px) {
-    .swiper-slide .title {
-      position: absolute;
-      bottom: 0px;
-      color: white;
-      font-size: 12px;
-    }
-  }
 
   @media (min-width: 640px) {
     table {

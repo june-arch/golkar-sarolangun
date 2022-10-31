@@ -36,7 +36,7 @@ const Carousel = ({ activity }) => {
                       src={item}
                       className='border-2 border-white w-1/2 mx-auto h-[250px] sm:h-[400px] lg:h-[500px] object-cover'
                     />  
-                    <p className='title w-1/2 mx-auto bg-white bg-opacity-50 p-2 text-center'>
+                    <p className='title w-full bg-white bg-opacity-50 p-2 text-center'>
                       {value.title}
                     </p>
                   </SwiperSlide>
