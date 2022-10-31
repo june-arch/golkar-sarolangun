@@ -1,6 +1,6 @@
 import parse from 'html-react-parser';
 import { GetServerSideProps } from 'next';
-import * as React from 'react';
+import { useContext, useMemo } from 'react';
 
 import ContactUs from '@/components/landing-page/ContactUs';
 import FloatingWhatsApp from '@/components/landing-page/FloatingWhatsapp';
@@ -21,19 +21,23 @@ import { formatDate } from '@/helpers/utils/common';
 export const paddingDefault = 'lg:px-2 lg:max-w-screen-lg mx-auto';
 export const padding = 'px-8 py-8';
 
-export default function HomePage(payload) {
+const useHomeState = (payload) => {
   const { news:dataNews, activity:dataActivity } = payload;
-  const {news, activity } = React.useContext(StateHomePage);
-  React.useEffect(() => {
+  const {news, activity } = useContext(StateHomePage);
+  useMemo(() => {
     const resultNews = dataNews.data.map((item) => {
+      item.created_date = item?.created_date && formatDate(item.created_date);
       item['parseContent'] = item.content && parse(item.content);
       return item;
     })
     news.setData(resultNews);
-    activity.setData(dataActivity.data)
-  }, [])
- 
+    activity.setData(dataActivity.data);
+    return;
+  }, [dataNews, dataActivity]);
+}
 
+export default function HomePage(payload) {
+  useHomeState(payload);
   return (
     <Layout>
       <main className='flex flex-col'>
@@ -59,10 +63,6 @@ export default function HomePage(payload) {
 export const getServerSideProps: GetServerSideProps = async () => {
   const news = await getAllNews({page: '1', limit: '3'});
   const activity = await getAllActivity({page: '1', limit: '5'});
-  news.data.map((item) => {
-    item.created_date = item?.created_date && formatDate(item.created_date);
-    return item;
-  })
   return {
     props: {
       news,

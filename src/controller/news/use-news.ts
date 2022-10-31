@@ -82,21 +82,27 @@ export const useGetHomePageNews = (params) => {
     })
 }
 
-export const useGetAllNews = (params) => {
-  return useQuery(
-    ["all-news", params], 
-    async () => await getAllNews(params), 
-    {
-      retry: 1,
-    })
-}
-
-export const useGetOneNews = (params, initialDataProps ?: any) => {
+export const useGetAllNews = (params, initialData ?: any) => {
   const config = {
     retry:1,
   }
-  if(initialDataProps){
-    config["initialDataProps"] = initialDataProps;
+  if(initialData){
+    config["initialData"] = initialData;
+  }
+  const clientQuery = useQueryClient();
+  clientQuery.fetchQuery(["all-news"]);
+  return useQuery(
+    ["all-news", params], 
+    async () => await getAllNews(params), 
+    config);
+}
+
+export const useGetOneNews = (params, initialData ?: any) => {
+  const config = {
+    retry:1,
+  }
+  if(initialData){
+    config["initialData"] = initialData;
   }
   return useQuery(
       ["one-news", params], 

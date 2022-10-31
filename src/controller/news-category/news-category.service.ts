@@ -107,6 +107,7 @@ export const getListNewsCategory = async () => {
     const response = await axios.get(`${address}/list`);
     return response.data;
   } catch (error) {
+    console.log(error)
     return error.reponse.data;
   }
 };

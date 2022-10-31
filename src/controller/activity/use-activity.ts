@@ -91,12 +91,12 @@ export const useGetAllActivity = (params) => {
     })
 }
 
-export const useGetOneActivity = (params, initialDataProps ?: any) => {
+export const useGetOneActivity = (params, initialData ?: any) => {
   const config = {
     retry: 1,
   };
-  if(initialDataProps){
-    config["initialDataProps"] = initialDataProps;
+  if(initialData){
+    config["initialData"] = initialData;
   }
   return useQuery(
     ["one-activity", params], 
